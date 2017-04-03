@@ -19,4 +19,4 @@ You have my permission to clone the game or use any of the code in the code in t
 * Open the game by visiting the demo [here](http://zurafuse.com/games/yosef/), or clone/download this repository and open index.html.
 * Use Arrow keys to move left or right. Use the UP arrow key to jump. Use the space bar to shoot.
 * Defeat enemies by shooting them. Don't let them touch you or your health will decrease. When you collide with a bad guy, the game is reset.
-* Defeating enemies increase your score.
+* Defeating enemies increases your score.
