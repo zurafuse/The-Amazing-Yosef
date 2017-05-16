@@ -34,7 +34,6 @@ var badGuy2 = new Image();
 var badGuy3 = new Image();
 var breakable = new Image();
 var flagImg = new Image();
-var hillBackground = new Image();
 blockimg.src = "images/block.png";
 blockimg2.src = "images/block2.png";
 blockimg3.src = "images/block3.png";
@@ -49,7 +48,6 @@ badGuy2.src = "images/badguy2.png";
 badGuy3.src = "images/badguy3.png";
 breakable.src = "images/breakable.png";
 flagImg.src = "images/flag.png";
-hillBackground.src = "images/hill_background.png";
 
 //declare variables
 var direction = "right";
@@ -102,6 +100,18 @@ var myFlag = {
 };
 var flagExists = false;
 
+//define background
+var Background = {
+	x: 0,
+	y: 0,
+	width: canvas.width,
+	height: canvas.height,
+	pic: new Image(),
+	setPic: function(){
+		this.pic.src = "images/hill_background.png";
+	}
+}
+
 /*This function creates blocks
 The location of the blocks is dependent on which room you are in.
 */
@@ -152,6 +162,17 @@ function createBlocks(){
 			width: spriteSizes,
 			height: spriteSizes,
 			pic: blockimg
+		});
+	//create breakables
+		breakables.push({
+			x: spriteSizes * 8,
+			y: spriteSizes * 7,
+			width: spriteSizes,
+			height: spriteSizes,
+			sx: 0,
+			sy: 0,
+			swidth: 50,
+			sheight: 50,
 		});
 	}
 }
@@ -254,12 +275,6 @@ var player = {
     height: spriteSizes,
     speed: canvas.width * 0.134,
     color: 'blue',
-	/* redfine all items below
-var playerImg = new Image();
-var playerImg2 = new Image();
-playerImg.src = "images/player.png";
-playerImg2.src = "images/playerLeft.png";
-*/
 	bulxPos: this.x + (0.444 * spriteSizes),
 	bulyPos: this.y + (0.388 * spriteSizes),
 	picRight: new Image(),
@@ -270,3 +285,4 @@ playerImg2.src = "images/playerLeft.png";
 	}
 };
 player.setPics();
+Background.setPic();

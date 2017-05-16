@@ -276,6 +276,9 @@ function update(mod) {
 						for (i = 0; i < blocks.length; i++){
 							blocks[i].x +=  player.speed * mod;
 						}
+						for (i = 0; i < breakables.length; i++){
+							breakables[i].x +=  player.speed * mod;
+						}
 						for (i = 0; i < badDudes.length; i++){
 							badDudes[i].x +=  player.speed * mod;
 						}
@@ -285,6 +288,7 @@ function update(mod) {
 						for (i = 0; i < badDudes3.length; i++){
 							badDudes3[i].x +=  player.speed * mod;
 						}
+						Background.x = Background.x + 0.5;
 					}
 					else{
 						player.x -= player.speed * mod;
@@ -324,6 +328,19 @@ function update(mod) {
 						for (i = 0; i < blocks.length; i++){
 							blocks[i].x -=  player.speed * mod;
 						}
+						for (i = 0; i < breakables.length; i++){
+							breakables[i].x -=  player.speed * mod;
+						}
+						for (i = 0; i < badDudes.length; i++){
+							badDudes[i].x -=  player.speed * mod;
+						}
+						for (i = 0; i < badDudes2.length; i++){
+							badDudes2[i].x -=  player.speed * mod;
+						}
+						for (i = 0; i < badDudes3.length; i++){
+							badDudes3[i].x -=  player.speed * mod;
+						}
+						Background.x = Background.x - 0.5;
 					}
 					else{
 						player.x += player.speed * mod;
@@ -580,9 +597,12 @@ ctx.fillStyle = '#FFFFFF';
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 ctx.fillStyle = player.color;
 */
-
+	if (Background.x + Background.width < 0){
+		Background.x = 0;
+	}
 //draw background
-	ctx.drawImage(hillBackground, 0, 0, canvas.width, canvas.height);
+	ctx.drawImage(Background.pic, Background.x, Background.y, Background.width, Background.height);
+	ctx.drawImage(Background.pic, Background.x + Background.width, Background.y, Background.width, Background.height);
 
 //handle Game Over
 	if (gameover == false){
