@@ -182,8 +182,49 @@ function dudeUpColl(dude) {
 			dude.y <= (breakables[i].y + breakables[i].height)){
 				if (dude.y > breakables[i].y){
 					dude.y = breakables[i].y + breakables[i].height;
-					return false;
+					//progress the fragility of the breakable
+					if (breakables[i].sx < 300){
+						breakables[i].sx += 100;
+						if (gameover == false){
+							powerLevel += 5;
+						}
+					}
+					else{
+						var thisBreakTest = Math.floor((Math.random() * 9) + 1);
+	
+						if (thisBreakTest == 2){
+							runPower.push({
+								x: breakables[i].x,
+								y: breakables[i].y,
+								width: spriteSizes,
+								height: spriteSizes
+							});
+						}
+						else if (thisBreakTest == 3){
+							shootPower.push({
+								x: breakables[i].x,
+								y: breakables[i].y,
+								width: spriteSizes,
+								height: spriteSizes
+							});
+						}
+						else if (thisBreakTest == 4){
+							frequentPower.push({
+								x: breakables[i].x,
+								y: breakables[i].y,
+								width: spriteSizes,
+								height: spriteSizes
+							});
+						}
+						if (gameover == false){
+							powerLevel += 20;
+						}
+						breakables.splice(i, 1);
+					}
+					bullets.splice(i, 1);
+					return false;	
 				}
+				
 				else if ((dude.y - player.speed * ((Date.now() - time) / 1000)) > 
 					breakables[i].y){
 					dude.y = breakables[i].y + breakables[i].height;
@@ -288,6 +329,12 @@ function update(mod) {
 						for (i = 0; i < badDudes3.length; i++){
 							badDudes3[i].x +=  player.speed * mod;
 						}
+						for (i = 0; i < backgrounds.length; i++){
+							backgrounds[i].x +=  player.speed * mod;
+						}
+						for (i = 0; i < backgrounds2.length; i++){
+							backgrounds2[i].x +=  player.speed * mod;
+						}
 						Background.x = Background.x + 0.5;
 					}
 					else{
@@ -312,6 +359,10 @@ function update(mod) {
 				player.y -= (player.speed * mod) * 3;
 				dirLead = "up";
 			}
+		}
+		else{
+			jumpTrigger = 0;
+			jump = false;
 		}
 		moveMe = "true";
     }
@@ -339,6 +390,12 @@ function update(mod) {
 						}
 						for (i = 0; i < badDudes3.length; i++){
 							badDudes3[i].x -=  player.speed * mod;
+						}
+						for (i = 0; i < backgrounds.length; i++){
+							backgrounds[i].x -=  player.speed * mod;
+						}
+						for (i = 0; i < backgrounds2.length; i++){
+							backgrounds2[i].x -=  player.speed * mod;
 						}
 						Background.x = Background.x - 0.5;
 					}
@@ -689,7 +746,7 @@ ctx.fillStyle = player.color;
 	
 	moveMe = "false";
 	
-	if (jumpTrigger > 0 && jumpTrigger < 26)
+	if (jumpTrigger > 0 && jumpTrigger < 32)
 	{
 		jump = true;
 	}
