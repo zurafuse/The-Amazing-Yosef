@@ -33,7 +33,6 @@ var badGuy = new Image();
 var badGuy2 = new Image();
 var badGuy3 = new Image();
 var breakable = new Image();
-var flagImg = new Image();
 blockimg.src = "images/block.png";
 blockimg2.src = "images/block2.png";
 blockimg3.src = "images/block3.png";
@@ -47,7 +46,6 @@ badGuy.src = "images/badguy.png";
 badGuy2.src = "images/badguy2.png";
 badGuy3.src = "images/badguy3.png";
 breakable.src = "images/breakable.png";
-flagImg.src = "images/flag.png";
 
 //declare variables
 var direction = "right";
@@ -55,7 +53,6 @@ var restartSwitch = 0;
 var animateSpeedControl = 0;
 var bulControl = 0;
 var bulTrigger = 0;
-var flagCount = 0;
 var bullSpeed = canvas.width * 0.00461;
 var bullFreq = 12;
 var moveMe = "false";
@@ -82,6 +79,8 @@ var healthPower = [];
 var badDudes = [];
 var badDudes2 = [];
 var badDudes3 = [];
+var backgrounds = [];
+var backgrounds2 = [];
 
 //declare randomness
 var runPowerLocX = Math.floor((Math.random() * (gridWidth - 1)) + 1);
@@ -90,15 +89,6 @@ var shootPowerLocX = Math.floor((Math.random() * (gridWidth - 1)) + 1);
 var shootPowerLocY = Math.floor((Math.random() * (gridHeight - 1)) + 1);
 var frequentPowerLocX = Math.floor((Math.random() * (gridWidth - 1)) + 1);
 var frequentPowerLocY = Math.floor((Math.random() * (gridHeight - 1)) + 1);
-
-//define the green flag
-var myFlag = {
-	x:-25,
-	y:-25,
-	width: spriteSizes,
-	height: spriteSizes
-};
-var flagExists = false;
 
 //define background
 var Background = {
@@ -115,12 +105,12 @@ var Background = {
 /*This function creates blocks
 The location of the blocks is dependent on which room you are in.
 */
-function createBlocks(){
+function populateRoom(){
 	if (roomNum == 1){
-// top row of blocks
+
 		for (i = 0; i < canvas.width * 2; i += spriteSizes){
 			blocks.push(
-//bottom row of blocks
+//blocks
 			{
 			x: i,
 			y: canvas.height - (spriteSizes - 1),
@@ -174,70 +164,81 @@ function createBlocks(){
 			swidth: 50,
 			sheight: 50,
 		});
-	}
-}
 
 //function to generate bad guys and add them to arrays
-function createBadGuys(){
-		var thisChange = Math.floor((Math.random() * 3600) + 1);
-		if (thisChange > 1000 && thisChange < 1009 && badDudes.length < 6){
-			var badGuyLocX = Math.floor((Math.random() * (gridWidth - 2)) + 1);
-			var badGuyLocY = Math.floor((Math.random() * (gridHeight - 3)) + 2);
-			var badDirChance = Math.floor(Math.random() * 10, 1);
-			var collCondition = false;
-			if (badDirChance > 5){
-				var badDirStart = "left";
-			}
-			else{
-				var badDirStart = "right";
-			}
-
-			for (i in blocks){
-				if (testColl((spriteSizes * badGuyLocX), (spriteSizes * badGuyLocY), spriteSizes, spriteSizes, 
-					blocks[i].x, blocks[i].y, blocks[i].width, blocks[i].height) == true){
-					collCondition = true;
-				}
-			}
-			if (collCondition == false){
-				badDudes.push({
-					x: spriteSizes * badGuyLocX,
-					y: spriteSizes * badGuyLocY,
-					width: spriteSizes,
-					height: spriteSizes,
-					dir: badDirStart,
-					time: Date.now() / 1000
-				});
-			}
-		}
-		if (thisChange > 1008 && thisChange < 1020 && badDudes2.length < 6){
-			var badGuyLocX = Math.floor((Math.random() * (gridWidth - 2)) + 1);
-			var badGuyLocY = Math.floor((Math.random() * (gridHeight - 3)) + 2);
+			//UFOs
+			badDudes.push({
+				x: spriteSizes * 15,
+				y: spriteSizes * 8,
+				width: spriteSizes,
+				height: spriteSizes,
+				dir: "left",
+				time: Date.now() / 1000
+			});
+			//bats
 			badDudes2.push({
 				sx: 0,
 				sy: 0,
 				swidth: 50,
 				sheight: 50,
-				x: spriteSizes * badGuyLocX,
-				y: spriteSizes * badGuyLocY,
+				x: spriteSizes * 18,
+				y: spriteSizes * 4,
 				width: spriteSizes,
 				height: spriteSizes
 			});
-		}
-		if (thisChange > 1019 && thisChange < 1030 && badDudes3.length < 6){
-			var badGuyLocX = Math.floor((Math.random() * (gridWidth - 2)) + 1);
-			var badGuyLocY = Math.floor((Math.random() * (gridHeight - 3)) + 2);
+			//clouds
 			badDudes3.push({
 				sx: 0,
 				sy: 0,
 				swidth: 50,
 				sheight: 50,
-				x: spriteSizes * badGuyLocX,
-				y: spriteSizes * badGuyLocY,
+				x: spriteSizes * 10,
+				y: spriteSizes * 3,
 				width: spriteSizes,
 				height: spriteSizes,
 				timer: 0
 			});
-		}
+			
+			//background objects
+			backgrounds.push({
+				x: spriteSizes * 3,
+				y: spriteSizes * 9,
+				width: spriteSizes,
+				height: spriteSizes,
+				pic: new Image(),
+				setPic: function(){
+					this.pic.src = "images/crystal_bush.PNG";
+				}
+			});
+			for (i = 0; i < backgrounds.length; i++){
+				backgrounds[i].setPic();
+			}
+			
+			//front backgrounds
+			backgrounds2.push({
+				x: spriteSizes * 6,
+				y: spriteSizes * 9,
+				width: spriteSizes,
+				height: spriteSizes,
+				pic: new Image(),
+				setPic: function(){
+					this.pic.src = "images/crystal_bush.PNG";
+				}
+			});
+			backgrounds2.push({
+				x: spriteSizes * 8,
+				y: (spriteSizes * 9) + (spriteSizes * 0.5),
+				width: spriteSizes * 0.5,
+				height: spriteSizes * 0.5,
+				pic: new Image(),
+				setPic: function(){
+					this.pic.src = "images/flower_2.PNG";
+				}
+			});
+			for (i = 0; i < backgrounds2.length; i++){
+				backgrounds2[i].setPic();
+			}			
+	}
 }
 
 function updateBulletPos(z){

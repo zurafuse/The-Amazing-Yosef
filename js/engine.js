@@ -603,6 +603,11 @@ ctx.fillStyle = player.color;
 //draw background
 	ctx.drawImage(Background.pic, Background.x, Background.y, Background.width, Background.height);
 	ctx.drawImage(Background.pic, Background.x + Background.width, Background.y, Background.width, Background.height);
+	
+//draw background items
+	for (i = 0; i < backgrounds.length; i++){
+		ctx.drawImage(backgrounds[i].pic, backgrounds[i].x, backgrounds[i].y, backgrounds[i].width, backgrounds[i].height);
+	}
 
 //handle Game Over
 	if (gameover == false){
@@ -618,6 +623,10 @@ ctx.fillStyle = player.color;
 		if (direction == "left"){
 			ctx.drawImage(player.picLeft, player.sx, player.sy, player.swidth, player.sheight, player.x, player.y, player.width, player.height);
 		}
+	}
+	
+	for (i = 0; i < backgrounds2.length; i++){
+		ctx.drawImage(backgrounds2[i].pic, backgrounds2[i].x, backgrounds2[i].y, backgrounds2[i].width, backgrounds2[i].height);
 	}
 	
 	for (i = 0; i < blocks.length; i++){
@@ -880,11 +889,10 @@ function run() {
 	shootDestroy();
 	frequentDestroy();
 	bulletDestroy();
-	createBadGuys();
 	damageTaken();
 	requestAnimFrame(run);
 }
 
 var time = Date.now();
-createBlocks();
+populateRoom();
 requestAnimFrame(run);
