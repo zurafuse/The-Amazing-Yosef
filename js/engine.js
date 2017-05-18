@@ -190,7 +190,7 @@ function dudeUpColl(dude) {
 						}
 					}
 					else{
-						var thisBreakTest = Math.floor((Math.random() * 9) + 1);
+						var thisBreakTest = Math.floor((Math.random() * 8) + 1);
 	
 						if (thisBreakTest == 2){
 							runPower.push({
@@ -294,16 +294,18 @@ function update(mod) {
 		bulTrigger = 0;
 	}
 	if (32 in keysDown){
-		if (bulControl % bullFreq == 0  || bulTrigger == 0){
-			updateBulletPos(direction);
-			bullets.push({
-				dir: direction,
-				x: player.bulxPos,
-				y: player.bulyPos,
-				width: 0.138 * spriteSizes,
-				height: 0.138 * spriteSizes,
-			});
-		bulTrigger = 1;
+		if (player.shoot == true){
+			if (bulControl % bullFreq == 0  || bulTrigger == 0){
+				updateBulletPos(direction);
+				bullets.push({
+					dir: direction,
+					x: player.bulxPos,
+					y: player.bulyPos,
+					width: 0.138 * spriteSizes,
+					height: 0.138 * spriteSizes,
+				});
+			bulTrigger = 1;
+			}
 		}
 	}
     if (37 in keysDown) {
@@ -880,10 +882,8 @@ function shootDestroy(){
 			shootPower[i].width, shootPower[i].height) == true){
 			shootPower.splice(i, 1);
 			if (gameover == false){
-				powerLevel += 10;
+				player.shoot = true;
 			}
-			if (bullSpeed < 100)
-				{bullSpeed += 3;}
 			break;
 		}		
 	}
@@ -911,24 +911,30 @@ function damageTaken(){
 	for (i in badUFOs){
 		if (testColl(player.x, player.y, player.width, player.height, badUFOs[i].x, badUFOs[i].y, 
 			badUFOs[i].width, badUFOs[i].height) == true){
-			badUFOs.splice(i, 1);
+			if (player.y + player.height > badUFOs[i].y + 5){
 				gameover = true;
+			}
+			badUFOs.splice(i, 1);
 			break;
 		}		
 	}
 	for (i in badDudes2){
 		if (testColl(player.x, player.y, player.width, player.height, badDudes2[i].x, badDudes2[i].y, 
 			badDudes2[i].width, badDudes2[i].height) == true){
-			badDudes2.splice(i, 1);
+			if (player.y + player.height > badDudes2[i].y + 5){
 				gameover = true;
+			}
+			badDudes2.splice(i, 1);
 			break;
 		}		
 	}
 	for (i in badDudes3){
 		if (testColl(player.x, player.y, player.width, player.height, badDudes3[i].x, badDudes3[i].y, 
 			badDudes3[i].width, badDudes3[i].height) == true){
-			badDudes3.splice(i, 1);
+			if (player.y + player.height > badDudes3[i].y + 5){
 				gameover = true;
+			}
+			badDudes3.splice(i, 1);
 			break;
 		}		
 	}	

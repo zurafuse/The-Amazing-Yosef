@@ -143,7 +143,29 @@ var cloudClass = function (inputx, inputy){
 	this.width = spriteSizes;
 	this.height = spriteSizes;
 	this.timer = 0;
-}			
+};
+//Create backgrounds Class
+var backClass = function(inputx, inputy, pic, size){
+	this.x = inputx;
+	this.y = inputy;
+	this.width = spriteSizes * size;
+	this.height = spriteSizes * size;
+	this.pic = new Image();
+	this.setPic = function(){
+		this.pic.src = pic;
+	};
+}
+//Create forefront backgrounds Class
+var backClass2 = function(inputx, inputy, pic, size){
+	this.x = inputx;
+	this.y = inputy;
+	this.width = spriteSizes * size;
+	this.height = spriteSizes * size;
+	this.pic = new Image();
+	this.setPic = function(){
+		this.pic.src = pic;
+	};
+}	
 //define background
 var Background = {
 	x: 0,
@@ -176,51 +198,25 @@ function populateRoom(){
 		}
 		blocks.push(new blockClass(canvas.width * 2, canvas.height - (spriteSizes - 1), blockimg));
 	//create breakables
-		breakables.push(new breakClass(spriteSizes * 8, spriteSizes * 7));
+		breakables.push(new breakClass(spriteSizes * 5, spriteSizes * 7), new breakClass(spriteSizes * 6, spriteSizes * 7), 
+			new breakClass(spriteSizes * 7, spriteSizes * 7), new breakClass(spriteSizes * 13, spriteSizes * 7), 
+			new breakClass(spriteSizes * 14, spriteSizes * 7));
 
 //function to generate bad guys and add them to arrays
 			//UFOs
 			badUFOs.push(new ufoClass(spriteSizes * 15, spriteSizes * 8), new ufoClass(spriteSizes * 30, spriteSizes * 8));
 			//bats
-			badDudes2.push(new batClass(spriteSizes * 18, spriteSizes * 4), new batClass(spriteSizes * 38, spriteSizes * 4));
+			badDudes2.push(new batClass(spriteSizes * 23, spriteSizes * 4), new batClass(spriteSizes * 38, spriteSizes * 4));
 			//clouds
-			badDudes3.push(new cloudClass(spriteSizes * 10, spriteSizes * 3), new cloudClass(spriteSizes * 20, spriteSizes * 4));	
+			badDudes3.push(new cloudClass(spriteSizes * 18, spriteSizes * 3), new cloudClass(spriteSizes * 29, spriteSizes * 4));	
 			//background objects
-			backgrounds.push({
-				x: spriteSizes * 3,
-				y: spriteSizes * 9,
-				width: spriteSizes,
-				height: spriteSizes,
-				pic: new Image(),
-				setPic: function(){
-					this.pic.src = "images/crystal_bush.PNG";
-				}
-			});
+			backgrounds.push(new backClass(spriteSizes * 3, spriteSizes * 9, "images/crystal_bush.PNG", 1));
 			for (i = 0; i < backgrounds.length; i++){
 				backgrounds[i].setPic();
 			}
-			
 			//front backgrounds
-			backgrounds2.push({
-				x: spriteSizes * 6,
-				y: spriteSizes * 9,
-				width: spriteSizes,
-				height: spriteSizes,
-				pic: new Image(),
-				setPic: function(){
-					this.pic.src = "images/crystal_bush.PNG";
-				}
-			});
-			backgrounds2.push({
-				x: spriteSizes * 8,
-				y: (spriteSizes * 9) + (spriteSizes * 0.5),
-				width: spriteSizes * 0.5,
-				height: spriteSizes * 0.5,
-				pic: new Image(),
-				setPic: function(){
-					this.pic.src = "images/flower_2.PNG";
-				}
-			});
+			backgrounds2.push(new backClass2(spriteSizes * 6, spriteSizes * 9, "images/crystal_bush.PNG", 1), 
+				new backClass2(spriteSizes * 8, (spriteSizes * 9) + (spriteSizes * 0.5), "images/flower_2.PNG", 0.5));
 			for (i = 0; i < backgrounds2.length; i++){
 				backgrounds2[i].setPic();
 			}			
@@ -264,6 +260,7 @@ var player = {
     color: 'blue',
 	bulxPos: this.x + (0.444 * spriteSizes),
 	bulyPos: this.y + (0.388 * spriteSizes),
+	shoot: false,
 	picRight: new Image(),
 	picLeft: new Image(),
 	setPics: function(){
