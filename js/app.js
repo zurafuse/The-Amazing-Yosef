@@ -12,6 +12,7 @@ var requestAnimFrame =  window.requestAnimationFrame ||
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth - 180;
+var screenMax = canvas.width * 3;
 
 var gridWidth = 21;
 var gridHeight = 11;
@@ -76,7 +77,7 @@ var runPower = [];
 var shootPower = [];
 var frequentPower = [];
 var healthPower = [];
-var badDudes = [];
+var badUFOs = [];
 var badDudes2 = [];
 var badDudes3 = [];
 var backgrounds = [];
@@ -90,6 +91,59 @@ var shootPowerLocY = Math.floor((Math.random() * (gridHeight - 1)) + 1);
 var frequentPowerLocX = Math.floor((Math.random() * (gridWidth - 1)) + 1);
 var frequentPowerLocY = Math.floor((Math.random() * (gridHeight - 1)) + 1);
 
+//Create Classes
+
+//Create blocks class
+var blockClass = function(inputx, inputy, inputpic){
+	this.x = inputx,
+	this.y = inputy,
+	this.width = spriteSizes,
+	this.height = spriteSizes,
+	this.pic = inputpic
+};
+//Create breakables class
+var breakClass = function(inputx, inputy){
+	this.x = inputx;
+	this.y = inputy;
+	this.width = spriteSizes;
+	this.height = spriteSizes;
+	this.sx = 0;
+	this.sy = 0;
+	this.swidth = 50;
+	this.sheight = 50;
+};
+//Create badUFOs class
+var ufoClass = function(inputx, inputy){
+	this.x = inputx;
+	this.y = inputy;
+	this.width = spriteSizes;
+	this.height = spriteSizes;
+	this.dir = "left";
+	this.time = Date.now() / 1000;
+};
+//Create bat class
+var batClass = function(inputx, inputy){
+	this.sx = 0;
+	this.sy = 0;
+	this.swidth = 50;
+	this.sheight = 50;
+	this.x = inputx;
+	this.y = inputy;
+	this.width = spriteSizes;
+	this.height = spriteSizes;
+};
+//Create angry cloud class
+var cloudClass = function (inputx, inputy){
+	this.sx = 0;
+	this.sy = 0;
+	this.swidth = 50;
+	this.sheight = 50;
+	this.x = inputx;
+	this.y = inputy;
+	this.width = spriteSizes;
+	this.height = spriteSizes;
+	this.timer = 0;
+}			
 //define background
 var Background = {
 	x: 0,
@@ -107,98 +161,30 @@ The location of the blocks is dependent on which room you are in.
 */
 function populateRoom(){
 	if (roomNum == 1){
-
-		for (i = 0; i < canvas.width * 2; i += spriteSizes){
-			blocks.push(
 //blocks
-			{
-			x: i,
-			y: canvas.height - (spriteSizes - 1),
-			width: spriteSizes,
-			height: spriteSizes,
-			pic: blockimg
-			});
+		for (i = 0; i < screenMax; i += spriteSizes){
+			blocks.push(new blockClass(i, canvas.height - (spriteSizes - 1), blockimg));
 		}
 		for (i = spriteSizes * 19; i < spriteSizes * 27; i += (spriteSizes)){
-			blocks.push({
-				x: i,
-				y: spriteSizes * 9,
-				width: spriteSizes,
-				height: spriteSizes,
-				pic: blockimg2		
-			});
+			blocks.push(new blockClass(i, spriteSizes * 9, blockimg2));
 		}
 		for (i = spriteSizes * 20; i < spriteSizes * 26; i += spriteSizes){
-			blocks.push({
-				x: i,
-				y: spriteSizes * 8,
-				width: spriteSizes,
-				height: spriteSizes,
-				pic: blockimg2		
-			});		
+			blocks.push(new blockClass(i, spriteSizes * 8, blockimg2));		
 		}
 		for (i = spriteSizes * 21; i < spriteSizes * 25; i += spriteSizes){
-			blocks.push({
-				x: i,
-				y: spriteSizes * 7,
-				width: spriteSizes,
-				height: spriteSizes,
-				pic: blockimg2		
-			});		
+			blocks.push(new blockClass(i, spriteSizes * 7, blockimg2));		
 		}
-		blocks.push({
-			x: canvas.width * 2,
-			y: canvas.height - (spriteSizes - 1),
-			width: spriteSizes,
-			height: spriteSizes,
-			pic: blockimg
-		});
+		blocks.push(new blockClass(canvas.width * 2, canvas.height - (spriteSizes - 1), blockimg));
 	//create breakables
-		breakables.push({
-			x: spriteSizes * 8,
-			y: spriteSizes * 7,
-			width: spriteSizes,
-			height: spriteSizes,
-			sx: 0,
-			sy: 0,
-			swidth: 50,
-			sheight: 50,
-		});
+		breakables.push(new breakClass(spriteSizes * 8, spriteSizes * 7));
 
 //function to generate bad guys and add them to arrays
 			//UFOs
-			badDudes.push({
-				x: spriteSizes * 15,
-				y: spriteSizes * 8,
-				width: spriteSizes,
-				height: spriteSizes,
-				dir: "left",
-				time: Date.now() / 1000
-			});
+			badUFOs.push(new ufoClass(spriteSizes * 15, spriteSizes * 8), new ufoClass(spriteSizes * 30, spriteSizes * 8));
 			//bats
-			badDudes2.push({
-				sx: 0,
-				sy: 0,
-				swidth: 50,
-				sheight: 50,
-				x: spriteSizes * 18,
-				y: spriteSizes * 4,
-				width: spriteSizes,
-				height: spriteSizes
-			});
+			badDudes2.push(new batClass(spriteSizes * 18, spriteSizes * 4), new batClass(spriteSizes * 38, spriteSizes * 4));
 			//clouds
-			badDudes3.push({
-				sx: 0,
-				sy: 0,
-				swidth: 50,
-				sheight: 50,
-				x: spriteSizes * 10,
-				y: spriteSizes * 3,
-				width: spriteSizes,
-				height: spriteSizes,
-				timer: 0
-			});
-			
+			badDudes3.push(new cloudClass(spriteSizes * 10, spriteSizes * 3), new cloudClass(spriteSizes * 20, spriteSizes * 4));	
 			//background objects
 			backgrounds.push({
 				x: spriteSizes * 3,

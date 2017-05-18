@@ -320,8 +320,8 @@ function update(mod) {
 						for (i = 0; i < breakables.length; i++){
 							breakables[i].x +=  player.speed * mod;
 						}
-						for (i = 0; i < badDudes.length; i++){
-							badDudes[i].x +=  player.speed * mod;
+						for (i = 0; i < badUFOs.length; i++){
+							badUFOs[i].x +=  player.speed * mod;
 						}
 						for (i = 0; i < badDudes2.length; i++){
 							badDudes2[i].x +=  player.speed * mod;
@@ -382,8 +382,8 @@ function update(mod) {
 						for (i = 0; i < breakables.length; i++){
 							breakables[i].x -=  player.speed * mod;
 						}
-						for (i = 0; i < badDudes.length; i++){
-							badDudes[i].x -=  player.speed * mod;
+						for (i = 0; i < badUFOs.length; i++){
+							badUFOs[i].x -=  player.speed * mod;
 						}
 						for (i = 0; i < badDudes2.length; i++){
 							badDudes2[i].x -=  player.speed * mod;
@@ -420,28 +420,32 @@ function update(mod) {
 		jumpTrigger = 0;
 	}
 //badDudes movement
-	for (i in badDudes){	
+	for (i in badUFOs){	
 		for (j in blocks){
-			if (testColl(badDudes[i].x, badDudes[i].y, badDudes[i].width, badDudes[i].height, 
+			if (testColl(badUFOs[i].x, badUFOs[i].y, badUFOs[i].width, badUFOs[i].height, 
 			blocks[j].x, blocks[j].y, blocks[j].width, blocks[j].height)){
-				if (badDudes[i].dir == "left"){
-					badDudes[i].x += 2;
-					badDudes[i].dir = "right";
+				if (badUFOs[i].dir == "left"){
+					badUFOs[i].x += 2;
+					badUFOs[i].dir = "right";
 				}
 				else{
-					badDudes[i].x -= 2;
-					badDudes[i].dir = "left";
+					badUFOs[i].x -= 2;
+					badUFOs[i].dir = "left";
 				}
 			}
 		}
-		if (badDudes[i].dir == "right"){
-			badDudes[i].x++;
+		if (badUFOs[i].dir == "right"){
+			badUFOs[i].x++;
 		}
 		else{
-			badDudes[i].x--;
+			badUFOs[i].x--;
 		}
-		if (badDudes[i].x > canvas.width + 15 || badDudes[i].x < -15){
-			badDudes.splice(i, 1);
+		if (badUFOs[i].x < -15){
+			badUFOs.splice(i, 1);
+		}
+		if (badUFOs[i].x > blocks[blocks.length - 1].x){
+			badUFOs[i].x -= 2;
+			badUFOs[i].dir = "left";
 		}
 	}	
 //badDudes2 AI
@@ -544,7 +548,7 @@ function restart(){
 	runPower = [];
 	shootPower = [];
 	frequentPower = [];
-	badDudes = [];
+	badUFOs = [];
 	badDudes2 = [];
 //declare randomness
 	runPowerLocX = Math.floor((Math.random() * (gridWidth - 1)) + 1);
@@ -706,8 +710,8 @@ ctx.fillStyle = player.color;
 		ctx.drawImage(frequentImage, frequentPower[i].x, frequentPower[i].y, frequentPower[i].width, frequentPower[i].height);
 	}
 	
-	for (i in badDudes){
-		ctx.drawImage(badGuy, badDudes[i].x, badDudes[i].y, badDudes[i].width, badDudes[i].height);
+	for (i in badUFOs){
+		ctx.drawImage(badGuy, badUFOs[i].x, badUFOs[i].y, badUFOs[i].width, badUFOs[i].height);
 	}
 	
 	for (i in badDudes2){
@@ -764,10 +768,10 @@ function testColl(aX, aY, aWidth, aHeight, bX, bY, bWidth, bHeight) {
 
 function bulletDestroy(){
 	for (i = 0; i < bullets.length; i++){
-		for (k = 0; k < badDudes.length; k++){
-			if (testColl(bullets[i].x, bullets[i].y, bullets[i].width, bullets[i].height, badDudes[k].x, badDudes[k].y, badDudes[k].width, badDudes[k].height) == true){
+		for (k = 0; k < badUFOs.length; k++){
+			if (testColl(bullets[i].x, bullets[i].y, bullets[i].width, bullets[i].height, badUFOs[k].x, badUFOs[k].y, badUFOs[k].width, badUFOs[k].height) == true){
 				bullets.splice(i, 1);
-				badDudes.splice(k, 1);
+				badUFOs.splice(k, 1);
 				if (gameover == false){
 					powerLevel += 20;
 				}
@@ -904,10 +908,10 @@ function frequentDestroy(){
 }
 
 function damageTaken(){
-	for (i in badDudes){
-		if (testColl(player.x, player.y, player.width, player.height, badDudes[i].x, badDudes[i].y, 
-			badDudes[i].width, badDudes[i].height) == true){
-			badDudes.splice(i, 1);
+	for (i in badUFOs){
+		if (testColl(player.x, player.y, player.width, player.height, badUFOs[i].x, badUFOs[i].y, 
+			badUFOs[i].width, badUFOs[i].height) == true){
+			badUFOs.splice(i, 1);
 				gameover = true;
 			break;
 		}		
