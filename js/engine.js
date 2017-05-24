@@ -204,7 +204,7 @@ function dudeUpColl(dude) {
 							shootPower.push({
 								x: breakables[i].x,
 								y: breakables[i].y,
-								width: spriteSizes,
+								width: spriteSizes * 0.5,
 								height: spriteSizes
 							});
 						}
@@ -296,7 +296,7 @@ function update(mod) {
 	if (32 in keysDown){
 		if (player.shoot == true){
 			if (bulControl % bullFreq == 0  || bulTrigger == 0){
-				updateBulletPos(direction);
+				player.updateBull(direction);
 				bullets.push({
 					dir: direction,
 					x: player.bulxPos,
@@ -331,11 +331,26 @@ function update(mod) {
 						for (i = 0; i < badDudes3.length; i++){
 							badDudes3[i].x +=  player.speed * mod;
 						}
+						for (i = 0; i < sockPuppets.length; i++){
+							sockPuppets[i].x +=  player.speed * mod;
+						}
+						for (i = 0; i < fires.length; i++){
+							fires[i].x +=  player.speed * mod;
+						}
 						for (i = 0; i < backgrounds.length; i++){
 							backgrounds[i].x +=  player.speed * mod;
 						}
 						for (i = 0; i < backgrounds2.length; i++){
 							backgrounds2[i].x +=  player.speed * mod;
+						}
+						for (i = 0; i < runPower.length; i++){
+							runPower[i].x +=  player.speed * mod;
+						}
+						for (i = 0; i < shootPower.length; i++){
+							shootPower[i].x +=  player.speed * mod;
+						}
+						for (i = 0; i < frequentPower.length; i++){
+							frequentPower[i].x +=  player.speed * mod;
 						}
 						Background.x = Background.x + 0.5;
 					}
@@ -393,11 +408,26 @@ function update(mod) {
 						for (i = 0; i < badDudes3.length; i++){
 							badDudes3[i].x -=  player.speed * mod;
 						}
+						for (i = 0; i < sockPuppets.length; i++){
+							sockPuppets[i].x -=  player.speed * mod;
+						}
+						for (i = 0; i < fires.length; i++){
+							fires[i].x -=  player.speed * mod;
+						}
 						for (i = 0; i < backgrounds.length; i++){
 							backgrounds[i].x -=  player.speed * mod;
 						}
 						for (i = 0; i < backgrounds2.length; i++){
 							backgrounds2[i].x -=  player.speed * mod;
+						}
+						for (i = 0; i < runPower.length; i++){
+							runPower[i].x -=  player.speed * mod;
+						}
+						for (i = 0; i < shootPower.length; i++){
+							shootPower[i].x -=  player.speed * mod;
+						}
+						for (i = 0; i < frequentPower.length; i++){
+							frequentPower[i].x -=  player.speed * mod;
 						}
 						Background.x = Background.x - 0.5;
 					}
@@ -517,7 +547,43 @@ function update(mod) {
 		}
 		badDudes3[i].timer++;
 	}
-	
+//sock puppets AI
+	for (i in sockPuppets){
+		if (sockPuppets[i].shoot == true){
+			sockPuppets[i].timer++;
+			if (sockPuppets[i].timer == 150){
+				sockPuppets[i].sx = 100;
+				badBullets.push({
+					dir: "left",
+					x: sockPuppets[i].x,
+					y: sockPuppets[i].y + (spriteSizes * 0.2),
+					width: 0.138 * spriteSizes,
+					height: 0.138 * spriteSizes
+				});
+			}
+			if (sockPuppets[i].timer > 175){
+				sockPuppets[i].timer = 0;
+				sockPuppets[i].sx = 0;
+			}
+		}
+		else{
+			sockPuppets[i].timer = 0;
+			sockPuppets[i].sx = 0;
+		}
+		if (sockPuppets[i].x < player.x + (canvas.width * 0.5) && sockPuppets[i].x > player.x + player.width){
+			sockPuppets[i].shoot = true;
+		}
+		else{
+			sockPuppets[i].shoot = false;
+		}
+	}
+//fire movement
+	for (i in fires){
+		fires[i].sx += 50;
+		if (fires[i].sx > 350){
+			fires[i].sx = 0;
+		}
+	}
 //If the Game is Over, RESTART
 	if (gameover == true){
 		powerLevel = 0;
@@ -552,6 +618,8 @@ function restart(){
 	frequentPower = [];
 	badUFOs = [];
 	badDudes2 = [];
+	sockPuppets = [];
+	fires = [];
 //declare randomness
 	runPowerLocX = Math.floor((Math.random() * (gridWidth - 1)) + 1);
 	runPowerLocY = Math.floor((Math.random() * (gridHeight - 1)) + 1);
@@ -697,33 +765,38 @@ ctx.fillStyle = player.color;
 	}
 	
 	for (i = 0; i < breakables.length; i++){
-		ctx.drawImage(breakable, breakables[i].sx, breakables[i].sy, breakables[i].swidth, breakables[i].sheight, breakables[i].x, breakables[i].y, breakables[i].width, breakables[i].height);
+		ctx.drawImage(imageObj.blocks.breakable, breakables[i].sx, breakables[i].sy, breakables[i].swidth, breakables[i].sheight, breakables[i].x, breakables[i].y, breakables[i].width, breakables[i].height);
 	}
 	
 	for (i = 0; i < runPower.length; i++){
-		ctx.drawImage(runImage, runPower[i].x, runPower[i].y, runPower[i].width, runPower[i].height);
+		ctx.drawImage(imageObj.powerUps.runImage, runPower[i].x, runPower[i].y, runPower[i].width, runPower[i].height);
 	}
 	
 	for (i = 0; i < shootPower.length; i++){
-		ctx.drawImage(shootImage, shootPower[i].x, shootPower[i].y, shootPower[i].width, shootPower[i].height);
+		ctx.drawImage(imageObj.powerUps.shootImage, shootPower[i].x, shootPower[i].y, shootPower[i].width, shootPower[i].height);
 	}
 	
 	for (i = 0; i < frequentPower.length; i++){
-		ctx.drawImage(frequentImage, frequentPower[i].x, frequentPower[i].y, frequentPower[i].width, frequentPower[i].height);
+		ctx.drawImage(imageObj.powerUps.frequentImage, frequentPower[i].x, frequentPower[i].y, frequentPower[i].width, frequentPower[i].height);
 	}
 	
 	for (i in badUFOs){
-		ctx.drawImage(badGuy, badUFOs[i].x, badUFOs[i].y, badUFOs[i].width, badUFOs[i].height);
+		ctx.drawImage(imageObj.badGuys.badGuy, badUFOs[i].x, badUFOs[i].y, badUFOs[i].width, badUFOs[i].height);
 	}
 	
 	for (i in badDudes2){
-		ctx.drawImage(badGuy2, badDudes2[i].sx, badDudes2[i].sy, badDudes2[i].swidth, badDudes2[i].sheight, badDudes2[i].x, badDudes2[i].y, badDudes2[i].width, badDudes2[i].height);
+		ctx.drawImage(imageObj.badGuys.badGuy2, badDudes2[i].sx, badDudes2[i].sy, badDudes2[i].swidth, badDudes2[i].sheight, badDudes2[i].x, badDudes2[i].y, badDudes2[i].width, badDudes2[i].height);
 	}
 	
 	for (i in badDudes3){
-		ctx.drawImage(badGuy3, badDudes3[i].sx, badDudes3[i].sy, badDudes3[i].swidth, badDudes3[i].sheight, badDudes3[i].x, badDudes3[i].y, badDudes3[i].width, badDudes3[i].height);
+		ctx.drawImage(imageObj.badGuys.badGuy3, badDudes3[i].sx, badDudes3[i].sy, badDudes3[i].swidth, badDudes3[i].sheight, badDudes3[i].x, badDudes3[i].y, badDudes3[i].width, badDudes3[i].height);
 	}
-	
+	for (i in sockPuppets){
+		ctx.drawImage(imageObj.badGuys.sockPuppet, sockPuppets[i].sx, sockPuppets[i].sy, sockPuppets[i].swidth, sockPuppets[i].sheight, sockPuppets[i].x, sockPuppets[i].y, sockPuppets[i].width, sockPuppets[i].height);
+	}
+	for (i in fires){
+		ctx.drawImage(imageObj.badGuys.fire, fires[i].sx, fires[i].sy, fires[i].swidth, fires[i].sheight, fires[i].x, fires[i].y, fires[i].width, fires[i].height);
+	}
 	ctx.font = canvas.width * 0.017  + "px Arial";
 	ctx.fillStyle = "black";
 	ctx.fillText("Score: " + powerLevel, spriteSizes * (gridWidth * 0.14), spriteSizes / 1.6);	
@@ -795,6 +868,17 @@ function bulletDestroy(){
 			if (testColl(bullets[i].x, bullets[i].y, bullets[i].width, bullets[i].height, badDudes3[k].x, badDudes3[k].y, badDudes3[k].width, badDudes3[k].height) == true){
 				bullets.splice(i, 1);
 				badDudes3.splice(k, 1);
+				if (gameover == false){
+					powerLevel += 20;
+				}
+				return;
+			}			
+		}
+
+		for (k = 0; k < sockPuppets.length; k++){
+			if (testColl(bullets[i].x, bullets[i].y, bullets[i].width, bullets[i].height, sockPuppets[k].x, sockPuppets[k].y, sockPuppets[k].width, sockPuppets[k].height) == true){
+				bullets.splice(i, 1);
+				sockPuppets.splice(k, 1);
 				if (gameover == false){
 					powerLevel += 20;
 				}
@@ -938,6 +1022,23 @@ function damageTaken(){
 			break;
 		}		
 	}	
+	for (i in sockPuppets){
+		if (testColl(player.x, player.y, player.width, player.height, sockPuppets[i].x, sockPuppets[i].y, 
+			sockPuppets[i].width, sockPuppets[i].height) == true){
+			if (player.y + player.height > sockPuppets[i].y + 5){
+				gameover = true;
+			}
+			sockPuppets.splice(i, 1);
+			break;
+		}		
+	}
+	for (i in fires){
+		if (testColl(player.x, player.y, player.width, player.height, fires[i].x, fires[i].y, 
+			fires[i].width, fires[i].height) == true){
+			gameover = true;
+			break;
+		}		
+	}
 	for (i in badBullets){
 		if (testColl(player.x, player.y, player.width, player.height, badBullets[i].x, badBullets[i].y, 
 			badBullets[i].width, badBullets[i].height) == true){
