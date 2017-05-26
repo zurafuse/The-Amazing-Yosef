@@ -12,7 +12,7 @@ var requestAnimFrame =  window.requestAnimationFrame ||
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth - 180;
-var screenMax = canvas.width * 3;
+var screenMax = canvas.width * 4;
 
 var gridWidth = 21;
 var gridHeight = 11;
@@ -46,7 +46,18 @@ var imageObj = {
 	backgrounds: {
 		crystalBush: new Image(),
 		flower2: new Image(),
-		hillBackground: new Image()
+		hillBackground: new Image(),
+		shroom1: new Image(),
+		tree2: new Image(),
+		tree: new Image(),
+		shroom2: new Image(),
+		flower: new Image(),
+		cloud: new Image(),
+		cloud2: new Image(),
+		cloud_background: new Image(),
+		forest_background: new Image(),
+		green_background: new Image(),
+		heiro_background: new Image()
 	},
 	player: {
 		playerRight: new Image(),
@@ -71,6 +82,17 @@ var imageObj = {
 		this.backgrounds.crystalBush.src = "images/crystal_bush.PNG";
 		this.backgrounds.flower2.src = "images/flower_2.PNG";
 		this.backgrounds.hillBackground.src = "images/hill_background.png";
+		this.backgrounds.shroom1.src = "images/shroom1.PNG";
+		this.backgrounds.tree2.src = "images/tree2.PNG";
+		this.backgrounds.tree.src = "images/tree.PNG";
+		this.backgrounds.shroom2.src = "images/shroom2.PNG";
+		this.backgrounds.flower.src = "images/flower.png";
+		this.backgrounds.cloud.src = "images/cloud.png";
+		this.backgrounds.cloud2.src = "images/cloud2.png";
+		this.backgrounds.cloud_background.src = "images/cloud_background.png";
+		this.backgrounds.forest_background.src = "images/forest_background.png";
+		this.backgrounds.green_background.src = "images/green_background.png";
+		this.backgrounds.heiro_background.src = "images/heiro_background.png";
 		this.player.playerRight.src = "images/player.png";
 		this.player.playerLeft.src = "images/playerLeft.png";
 	}
@@ -229,9 +251,13 @@ The location of the blocks is dependent on which room you are in.
 */
 function populateRoom(){
 	if (roomNum == 1){
+//define background
+		Background.pic = imageObj.backgrounds.hillBackground;
 //blocks
 		for (i = 0; i < screenMax; i += spriteSizes){
-			blocks.push(new blockClass(i, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));
+			if (i < spriteSizes * 28 || i > spriteSizes * 29){
+				blocks.push(new blockClass(i, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));
+			}
 		}
 		for (i = spriteSizes * 19; i < spriteSizes * 27; i += (spriteSizes)){
 			blocks.push(new blockClass(i, spriteSizes * 9, imageObj.blocks.blockimg2));
@@ -244,9 +270,9 @@ function populateRoom(){
 		}
 		blocks.push(new blockClass(screenMax, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));
 	//create breakables
-		breakables.push(new breakClass(spriteSizes * 5, spriteSizes * 7), new breakClass(spriteSizes * 6, spriteSizes * 7), 
-			new breakClass(spriteSizes * 7, spriteSizes * 7), new breakClass(spriteSizes * 14, spriteSizes * 7), 
-			new breakClass(spriteSizes * 15, spriteSizes * 7));
+		breakables.push(new breakClass(spriteSizes * 4, spriteSizes * 7), new breakClass(spriteSizes * 5, spriteSizes * 7), 
+			new breakClass(spriteSizes * 6, spriteSizes * 7), new breakClass(spriteSizes * 13, spriteSizes * 7), new breakClass(spriteSizes * 14, spriteSizes * 6), 
+			new breakClass(spriteSizes * 15, spriteSizes * 6));
 	//create powerUps
 		shootPower.push({
 			x: spriteSizes * 22,
@@ -256,7 +282,7 @@ function populateRoom(){
 		});
 //function to generate bad guys and add them to arrays
 			//UFOs
-			badUFOs.push(new ufoClass(spriteSizes * 14, spriteSizes * 8), new ufoClass(spriteSizes * 30, spriteSizes * 8));
+			badUFOs.push(new ufoClass(spriteSizes * 17, spriteSizes * 8), new ufoClass(spriteSizes * 30, spriteSizes * 8));
 			//bats
 			badDudes2.push(new batClass(spriteSizes * 33, spriteSizes * 4), new batClass(spriteSizes * 48, spriteSizes * 4));
 			//clouds

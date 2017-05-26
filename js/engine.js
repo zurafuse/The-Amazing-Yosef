@@ -373,7 +373,7 @@ function update(mod) {
 			}
 			if (jump == true){
 				jumpTrigger++;
-				player.y -= (player.speed * mod) * 3;
+				player.y -= (player.speed * mod) * canvas.width * 0.002;
 				dirLead = "up";
 			}
 		}
@@ -583,6 +583,10 @@ function update(mod) {
 		if (fires[i].sx > 350){
 			fires[i].sx = 0;
 		}
+	}
+//If player falls off screen he's dead
+	if (player.y - 30 > spriteSizes * gridHeight){
+		gameover = true;
 	}
 //If the Game is Over, RESTART
 	if (gameover == true){
