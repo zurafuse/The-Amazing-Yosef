@@ -52,6 +52,7 @@ var imageObj = {
 		tree: new Image(),
 		shroom2: new Image(),
 		flower: new Image(),
+		palm: new Image(),
 		cloud: new Image(),
 		cloud2: new Image(),
 		cloud_background: new Image(),
@@ -85,6 +86,7 @@ var imageObj = {
 		this.backgrounds.shroom1.src = "images/shroom1.PNG";
 		this.backgrounds.tree2.src = "images/tree2.PNG";
 		this.backgrounds.tree.src = "images/tree.PNG";
+		this.backgrounds.palm.src = "images/palm.PNG";
 		this.backgrounds.shroom2.src = "images/shroom2.PNG";
 		this.backgrounds.flower.src = "images/flower.png";
 		this.backgrounds.cloud.src = "images/cloud.png";
@@ -222,19 +224,19 @@ var fireClass = function(inputx, inputy){
 	this.height = spriteSizes;
 };
 //Create backgrounds Class
-var backClass = function(inputx, inputy, pic, size){
+var backClass = function(inputx, inputy, pic, width, height){
 	this.x = inputx;
 	this.y = inputy;
-	this.width = spriteSizes * size;
-	this.height = spriteSizes * size;
+	this.width = spriteSizes * width;
+	this.height = spriteSizes * height;
 	this.pic = pic;
 };
 //Create forefront backgrounds Class
-var backClass2 = function(inputx, inputy, pic, size){
+var backClass2 = function(inputx, inputy, pic, width, height){
 	this.x = inputx;
 	this.y = inputy;
-	this.width = spriteSizes * size;
-	this.height = spriteSizes * size;
+	this.width = spriteSizes * width;
+	this.height = spriteSizes * height;
 	this.pic = pic;
 };	
 //define background
@@ -245,59 +247,6 @@ var Background = {
 	height: canvas.height,
 	pic: imageObj.backgrounds.hillBackground
 };
-
-/*This function creates blocks
-The location of the blocks is dependent on which room you are in.
-*/
-function populateRoom(){
-	if (roomNum == 1){
-//define background
-		Background.pic = imageObj.backgrounds.hillBackground;
-//blocks
-		for (i = 0; i < screenMax; i += spriteSizes){
-			if (i < spriteSizes * 28 || i > spriteSizes * 29){
-				blocks.push(new blockClass(i, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));
-			}
-		}
-		for (i = spriteSizes * 19; i < spriteSizes * 27; i += (spriteSizes)){
-			blocks.push(new blockClass(i, spriteSizes * 9, imageObj.blocks.blockimg2));
-		}
-		for (i = spriteSizes * 20; i < spriteSizes * 26; i += spriteSizes){
-			blocks.push(new blockClass(i, spriteSizes * 8, imageObj.blocks.blockimg2));		
-		}
-		for (i = spriteSizes * 21; i < spriteSizes * 25; i += spriteSizes){
-			blocks.push(new blockClass(i, spriteSizes * 7, imageObj.blocks.blockimg2));		
-		}
-		blocks.push(new blockClass(screenMax, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));
-	//create breakables
-		breakables.push(new breakClass(spriteSizes * 4, spriteSizes * 7), new breakClass(spriteSizes * 5, spriteSizes * 7), 
-			new breakClass(spriteSizes * 6, spriteSizes * 7), new breakClass(spriteSizes * 13, spriteSizes * 7), new breakClass(spriteSizes * 14, spriteSizes * 6), 
-			new breakClass(spriteSizes * 15, spriteSizes * 6));
-	//create powerUps
-		shootPower.push({
-			x: spriteSizes * 22,
-			y: spriteSizes * 6,
-			width: spriteSizes * 0.5,
-			height: spriteSizes
-		});
-//function to generate bad guys and add them to arrays
-			//UFOs
-			badUFOs.push(new ufoClass(spriteSizes * 17, spriteSizes * 8), new ufoClass(spriteSizes * 30, spriteSizes * 8));
-			//bats
-			badDudes2.push(new batClass(spriteSizes * 33, spriteSizes * 4), new batClass(spriteSizes * 48, spriteSizes * 4));
-			//clouds
-			badDudes3.push(new cloudClass(spriteSizes * 28, spriteSizes * 3), new cloudClass(spriteSizes * 39, spriteSizes * 4));
-			//puppets
-			sockPuppets.push(new puppetClass(spriteSizes * 23, spriteSizes * 6));
-			//fire
-			fires.push(new fireClass(spriteSizes * 17, spriteSizes * 9));
-			//background objects
-			backgrounds.push(new backClass(spriteSizes * 3, spriteSizes * 9, imageObj.backgrounds.crystalBush, 1));
-			//front backgrounds
-			backgrounds2.push(new backClass2(spriteSizes * 6, spriteSizes * 9, imageObj.backgrounds.crystalBush, 1), 
-				new backClass2(spriteSizes * 8, (spriteSizes * 9) + (spriteSizes * 0.5), imageObj.backgrounds.flower2, 0.5));	
-	}
-}
 
 //define the main player object
 var player = {

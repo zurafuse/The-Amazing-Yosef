@@ -373,7 +373,7 @@ function update(mod) {
 			}
 			if (jump == true){
 				jumpTrigger++;
-				player.y -= (player.speed * mod) * canvas.width * 0.002;
+				player.y -= ((player.speed * mod) * 3);
 				dirLead = "up";
 			}
 		}
@@ -999,7 +999,7 @@ function damageTaken(){
 	for (i in badUFOs){
 		if (testColl(player.x, player.y, player.width, player.height, badUFOs[i].x, badUFOs[i].y, 
 			badUFOs[i].width, badUFOs[i].height) == true){
-			if (player.y + player.height > badUFOs[i].y + 5){
+			if (player.y + player.height > badUFOs[i].y + 7){
 				gameover = true;
 			}
 			badUFOs.splice(i, 1);
@@ -1009,7 +1009,7 @@ function damageTaken(){
 	for (i in badDudes2){
 		if (testColl(player.x, player.y, player.width, player.height, badDudes2[i].x, badDudes2[i].y, 
 			badDudes2[i].width, badDudes2[i].height) == true){
-			if (player.y + player.height > badDudes2[i].y + 5){
+			if (player.y + player.height > badDudes2[i].y + 7){
 				gameover = true;
 			}
 			badDudes2.splice(i, 1);
@@ -1019,7 +1019,7 @@ function damageTaken(){
 	for (i in badDudes3){
 		if (testColl(player.x, player.y, player.width, player.height, badDudes3[i].x, badDudes3[i].y, 
 			badDudes3[i].width, badDudes3[i].height) == true){
-			if (player.y + player.height > badDudes3[i].y + 5){
+			if (player.y + player.height > badDudes3[i].y + 7){
 				gameover = true;
 			}
 			badDudes3.splice(i, 1);
@@ -1029,7 +1029,7 @@ function damageTaken(){
 	for (i in sockPuppets){
 		if (testColl(player.x, player.y, player.width, player.height, sockPuppets[i].x, sockPuppets[i].y, 
 			sockPuppets[i].width, sockPuppets[i].height) == true){
-			if (player.y + player.height > sockPuppets[i].y + 5){
+			if (player.y + player.height > sockPuppets[i].y + 7){
 				gameover = true;
 			}
 			sockPuppets.splice(i, 1);
