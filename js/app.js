@@ -35,13 +35,15 @@ var imageObj = {
 		blockimg3: new Image(),
 		blockimg4: new Image(),
 		blockimg5: new Image(),
-		breakable: new Image()
+		breakable: new Image(),
+		spring: new Image()
 	},
 	powerUps: {
 		runImage: new Image(),
 		shootImage: new Image(),
 		frequentImage: new Image(),
-		healthImage: new Image()	
+		healthImage: new Image(),
+		gem: new Image()
 	},
 	backgrounds: {
 		crystalBush: new Image(),
@@ -52,6 +54,7 @@ var imageObj = {
 		tree: new Image(),
 		shroom2: new Image(),
 		flower: new Image(),
+		rainbow: new Image(),
 		palm: new Image(),
 		cloud: new Image(),
 		cloud2: new Image(),
@@ -76,19 +79,22 @@ var imageObj = {
 		this.blocks.blockimg4.src = "images/block4.png";
 		this.blocks.blockimg5.src = "images/block5.png";
 		this.blocks.breakable.src = "images/breakable.png";
+		this.blocks.spring.src = "images/spring.png";		
 		this.powerUps.runImage.src = "images/run.png";
 		this.powerUps.shootImage.src = "images/shoot.png";
 		this.powerUps.frequentImage.src = "images/frequent.png";
 		this.powerUps.healthImage.src = "images/health.png";
+		this.powerUps.gem.src = "images/gem.png";		
 		this.backgrounds.crystalBush.src = "images/crystal_bush.PNG";
 		this.backgrounds.flower2.src = "images/flower_2.PNG";
 		this.backgrounds.hillBackground.src = "images/hill_background.png";
 		this.backgrounds.shroom1.src = "images/shroom1.PNG";
 		this.backgrounds.tree2.src = "images/tree2.PNG";
 		this.backgrounds.tree.src = "images/tree.PNG";
-		this.backgrounds.palm.src = "images/palm.PNG";
+		this.backgrounds.palm.src = "images/palm.png";
 		this.backgrounds.shroom2.src = "images/shroom2.PNG";
 		this.backgrounds.flower.src = "images/flower.png";
+		this.backgrounds.rainbow.src = "images/rainbow.png";		
 		this.backgrounds.cloud.src = "images/cloud.png";
 		this.backgrounds.cloud2.src = "images/cloud2.png";
 		this.backgrounds.cloud_background.src = "images/cloud_background.png";
@@ -110,9 +116,10 @@ var bulTrigger = 0;
 var bullSpeed = canvas.width * 0.00461;
 var bullFreq = 12;
 var moveMe = "false";
-var roomNum = 1;
+var roomNum = 0;
 var health = 200;
 var powerLevel = 0;
+var treasureScore = 0;
 var gameover = false;
 var spriteSizes = sprtHtControl;
 var dirLead = "default";
@@ -137,6 +144,8 @@ var sockPuppets = [];
 var fires = [];
 var backgrounds = [];
 var backgrounds2 = [];
+var springs = [];
+var gems = [];
 
 //declare randomness
 var runPowerLocX = Math.floor((Math.random() * (gridWidth - 1)) + 1);
@@ -166,6 +175,20 @@ var breakClass = function(inputx, inputy){
 	this.sy = 0;
 	this.swidth = 50;
 	this.sheight = 50;
+};
+//Create spring class
+var springClass = function(inputx, inputy){
+	this.x = inputx * spriteSizes;
+	this.y = inputy * spriteSizes;
+	this.width = spriteSizes;
+	this.height = spriteSizes;
+	this.pic = imageObj.blocks.spring;
+	this.bounce = function(index){
+		if (testColl(player.x, player.y, player.width, player.height, springs[index].x, springs[index].y, 
+		springs[index].width, springs[index].height) == true){
+			player.goUp = true;
+		}
+	};
 };
 //Create badUFOs class
 var ufoClass = function(inputx, inputy){
@@ -223,6 +246,25 @@ var fireClass = function(inputx, inputy){
 	this.width = spriteSizes;
 	this.height = spriteSizes;
 };
+//Create gem class
+var gemClass = function(inputx, inputy){
+	this.sx = 0;
+	this.sy = 0;
+	this.swidth = 100;
+	this.sheight = 100;
+	this.x = inputx * spriteSizes;
+	this.y = inputy * spriteSizes;
+	this.width = (spriteSizes * 0.5);
+	this.height = (spriteSizes * 0.5);
+	this.collect = function(index){
+		if (testColl(player.x, player.y, player.width, player.height, gems[index].x, gems[index].y, 
+		gems[index].width, gems[index].height) == true){
+			treasureScore++;
+			powerLevel += 10;
+			gems.splice(index, 1);
+		}
+	};
+};
 //Create backgrounds Class
 var backClass = function(inputx, inputy, pic, width, height){
 	this.x = inputx;
@@ -254,17 +296,35 @@ var player = {
 	sy: 0,
 	swidth: 50,
 	sheight: 50,
-    x: (canvas.width / 2) - spriteSizes,
+    x: 0 - spriteSizes,
     y: (canvas.height / 2) - spriteSizes,
     width: spriteSizes,
     height: spriteSizes,
-    speed: canvas.width * 0.134,
+    speed: spriteSizes * 5,
     color: 'blue',
 	bulxPos: this.x + (0.444 * spriteSizes),
 	bulyPos: this.y + (0.388 * spriteSizes),
 	shoot: false,
 	picRight: imageObj.player.playerRight,
 	picLeft: imageObj.player.playerLeft,
+	entry: "left",
+	goUp: false,
+	bounceTrigger: 0,
+	bounce: function(){
+		if (dudeUpColl(player) == true){
+			if (this.goUp == true){
+				if (this.bounceTrigger < spriteSizes){
+					player.y -= ((player.speed * ((Date.now() - time) / 1000)) * 4);
+				}else{
+					this.goUp = false;
+					this.bounceTrigger = 0;
+				}
+			}
+		}else{
+			this.goUp = false;
+			this.bounceTrigger = 0;
+		}
+	},
 	updateBull: function(z){
 		if (z == "front")
 		{

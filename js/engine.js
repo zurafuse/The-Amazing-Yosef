@@ -310,7 +310,7 @@ function update(mod) {
 	}
     if (37 in keysDown) {
 		if (dudeLeftColl(player) == true){
-			if (dirLead != "right" || dirLead == "default"){
+			if ((dirLead != "right" || dirLead == "default") && player.x > -1){
 				if (player.x > canvas.width * 0.5){
 					player.x -= player.speed * mod;
 				}
@@ -321,6 +321,9 @@ function update(mod) {
 						}
 						for (i = 0; i < breakables.length; i++){
 							breakables[i].x +=  player.speed * mod;
+						}
+						for (i = 0; i < springs.length; i++){
+							springs[i].x +=  player.speed * mod;
 						}
 						for (i = 0; i < badUFOs.length; i++){
 							badUFOs[i].x +=  player.speed * mod;
@@ -352,6 +355,15 @@ function update(mod) {
 						for (i = 0; i < frequentPower.length; i++){
 							frequentPower[i].x +=  player.speed * mod;
 						}
+						for (i = 0; i < gems.length; i++){
+							gems[i].x +=  player.speed * mod;
+						}
+						for (i = 0; i < bullets.length; i++){
+							bullets[i].x +=  player.speed * mod;
+						}
+						for (i = 0; i < badBullets.length; i++){
+							badBullets[i].x +=  player.speed * mod;
+						}
 						Background.x = Background.x + 0.5;
 					}
 					else{
@@ -372,7 +384,7 @@ function update(mod) {
 				jumpTrigger++;
 			}
 			if (jump == true){
-				jumpTrigger++;
+				jumpTrigger+= ((player.speed * mod) * 3);
 				player.y -= ((player.speed * mod) * 3);
 				dirLead = "up";
 			}
@@ -398,6 +410,9 @@ function update(mod) {
 						}
 						for (i = 0; i < breakables.length; i++){
 							breakables[i].x -=  player.speed * mod;
+						}
+						for (i = 0; i < springs.length; i++){
+							springs[i].x -=  player.speed * mod;
 						}
 						for (i = 0; i < badUFOs.length; i++){
 							badUFOs[i].x -=  player.speed * mod;
@@ -429,6 +444,15 @@ function update(mod) {
 						for (i = 0; i < frequentPower.length; i++){
 							frequentPower[i].x -=  player.speed * mod;
 						}
+						for (i = 0; i < gems.length; i++){
+							gems[i].x -=  player.speed * mod;
+						}
+						for (i = 0; i < bullets.length; i++){
+							bullets[i].x -=  player.speed * mod;
+						}
+						for (i = 0; i < badBullets.length; i++){
+							badBullets[i].x -=  player.speed * mod;
+						}
 						Background.x = Background.x - 0.5;
 					}
 					else{
@@ -453,99 +477,105 @@ function update(mod) {
 	}
 //badDudes movement
 	for (i in badUFOs){	
-		for (j in blocks){
-			if (testColl(badUFOs[i].x, badUFOs[i].y, badUFOs[i].width, badUFOs[i].height, 
-			blocks[j].x, blocks[j].y, blocks[j].width, blocks[j].height)){
-				if (badUFOs[i].dir == "left"){
-					badUFOs[i].x += 2;
-					badUFOs[i].dir = "right";
-				}
-				else{
-					badUFOs[i].x -= 2;
-					badUFOs[i].dir = "left";
+		if (badUFOs[i].x < player.x + canvas.width && badUFOs[i].x > player.x - canvas.width){
+			for (j in blocks){
+				if (testColl(badUFOs[i].x, badUFOs[i].y, badUFOs[i].width, badUFOs[i].height, 
+				blocks[j].x, blocks[j].y, blocks[j].width, blocks[j].height)){
+					if (badUFOs[i].dir == "left"){
+						badUFOs[i].x += 2;
+						badUFOs[i].dir = "right";
+					}
+					else{
+						badUFOs[i].x -= 2;
+						badUFOs[i].dir = "left";
+					}
 				}
 			}
-		}
-		if (badUFOs[i].dir == "right"){
-			badUFOs[i].x++;
-		}
-		else{
-			badUFOs[i].x--;
-		}
-		if (badUFOs[i].x < -15){
-			badUFOs.splice(i, 1);
-		}
-		if (badUFOs[i].x > blocks[blocks.length - 1].x){
-			badUFOs[i].x -= 2;
-			badUFOs[i].dir = "left";
+			if (badUFOs[i].dir == "right"){
+				badUFOs[i].x+= canvas.width * 0.001;
+			}
+			else{
+				badUFOs[i].x-= canvas.width * 0.001;
+			}
+			if (badUFOs[i].x < -15){
+				badUFOs.dir = "right";
+			}
+			if (badUFOs[i].x > blocks[blocks.length - 1].x){
+				badUFOs[i].x -= 2;
+				badUFOs[i].dir = "left";
+			}
 		}
 	}	
 //badDudes2 AI
 	for (i in badDudes2){
-		if (badDudes2[i].x > player.x + (player.width - 4)){
-			badDudes2[i].x--;
-		}
-		if (badDudes2[i].x + badDudes2[i].width < player.x + 4){
-			badDudes2[i].x++;
-		}
-		if (badDudes2[i].y > player.y + (player.height - 4)){
-			badDudes2[i].y--;
-		}
-		if (badDudes2[i].y + badDudes2[i].width < player.y + 4){
-			badDudes2[i].y++;
+		if (badDudes2[i].x < player.x + canvas.width && badDudes2[i].x > player.x - canvas.width){	
+			if (badDudes2[i].x > player.x + (player.width - 4)){
+				badDudes2[i].x-= canvas.width * 0.001;
+			}
+			if (badDudes2[i].x + badDudes2[i].width < player.x + 4){
+				badDudes2[i].x+= canvas.width * 0.001;
+			}
+			if (badDudes2[i].y > player.y + (player.height - 4)){
+				badDudes2[i].y-= canvas.width * 0.001;
+			}
+			if (badDudes2[i].y + badDudes2[i].width < player.y + 4){
+				badDudes2[i].y+= canvas.width * 0.001;
+			}
 		}
 	}
 	
 //badDudes3 AI
 	for (i in badDudes3){
-		if (badDudes3[i].timer < 190){
-			if (badDudes3[i].x > player.x + (player.width - 4)){
-				badDudes3[i].x--;
+		if (badDudes3[i].x < player.x + canvas.width && badDudes3[i].x > player.x - canvas.width){
+			if (badDudes3[i].timer < 190){
+				if (badDudes3[i].x > player.x + (player.width - 4)){
+					badDudes3[i].x-= canvas.width * 0.0006;
+				}
+				if (badDudes3[i].x + badDudes3[i].width < player.x + 4){
+					badDudes3[i].x+= canvas.width * 0.0006;
+				}
+				if (badDudes3[i].y > player.y + (player.height - 4)){
+					badDudes3[i].y-= canvas.width * 0.0006;
+				}
+				if (badDudes3[i].y + badDudes3[i].width < player.y + 4){
+					badDudes3[i].y+= canvas.width * 0.0006;
+				}
 			}
-			if (badDudes3[i].x + badDudes3[i].width < player.x + 4){
-				badDudes3[i].x++;
+			else if (badDudes3[i].timer == 265){
+				badBullets.push({
+					dir: "up",
+					x: badDudes3[i].x + (spriteSizes * 0.2),
+					y: badDudes3[i].y,
+					width: 0.138 * spriteSizes,
+					height: 0.138 * spriteSizes
+				});
+				badBullets.push({
+					dir: "front",
+					x: badDudes3[i].x + (spriteSizes * 0.2),
+					y: badDudes3[i].y + spriteSizes,
+					width: 0.138 * spriteSizes,
+					height: 0.138 * spriteSizes
+				});
+				badBullets.push({
+					dir: "right",
+					x: badDudes3[i].x + spriteSizes,
+					y: badDudes3[i].y + (spriteSizes * 0.2),
+					width: 0.138 * spriteSizes,
+					height: 0.138 * spriteSizes
+				});
+				badBullets.push({
+					dir: "left",
+					x: badDudes3[i].x,
+					y: badDudes3[i].y + (spriteSizes * 0.2),
+					width: 0.138 * spriteSizes,
+					height: 0.138 * spriteSizes
+				});
 			}
-			if (badDudes3[i].y > player.y + (player.height - 4)){
-				badDudes3[i].y--;
+			else if (badDudes3[i].timer > 320){
+				badDudes3[i].timer = 0;
 			}
-			if (badDudes3[i].y + badDudes3[i].width < player.y + 4){
-				badDudes3[i].y++;
-			}
+			badDudes3[i].timer++;
 		}
-		else if (badDudes3[i].timer == 265){
-			badBullets.push({
-				dir: "up",
-				x: badDudes3[i].x + (spriteSizes * 0.2),
-				y: badDudes3[i].y,
-				width: 0.138 * spriteSizes,
-				height: 0.138 * spriteSizes
-			});
-			badBullets.push({
-				dir: "front",
-				x: badDudes3[i].x + (spriteSizes * 0.2),
-				y: badDudes3[i].y + spriteSizes,
-				width: 0.138 * spriteSizes,
-				height: 0.138 * spriteSizes
-			});
-			badBullets.push({
-				dir: "right",
-				x: badDudes3[i].x + spriteSizes,
-				y: badDudes3[i].y + (spriteSizes * 0.2),
-				width: 0.138 * spriteSizes,
-				height: 0.138 * spriteSizes
-			});
-			badBullets.push({
-				dir: "left",
-				x: badDudes3[i].x,
-				y: badDudes3[i].y + (spriteSizes * 0.2),
-				width: 0.138 * spriteSizes,
-				height: 0.138 * spriteSizes
-			});
-		}
-		else if (badDudes3[i].timer > 320){
-			badDudes3[i].timer = 0;
-		}
-		badDudes3[i].timer++;
 	}
 //sock puppets AI
 	for (i in sockPuppets){
@@ -595,55 +625,22 @@ function update(mod) {
 		badBullets = [];
 		if (restartSwitch == 0){
 			restartSwitch = 1;
-			setTimeout(restart, 4000);
+			setTimeout(populateRoom, 4000);
 		}
 	}
-}
-
-function restart(){
-//declare variables
-	direction = "right";
-	restartSwitch = 0;
-	animateSpeedControl = 0;
-	bulControl = 0;
-	bulTrigger = 0;
-	bullSpeed = canvas.width * 0.00461;
-	bullFreq = 12;
-	moveMe = "false";
-	roomNum = 1;
-	powerLevel = 0;
-	gameover = false;
-	dirLead = "default";
-	keysDown = {};
-	keysUp = {};
-//declare arrays
-	runPower = [];
-	shootPower = [];
-	frequentPower = [];
-	badUFOs = [];
-	badDudes2 = [];
-	sockPuppets = [];
-	fires = [];
-//declare randomness
-	runPowerLocX = Math.floor((Math.random() * (gridWidth - 1)) + 1);
-	runPowerLocY = Math.floor((Math.random() * (gridHeight - 1)) + 1);
-	shootPowerLocX = Math.floor((Math.random() * (gridWidth - 1)) + 1);
-	shootPowerLocY = Math.floor((Math.random() * (gridHeight - 1)) + 1);
-	frequentPowerLocX = Math.floor((Math.random() * (gridWidth - 1)) + 1);
-	frequentPowerLocY = Math.floor((Math.random() * (gridHeight - 1)) + 1);
-	
-//define the main player object
-	player.sx = 0;
-		player.sy = 0;
-		player.swidth = 50;
-		player.sheight = 50;
-		player.x = (canvas.width / 2) - spriteSizes;
-		player.y = (canvas.height / 2) - spriteSizes;
-		player.width = spriteSizes;
-		player.height = spriteSizes;
-		player.speed = canvas.width * 0.134;
-	player.bulxPos = player.x + (0.444 * spriteSizes);
-	player.bulyPos = player.y + (0.388 * spriteSizes);
+//animate gems
+	for (i in gems){
+		if (gems[i].sx < 800){
+			gems[i].sx += 100;
+		}else{
+			gems[i].sx = 0;
+		}
+		gems[i].collect(i);
+	}
+//spring bounce
+	for (i in springs){
+		springs[i].bounce(i);
+	}
 }
 
 function spitBullets(){
@@ -772,6 +769,10 @@ ctx.fillStyle = player.color;
 		ctx.drawImage(imageObj.blocks.breakable, breakables[i].sx, breakables[i].sy, breakables[i].swidth, breakables[i].sheight, breakables[i].x, breakables[i].y, breakables[i].width, breakables[i].height);
 	}
 	
+	for (i = 0; i < springs.length; i++){
+		ctx.drawImage(imageObj.blocks.spring, springs[i].x, springs[i].y, springs[i].width, springs[i].height);
+	}	
+	
 	for (i = 0; i < runPower.length; i++){
 		ctx.drawImage(imageObj.powerUps.runImage, runPower[i].x, runPower[i].y, runPower[i].width, runPower[i].height);
 	}
@@ -782,6 +783,10 @@ ctx.fillStyle = player.color;
 	
 	for (i = 0; i < frequentPower.length; i++){
 		ctx.drawImage(imageObj.powerUps.frequentImage, frequentPower[i].x, frequentPower[i].y, frequentPower[i].width, frequentPower[i].height);
+	}
+	
+	for (i = 0; i < gems.length; i++){
+		ctx.drawImage(imageObj.powerUps.gem, gems[i].sx, gems[i].sy, gems[i].swidth, gems[i].sheight, gems[i].x, gems[i].y, gems[i].width, gems[i].height); 
 	}
 	
 	for (i in badUFOs){
@@ -803,8 +808,9 @@ ctx.fillStyle = player.color;
 	}
 	ctx.font = canvas.width * 0.017  + "px Arial";
 	ctx.fillStyle = "black";
-	ctx.fillText("Score: " + powerLevel, spriteSizes * (gridWidth * 0.14), spriteSizes / 1.6);	
-	ctx.fillText("Treasure: " + powerLevel, spriteSizes * (gridWidth * 0.50), spriteSizes / 1.6);
+	ctx.fillText("Score: " + powerLevel, spriteSizes * (gridWidth * 0.10), spriteSizes / 1.6);	
+	ctx.fillText("Treasure: " + treasureScore, spriteSizes * (gridWidth * 0.40), spriteSizes / 1.6);
+	ctx.fillText("Level: " + roomNum, spriteSizes * (gridWidth * 0.60), spriteSizes / 1.6);	
 	
 	if (gameover == true){
 		ctx.font = canvas.width * 0.04  + "px Arial";
@@ -829,7 +835,7 @@ ctx.fillStyle = player.color;
 	
 	moveMe = "false";
 	
-	if (jumpTrigger > 0 && jumpTrigger < 32)
+	if (jumpTrigger > 0 && jumpTrigger < spriteSizes * 5)
 	{
 		jump = true;
 	}
@@ -837,6 +843,11 @@ ctx.fillStyle = player.color;
 	{
 		jumpTrigger = 0;
 		jump = false;
+	}
+	
+	if (player.goUp == true){
+		player.bounce();
+		player.bounceTrigger++;
 	}
 }
 //define collision function
@@ -999,8 +1010,10 @@ function damageTaken(){
 	for (i in badUFOs){
 		if (testColl(player.x, player.y, player.width, player.height, badUFOs[i].x, badUFOs[i].y, 
 			badUFOs[i].width, badUFOs[i].height) == true){
-			if (player.y + player.height > badUFOs[i].y + 7){
+			if (player.y + player.height > badUFOs[i].y + 8){
 				gameover = true;
+			}else{
+				player.goUp = true;
 			}
 			badUFOs.splice(i, 1);
 			break;
@@ -1009,8 +1022,10 @@ function damageTaken(){
 	for (i in badDudes2){
 		if (testColl(player.x, player.y, player.width, player.height, badDudes2[i].x, badDudes2[i].y, 
 			badDudes2[i].width, badDudes2[i].height) == true){
-			if (player.y + player.height > badDudes2[i].y + 7){
+			if (player.y + player.height > badDudes2[i].y + 8){
 				gameover = true;
+			}else{
+				player.goUp = true;
 			}
 			badDudes2.splice(i, 1);
 			break;
@@ -1019,8 +1034,10 @@ function damageTaken(){
 	for (i in badDudes3){
 		if (testColl(player.x, player.y, player.width, player.height, badDudes3[i].x, badDudes3[i].y, 
 			badDudes3[i].width, badDudes3[i].height) == true){
-			if (player.y + player.height > badDudes3[i].y + 7){
+			if (player.y + player.height > badDudes3[i].y + 8){
 				gameover = true;
+			}else{
+				player.goUp = true;
 			}
 			badDudes3.splice(i, 1);
 			break;
@@ -1029,8 +1046,10 @@ function damageTaken(){
 	for (i in sockPuppets){
 		if (testColl(player.x, player.y, player.width, player.height, sockPuppets[i].x, sockPuppets[i].y, 
 			sockPuppets[i].width, sockPuppets[i].height) == true){
-			if (player.y + player.height > sockPuppets[i].y + 7){
+			if (player.y + player.height > sockPuppets[i].y + 8){
 				gameover = true;
+			}else{
+				player.goUp = true;
 			}
 			sockPuppets.splice(i, 1);
 			break;
@@ -1063,6 +1082,9 @@ function run() {
 	bulletDestroy();
 	damageTaken();
 	requestAnimFrame(run);
+	if (player.x > canvas.width - 8 || player.x < 0 - (spriteSizes * 0.5)){
+		populateRoom();
+	}
 }
 
 var time = Date.now();
