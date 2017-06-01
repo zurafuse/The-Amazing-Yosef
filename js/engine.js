@@ -808,9 +808,9 @@ ctx.fillStyle = player.color;
 	}
 	ctx.font = canvas.width * 0.017  + "px Arial";
 	ctx.fillStyle = "black";
-	ctx.fillText("Score: " + powerLevel, spriteSizes * (gridWidth * 0.10), spriteSizes / 1.6);	
-	ctx.fillText("Treasure: " + treasureScore, spriteSizes * (gridWidth * 0.40), spriteSizes / 1.6);
-	ctx.fillText("Level: " + roomNum, spriteSizes * (gridWidth * 0.60), spriteSizes / 1.6);	
+	ctx.fillText("Score: " + powerLevel, spriteSizes * (gridWidth * 0.08), spriteSizes / 1.6);	
+	ctx.fillText("Treasure: " + treasureScore, spriteSizes * (gridWidth * 0.38), spriteSizes / 1.6);
+	ctx.fillText("Level: " + roomNum, spriteSizes * (gridWidth * 0.80), spriteSizes / 1.6);	
 	
 	if (gameover == true){
 		ctx.font = canvas.width * 0.04  + "px Arial";

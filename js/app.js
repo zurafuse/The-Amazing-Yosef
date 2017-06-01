@@ -58,6 +58,7 @@ var imageObj = {
 		palm: new Image(),
 		cloud: new Image(),
 		cloud2: new Image(),
+		arrow: new Image(),
 		cloud_background: new Image(),
 		forest_background: new Image(),
 		green_background: new Image(),
@@ -97,6 +98,7 @@ var imageObj = {
 		this.backgrounds.rainbow.src = "images/rainbow.png";		
 		this.backgrounds.cloud.src = "images/cloud.png";
 		this.backgrounds.cloud2.src = "images/cloud2.png";
+		this.backgrounds.arrow.src = "images/arrow.png";		
 		this.backgrounds.cloud_background.src = "images/cloud_background.png";
 		this.backgrounds.forest_background.src = "images/forest_background.png";
 		this.backgrounds.green_background.src = "images/green_background.png";
@@ -159,16 +161,16 @@ var frequentPowerLocY = Math.floor((Math.random() * (gridHeight - 1)) + 1);
 
 //Create blocks class
 var blockClass = function(inputx, inputy, inputpic){
-	this.x = inputx,
-	this.y = inputy,
+	this.x = spriteSizes * inputx,
+	this.y = spriteSizes * inputy,
 	this.width = spriteSizes,
 	this.height = spriteSizes,
 	this.pic = inputpic
 };
 //Create breakables class
 var breakClass = function(inputx, inputy){
-	this.x = inputx;
-	this.y = inputy;
+	this.x = spriteSizes * inputx;
+	this.y = spriteSizes * inputy;
 	this.width = spriteSizes;
 	this.height = spriteSizes;
 	this.sx = 0;
@@ -192,8 +194,8 @@ var springClass = function(inputx, inputy){
 };
 //Create badUFOs class
 var ufoClass = function(inputx, inputy){
-	this.x = inputx;
-	this.y = inputy;
+	this.x = inputx * spriteSizes;
+	this.y = inputy * spriteSizes;
 	this.width = spriteSizes;
 	this.height = spriteSizes;
 	this.dir = "left";
@@ -205,8 +207,8 @@ var batClass = function(inputx, inputy){
 	this.sy = 0;
 	this.swidth = 50;
 	this.sheight = 50;
-	this.x = inputx;
-	this.y = inputy;
+	this.x = inputx * spriteSizes;
+	this.y = inputy * spriteSizes;
 	this.width = spriteSizes;
 	this.height = spriteSizes;
 };
@@ -216,8 +218,8 @@ var cloudClass = function (inputx, inputy){
 	this.sy = 0;
 	this.swidth = 50;
 	this.sheight = 50;
-	this.x = inputx;
-	this.y = inputy;
+	this.x = inputx * spriteSizes;
+	this.y = inputy * spriteSizes;
 	this.width = spriteSizes;
 	this.height = spriteSizes;
 	this.timer = 0;
@@ -228,8 +230,8 @@ var puppetClass = function(inputx, inputy){
 	this.sy = 0;
 	this.swidth = 100;
 	this.sheight = 162;
-	this.x = inputx;
-	this.y = inputy;
+	this.x = inputx * spriteSizes;
+	this.y = inputy * spriteSizes;
 	this.width = spriteSizes * 0.75;
 	this.height = spriteSizes;
 	this.timer = 0;
@@ -241,8 +243,8 @@ var fireClass = function(inputx, inputy){
 	this.sy = 0;
 	this.swidth = 50;
 	this.sheight = 50;
-	this.x = inputx;
-	this.y = inputy;
+	this.x = inputx * spriteSizes;
+	this.y = inputy * spriteSizes;
 	this.width = spriteSizes;
 	this.height = spriteSizes;
 };
@@ -267,16 +269,16 @@ var gemClass = function(inputx, inputy){
 };
 //Create backgrounds Class
 var backClass = function(inputx, inputy, pic, width, height){
-	this.x = inputx;
-	this.y = inputy;
+	this.x = inputx * spriteSizes;
+	this.y = inputy * spriteSizes;
 	this.width = spriteSizes * width;
 	this.height = spriteSizes * height;
 	this.pic = pic;
 };
 //Create forefront backgrounds Class
 var backClass2 = function(inputx, inputy, pic, width, height){
-	this.x = inputx;
-	this.y = inputy;
+	this.x = inputx * spriteSizes;
+	this.y = inputy * spriteSizes;
 	this.width = spriteSizes * width;
 	this.height = spriteSizes * height;
 	this.pic = pic;

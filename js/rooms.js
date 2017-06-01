@@ -1,3 +1,5 @@
+var groundLevel = (canvas.height / spriteSizes) - 1;
+var levelEnd = screenMax / spriteSizes;
 /*This function populates the screen with objects
 The location of the objects is dependent on which room you are in.
 */
@@ -71,27 +73,43 @@ function populateRoom(){
 	//define background
 			Background.pic = imageObj.backgrounds.hillBackground;
 	//blocks
-			for (i = 0; i < screenMax; i += spriteSizes){
-				if (i < spriteSizes * 29 || i > spriteSizes * 31){
-					blocks.push(new blockClass(i, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));
+			for (i = 0; i < levelEnd; i++){
+				if (i < 29 || i > 31){
+					blocks.push(new blockClass(i, groundLevel, imageObj.blocks.blockimg));
 				}
 			}
-			for (i = spriteSizes * 19; i < spriteSizes * 27; i += (spriteSizes)){
-				blocks.push(new blockClass(i, spriteSizes * 9, imageObj.blocks.blockimg2));
+			for (i = 19; i < 27; i++){
+				blocks.push(new blockClass(i, 9, imageObj.blocks.blockimg2));
 			}
-			for (i = spriteSizes * 20; i < spriteSizes * 26; i += spriteSizes){
-				blocks.push(new blockClass(i, spriteSizes * 8, imageObj.blocks.blockimg2));		
+			for (i = 20; i < 26; i++){
+				blocks.push(new blockClass(i, 8, imageObj.blocks.blockimg2));		
 			}
-			for (i = spriteSizes * 21; i < spriteSizes * 25; i += spriteSizes){
-				blocks.push(new blockClass(i, spriteSizes * 7, imageObj.blocks.blockimg2));		
+			for (i = 21; i < 25; i++){
+				blocks.push(new blockClass(i, 7, imageObj.blocks.blockimg2));		
 			}
-			blocks.push(new blockClass(screenMax, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));
+			blocks.push(new blockClass(40, 9, imageObj.blocks.blockimg2),
+				new blockClass(41, 9, imageObj.blocks.blockimg2),
+				new blockClass(40, 8, imageObj.blocks.blockimg2),
+				new blockClass(41, 8, imageObj.blocks.blockimg2),
+				
+				new blockClass(44, 9, imageObj.blocks.blockimg2),
+				new blockClass(45, 9, imageObj.blocks.blockimg2),
+				new blockClass(44, 8, imageObj.blocks.blockimg2),
+				new blockClass(45, 8, imageObj.blocks.blockimg2),
+				
+				new blockClass(48, 9, imageObj.blocks.blockimg2),
+				new blockClass(49, 9, imageObj.blocks.blockimg2),
+				new blockClass(48, 8, imageObj.blocks.blockimg2),
+				new blockClass(49, 8, imageObj.blocks.blockimg2)
+			)
+			
+			blocks.push(new blockClass(levelEnd, groundLevel, imageObj.blocks.blockimg));
 		//create breakables
-			breakables.push(new breakClass(spriteSizes * 4, spriteSizes * 7), new breakClass(spriteSizes * 5, spriteSizes * 7), 
-				new breakClass(spriteSizes * 6, spriteSizes * 7), new breakClass(spriteSizes * 13, spriteSizes * 7), new breakClass(spriteSizes * 14, spriteSizes * 6), 
-				new breakClass(spriteSizes * 15, spriteSizes * 6));
+			breakables.push(new breakClass(4, 7), new breakClass(5, 7), 
+				new breakClass(6, 7), new breakClass(13, 7), new breakClass(14, 6), 
+				new breakClass(15, 6));
 		//springs
-			springs.push(new springClass(2, 9));
+			springs.push(new springClass(38, 9));
 		//create powerUps
 			shootPower.push({
 				x: spriteSizes * 22,
@@ -102,39 +120,44 @@ function populateRoom(){
 			gems.push(new gemClass(12, 6), new gemClass (32, 6));
 	//function to generate bad guys and add them to arrays
 				//UFOs
-				badUFOs.push(new ufoClass(spriteSizes * 17, spriteSizes * 8), new ufoClass(spriteSizes * 30, spriteSizes * 8));
+				badUFOs.push(new ufoClass(37, 8), new ufoClass(50, 8));
 				//bats
-				badDudes2.push(new batClass(spriteSizes * 33, spriteSizes * 4), new batClass(spriteSizes * 48, spriteSizes * 4));
+				badDudes2.push(new batClass(38, 4), new batClass(64, 4));
 				//clouds
-				badDudes3.push(new cloudClass(spriteSizes * 28, spriteSizes * 3), new cloudClass(spriteSizes * 39, spriteSizes * 4));
+				badDudes3.push(new cloudClass(38, 3), new cloudClass(59, 4));
 				//puppets
-				sockPuppets.push(new puppetClass(spriteSizes * 23, spriteSizes * 6));
+				sockPuppets.push(new puppetClass(23, 6));
 				//fire
-				fires.push(new fireClass(spriteSizes * 17, spriteSizes * 9));
+				fires.push(new fireClass(17, 9));
+				fires.push(new fireClass(42, 9));
+				fires.push(new fireClass(43, 9));
+				fires.push(new fireClass(46, 9));
+				fires.push(new fireClass(47, 9));
 				//background objects
-				backgrounds.push(new backClass(spriteSizes * 13, spriteSizes * 8.5, imageObj.backgrounds.palm, 1, 1.5), 
-								new backClass(spriteSizes * 33, spriteSizes * 9, imageObj.backgrounds.shroom1, 1, 1),
-								new backClass(spriteSizes * 36, spriteSizes * 8, imageObj.backgrounds.rainbow, 2, 2),
-								new backClass(spriteSizes * 40, spriteSizes * 9, imageObj.backgrounds.tree, 1, 1),
-								new backClass(spriteSizes * 43, spriteSizes * 9, imageObj.backgrounds.tree2, 1, 1),
-								new backClass(spriteSizes * 48, spriteSizes * 9, imageObj.backgrounds.shroom2, 1, 1),
-								new backClass(spriteSizes * 53, spriteSizes * 9, imageObj.backgrounds.flower, 1, 1),
-								new backClass(spriteSizes * 23, spriteSizes * 4, imageObj.backgrounds.cloud, 2, 1),
-								new backClass(spriteSizes * 33, spriteSizes * 3, imageObj.backgrounds.cloud2, 2, 1),
-								new backClass(spriteSizes * 43, spriteSizes * 2, imageObj.backgrounds.cloud2, 2, 1),
-								new backClass(spriteSizes * 10, spriteSizes * 3, imageObj.backgrounds.cloud, 2, 1),
-								new backClass(spriteSizes * 53, spriteSizes * 4, imageObj.backgrounds.cloud, 2, 1)
+				backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
+								new backClass(33, 9, imageObj.backgrounds.shroom1, 1, 1),
+								new backClass(36, 8, imageObj.backgrounds.rainbow, 2, 2),
+								new backClass(40, 9, imageObj.backgrounds.tree, 1, 1),
+								new backClass(43, 9, imageObj.backgrounds.tree2, 1, 1),
+								new backClass(48, 9, imageObj.backgrounds.shroom2, 1, 1),
+								new backClass(53, 9, imageObj.backgrounds.flower, 1, 1),
+								new backClass(3, 4, imageObj.backgrounds.cloud, 2, 1),
+								new backClass(33, 3, imageObj.backgrounds.cloud2, 2, 1),
+								new backClass(43, 2, imageObj.backgrounds.cloud2, 2, 1),
+								new backClass(10, 3, imageObj.backgrounds.cloud, 2, 1),
+								new backClass(53, 4, imageObj.backgrounds.cloud, 2, 1),
+								new backClass(78, 8, imageObj.backgrounds.arrow, 2, 2)
 								);
 				//front backgrounds
-				backgrounds2.push(new backClass2(spriteSizes * 32, spriteSizes * 9, imageObj.backgrounds.crystalBush, 1, 1), 
-					new backClass2(spriteSizes * 8, (spriteSizes * 9) + (spriteSizes * 0.5), imageObj.backgrounds.flower2, 0.5, 0.5),
-					new backClass2(spriteSizes * 4, spriteSizes * 9, imageObj.backgrounds.flower, 1, 1),
-					new backClass2(spriteSizes * 6, spriteSizes * 9, imageObj.backgrounds.shroom2, 1, 1),
-					new backClass2(spriteSizes * 35, spriteSizes * 9, imageObj.backgrounds.tree, 1, 1),
-					new backClass2(spriteSizes * 50, spriteSizes * 9, imageObj.backgrounds.flower2, 1, 1),
-					new backClass2(spriteSizes * 58, spriteSizes * 9 + (spriteSizes * 0.5), imageObj.backgrounds.shroom1, .5, .5),
-					new backClass2(spriteSizes * 66, spriteSizes * 8 + (spriteSizes * 0.5), imageObj.backgrounds.palm, 1, 1.5),
-					new backClass(spriteSizes * 63, spriteSizes * 8, imageObj.backgrounds.rainbow, 3, 2)			
+				backgrounds2.push(new backClass2(32, 9, imageObj.backgrounds.crystalBush, 1, 1), 
+					new backClass2(8, 9.5, imageObj.backgrounds.flower2, 0.5, 0.5),
+					new backClass2(4, 9, imageObj.backgrounds.flower, 1, 1),
+					new backClass2(6, 9, imageObj.backgrounds.shroom2, 1, 1),
+					new backClass2(35, 9, imageObj.backgrounds.tree, 1, 1),
+					new backClass2(50, 9, imageObj.backgrounds.flower2, 1, 1),
+					new backClass2(58, 9.5, imageObj.backgrounds.shroom1, .5, .5),
+					new backClass2(66, 8.5, imageObj.backgrounds.palm, 1, 1.5),
+					new backClass(63, 8, imageObj.backgrounds.rainbow, 3, 2)					
 				);	
 		}
 		//Room 2
@@ -142,90 +165,135 @@ function populateRoom(){
 	//define background
 			Background.pic = imageObj.backgrounds.forest_background;
 	//blocks
-			for (i = 0; i < screenMax; i += spriteSizes){
-				blocks.push(new blockClass(i, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));
+			for (i = 0; i < levelEnd; i ++){
+				blocks.push(new blockClass(i, groundLevel, imageObj.blocks.blockimg4));
 			}
-			blocks.push(new blockClass(screenMax, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));		
+			blocks.push(new blockClass(levelEnd, groundLevel, imageObj.blocks.blockimg4));	
+			//background objects
+			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
+			
+				new backClass(78, 8, imageObj.backgrounds.arrow, 2, 2)
+			);			
 		}
 		//Room 3
 		else if (roomNum == 3){
 	//define background
 			Background.pic = imageObj.backgrounds.green_background;
 	//blocks
-			for (i = 0; i < screenMax; i += spriteSizes){
-				blocks.push(new blockClass(i, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));
+			for (i = 0; i < levelEnd; i ++){
+				blocks.push(new blockClass(i, groundLevel, imageObj.blocks.blockimg));
 			}
-			blocks.push(new blockClass(screenMax, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));			
+			blocks.push(new blockClass(levelEnd, groundLevel, imageObj.blocks.blockimg));
+	//backgrounds
+			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
+			
+				new backClass(78, 8, imageObj.backgrounds.arrow, 2, 2)
+			);			
 		}
 		//Room 4
 		else if (roomNum == 4){
 	//define background
 			Background.pic = imageObj.backgrounds.heiro_background;
 	//blocks
-			for (i = 0; i < screenMax; i += spriteSizes){
-				blocks.push(new blockClass(i, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));
+			for (i = 0; i < levelEnd; i ++){
+				blocks.push(new blockClass(i, groundLevel, imageObj.blocks.blockimg));
 			}
-			blocks.push(new blockClass(screenMax, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));			
+			blocks.push(new blockClass(levelEnd, groundLevel, imageObj.blocks.blockimg));
+	//backgrounds
+			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5),
+			
+				new backClass(78, 8, imageObj.backgrounds.arrow, 2, 2)
+			);				
 		}
 		//Room 5	
 		else if (roomNum == 5){
 	//define background
 			Background.pic = imageObj.backgrounds.cloud_background;
 	//blocks
-			for (i = 0; i < screenMax; i += spriteSizes){
-				blocks.push(new blockClass(i, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));
+			for (i = 0; i < levelEnd; i ++){
+				blocks.push(new blockClass(i, groundLevel, imageObj.blocks.blockimg5));
 			}
-			blocks.push(new blockClass(screenMax, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));			
+			blocks.push(new blockClass(levelEnd, groundLevel, imageObj.blocks.blockimg5));
+	//backgrounds
+			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
+			
+				new backClass(78, 8, imageObj.backgrounds.arrow, 2, 2)
+			);				
 		}
 		//Room 6	
 		else if (roomNum == 6){
 	//define background
 			Background.pic = imageObj.backgrounds.hillBackground;
 	//blocks
-			for (i = 0; i < screenMax; i += spriteSizes){
-				blocks.push(new blockClass(i, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));
+			for (i = 0; i < levelEnd; i ++){
+				blocks.push(new blockClass(i, groundLevel, imageObj.blocks.blockimg));
 			}
-			blocks.push(new blockClass(screenMax, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));			
+			blocks.push(new blockClass(levelEnd, groundLevel, imageObj.blocks.blockimg));
+	//backgrounds
+			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
+			
+				new backClass(78, 8, imageObj.backgrounds.arrow, 2, 2)
+			);				
 		}
 		//Room 7	
 		else if (roomNum == 7){
 	//define background
 			Background.pic = imageObj.backgrounds.green_background;
 	//blocks
-			for (i = 0; i < screenMax; i += spriteSizes){
-				blocks.push(new blockClass(i, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));
+			for (i = 0; i < levelEnd; i ++){
+				blocks.push(new blockClass(i, groundLevel, imageObj.blocks.blockimg));
 			}
-			blocks.push(new blockClass(screenMax, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));			
+			blocks.push(new blockClass(levelEnd, groundLevel, imageObj.blocks.blockimg));	
+	//backgrounds
+			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
+			
+				new backClass(78, 8, imageObj.backgrounds.arrow, 2, 2)
+			);				
 		}
 		//Room 8	
 		else if (roomNum == 8){
 	//define background
 			Background.pic = imageObj.backgrounds.forest_background;
 	//blocks
-			for (i = 0; i < screenMax; i += spriteSizes){
-				blocks.push(new blockClass(i, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));
+			for (i = 0; i < levelEnd; i ++){
+				blocks.push(new blockClass(i, groundLevel, imageObj.blocks.blockimg4));
 			}
-			blocks.push(new blockClass(screenMax, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));			
+			blocks.push(new blockClass(levelEnd, groundLevel, imageObj.blocks.blockimg4));
+	//backgrounds
+			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
+			
+				new backClass(78, 8, imageObj.backgrounds.arrow, 2, 2)
+			);				
 		}
 		//Room 9	
 		else if (roomNum == 9){
 	//define background
 			Background.pic = imageObj.backgrounds.cloud_background;
 	//blocks
-			for (i = 0; i < screenMax; i += spriteSizes){
-				blocks.push(new blockClass(i, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));
+			for (i = 0; i < levelEnd; i ++){
+				blocks.push(new blockClass(i, groundLevel, imageObj.blocks.blockimg5));
 			}
-			blocks.push(new blockClass(screenMax, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));			
+			blocks.push(new blockClass(levelEnd, groundLevel, imageObj.blocks.blockimg5));	
+	//backgrounds
+			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
+			
+				new backClass(78, 8, imageObj.backgrounds.arrow, 2, 2)
+			);				
 		}
 		//Room 10	
 		else if (roomNum == 10){
 	//define background
 			Background.pic = imageObj.backgrounds.heiro_background;
 	//blocks
-			for (i = 0; i < screenMax; i += spriteSizes){
-				blocks.push(new blockClass(i, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));
+			for (i = 0; i < levelEnd; i ++){
+				blocks.push(new blockClass(i, groundLevel, imageObj.blocks.blockimg));
 			}
-			blocks.push(new blockClass(screenMax, canvas.height - (spriteSizes - 1), imageObj.blocks.blockimg));			
+			blocks.push(new blockClass(levelEnd, groundLevel, imageObj.blocks.blockimg));
+	//backgrounds
+			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
+			
+				new backClass(78, 8, imageObj.backgrounds.arrow, 2, 2)
+			);				
 		}
 		
 		if (player.entry == "right"){
