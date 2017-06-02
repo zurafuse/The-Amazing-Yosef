@@ -1,6 +1,6 @@
 # THE AMAZING YOSEF
 
-The Amazing Yosef is a platform survival game using the same javascript engine used to make Flag Survival. I added a little bit of physics such as gravity and the ability to jump. Use the arrow keys to move around, use the UP arrow key to jump, and use space bar to shoot.
+The Amazing Yosef is a platform survival game created using pure javascript code. I added a little bit of physics such as gravity and the ability to jump. Use the arrow keys to move around, use the UP arrow key to jump, and use space bar to shoot.
 
 ## Ownership and Licensing
 
