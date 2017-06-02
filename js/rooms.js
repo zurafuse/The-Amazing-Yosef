@@ -74,17 +74,17 @@ function populateRoom(){
 			Background.pic = imageObj.backgrounds.hillBackground;
 	//blocks
 			for (i = 0; i < levelEnd; i++){
-				if (i < 29 || i > 31){
+				if ((i < 29 || i > 31) && i != 69 && i != 70){
 					blocks.push(new blockClass(i, groundLevel, imageObj.blocks.blockimg));
 				}
 			}
-			for (i = 19; i < 27; i++){
+			for (i = 20; i < 28; i++){
 				blocks.push(new blockClass(i, 9, imageObj.blocks.blockimg2));
 			}
-			for (i = 20; i < 26; i++){
+			for (i = 21; i < 27; i++){
 				blocks.push(new blockClass(i, 8, imageObj.blocks.blockimg2));		
 			}
-			for (i = 21; i < 25; i++){
+			for (i = 22; i < 26; i++){
 				blocks.push(new blockClass(i, 7, imageObj.blocks.blockimg2));		
 			}
 			blocks.push(new blockClass(40, 9, imageObj.blocks.blockimg2),
@@ -105,34 +105,40 @@ function populateRoom(){
 			
 			blocks.push(new blockClass(levelEnd, groundLevel, imageObj.blocks.blockimg));
 		//create breakables
-			breakables.push(new breakClass(4, 7), new breakClass(5, 7), 
-				new breakClass(6, 7), new breakClass(13, 7), new breakClass(14, 6), 
+			breakables.push(new breakClass(3, 7), new breakClass(4, 7), 
+				new breakClass(5, 7), new breakClass(13, 7), new breakClass(14, 6), 
 				new breakClass(15, 6));
+			breakables.push(new breakClass(54, 7), new breakClass(55, 7), new breakClass(56, 7),
+				new breakClass(62, 7), new breakClass(63, 7), new breakClass(64, 7)); 
 		//springs
 			springs.push(new springClass(38, 9));
 		//create powerUps
 			shootPower.push({
-				x: spriteSizes * 22,
+				x: spriteSizes * 24,
 				y: spriteSizes * 6,
 				width: spriteSizes * 0.5,
 				height: spriteSizes
 			});
-			gems.push(new gemClass(12, 6), new gemClass (32, 6));
+			gems.push(new gemClass(12, 6), new gemClass (32, 6), new gemClass(6, 6), new gemClass(11, 9), 
+				new gemClass(12, 9), new gemClass(13, 9), new gemClass(23, 5), new gemClass(24, 5),
+				new gemClass(25, 5), new gemClass(58, 7), new gemClass(59, 7), new gemClass(60, 7),
+				new gemClass(42, 6), new gemClass(45, 6), new gemClass(49, 6));
 	//function to generate bad guys and add them to arrays
 				//UFOs
 				badUFOs.push(new ufoClass(37, 8), new ufoClass(50, 8));
 				//bats
-				badDudes2.push(new batClass(38, 4), new batClass(64, 4));
+				badDudes2.push(new batClass(58, 4), new batClass(66, 4));
 				//clouds
-				badDudes3.push(new cloudClass(38, 3), new cloudClass(59, 4));
+				badDudes3.push(new cloudClass(55, 3), new cloudClass(69, 4));
 				//puppets
-				sockPuppets.push(new puppetClass(23, 6));
+				sockPuppets.push(new puppetClass(41, 7), new puppetClass(66, 9));
 				//fire
 				fires.push(new fireClass(17, 9));
 				fires.push(new fireClass(42, 9));
 				fires.push(new fireClass(43, 9));
 				fires.push(new fireClass(46, 9));
 				fires.push(new fireClass(47, 9));
+				fires.push(new fireClass(75, 9));
 				//background objects
 				backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
 								new backClass(33, 9, imageObj.backgrounds.shroom1, 1, 1),
