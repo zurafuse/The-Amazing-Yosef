@@ -537,50 +537,25 @@ function populateRoom(){
 		}else{
 			rooms.number = 1;
 		}
-		
-		if (rooms.number == 1){
+
 	//define background
-			Background.pic = imageObj.backgrounds.hillBackground;
+			Background.pic = rooms.rooms[rooms.number].background;
 	//blocks
 			for (i = 0; i < rooms.levelEnd; i++){
-				if ((i < 29 || i > 31) && i != 69 && i != 70){
 					blocks.push(new blockClass(i, rooms.groundLevel, imageObj.blocks.blockimg));
-				}
 			}
-			for (i = 20; i < 28; i++){
-				blocks.push(new blockClass(i, 9, imageObj.blocks.blockimg2));
+
+	//populate everything
+			for (i in rooms.rooms[rooms.number].blocks){
+				new blockClass(rooms.rooms[rooms.number].blocks[i].x, rooms.rooms[rooms.number].blocks[i].y, rooms.rooms[rooms.number].blocks[i].img);
 			}
-			for (i = 21; i < 27; i++){
-				blocks.push(new blockClass(i, 8, imageObj.blocks.blockimg2));		
-			}
-			for (i = 22; i < 26; i++){
-				blocks.push(new blockClass(i, 7, imageObj.blocks.blockimg2));		
-			}
-			blocks.push(new blockClass(40, 9, imageObj.blocks.blockimg2),
-				new blockClass(41, 9, imageObj.blocks.blockimg2),
-				new blockClass(40, 8, imageObj.blocks.blockimg2),
-				new blockClass(41, 8, imageObj.blocks.blockimg2),
-				
-				new blockClass(44, 9, imageObj.blocks.blockimg2),
-				new blockClass(45, 9, imageObj.blocks.blockimg2),
-				new blockClass(44, 8, imageObj.blocks.blockimg2),
-				new blockClass(45, 8, imageObj.blocks.blockimg2),
-				
-				new blockClass(48, 9, imageObj.blocks.blockimg2),
-				new blockClass(49, 9, imageObj.blocks.blockimg2),
-				new blockClass(48, 8, imageObj.blocks.blockimg2),
-				new blockClass(49, 8, imageObj.blocks.blockimg2)
-			)
-			
 			blocks.push(new blockClass(rooms.levelEnd, rooms.groundLevel, imageObj.blocks.blockimg));
-		//create breakables
-			breakables.push(new breakClass(3, 7), new breakClass(4, 7), 
-				new breakClass(5, 7), new breakClass(13, 7), new breakClass(14, 6), 
-				new breakClass(15, 6));
-			breakables.push(new breakClass(54, 7), new breakClass(55, 7), new breakClass(56, 7),
-				new breakClass(62, 7), new breakClass(63, 7), new breakClass(64, 7)); 
+		//create breakables 
+			for (i in rooms.rooms[rooms.number].blocks){		
+				breakables.push(new breakClass(rooms.rooms[rooms.number].breakables[i].x, rooms.rooms[rooms.number].breakables[i].y));
+			}
 		//springs
-			springs.push(new springClass(38, 9));
+			springs.push(new springClass(i.x, i.y));
 		//create powerUps
 			shootPower.push({
 				x: spriteSizes * 24,
@@ -634,7 +609,7 @@ function populateRoom(){
 					new backClass2(66, 8.5, imageObj.backgrounds.palm, 1, 1.5),
 					new backClass(63, 8, imageObj.backgrounds.rainbow, 3, 2)					
 				);	
-		}
+			
 		//Room 2
 		else if (rooms.number == 2){
 	//define background
