@@ -12,7 +12,6 @@ var requestAnimFrame =  window.requestAnimationFrame ||
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth - 180;
-var screenMax = canvas.width * 4;
 
 var gridWidth = 21;
 var gridHeight = 11;
@@ -118,7 +117,6 @@ var bulTrigger = 0;
 var bullSpeed = canvas.width * 0.00461;
 var bullFreq = 12;
 var moveMe = "false";
-var roomNum = 0;
 var health = 200;
 var powerLevel = 0;
 var treasureScore = 0;

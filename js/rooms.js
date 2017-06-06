@@ -1,5 +1,474 @@
-var groundLevel = (canvas.height / spriteSizes) - 1;
-var levelEnd = screenMax / spriteSizes;
+var rooms = {
+	number: 0,
+	screenMax: canvas.width * 4,
+	groundLevel: (canvas.height / spriteSizes) - 1,
+	levelEnd: rooms.screenMax / spriteSizes,	
+	rooms: [
+	//[0] room 1
+		{
+			background: imageObj.backgrounds.hillBackground,
+			blocks: [
+				{x: 20, y: 9, img: imageObj.blocks.blockimg2}, {x: 21, y: 9, img: imageObj.blocks.blockimg2},
+				{x: 22, y: 9, img: imageObj.blocks.blockimg2}, {x: 23, y: 9, img: imageObj.blocks.blockimg2},
+				{x: 24, y: 9, img: imageObj.blocks.blockimg2}, {x: 25, y: 9, img: imageObj.blocks.blockimg2},
+				{x: 26, y: 9, img: imageObj.blocks.blockimg2}, {x: 27, y: 9, img: imageObj.blocks.blockimg2},
+				{x: 21, y: 8, img: imageObj.blocks.blockimg2}, {x: 22, y: 8, img: imageObj.blocks.blockimg2},
+				{x: 23, y: 8, img: imageObj.blocks.blockimg2}, {x: 24, y: 8, img: imageObj.blocks.blockimg2},			
+				{x: 25, y: 8, img: imageObj.blocks.blockimg2}, {x: 26, y: 8, img: imageObj.blocks.blockimg2},
+				{x: 23, y: 7, img: imageObj.blocks.blockimg2}, {x: 24, y: 7, img: imageObj.blocks.blockimg2},			
+				{x: 25, y: 7, img: imageObj.blocks.blockimg2},
+				{x: 40, y: 9, img: imageObj.blocks.blockimg2}, {x: 41, y: 9, img: imageObj.blocks.blockimg2},			
+				{x: 40, y: 8, img: imageObj.blocks.blockimg2}, {x: 41, y: 8, img: imageObj.blocks.blockimg2},	
+				{x: 44, y: 9, img: imageObj.blocks.blockimg2}, {x: 45, y: 9, img: imageObj.blocks.blockimg2},			
+				{x: 44, y: 8, img: imageObj.blocks.blockimg2}, {x: 45, y: 8, img: imageObj.blocks.blockimg2},	
+				{x: 48, y: 9, img: imageObj.blocks.blockimg2}, {x: 49, y: 9, img: imageObj.blocks.blockimg2},			
+				{x: 48, y: 8, img: imageObj.blocks.blockimg2}, {x: 49, y: 8, img: imageObj.blocks.blockimg2}			
+			],
+			breakables: [
+				{x:3, y:7}, {x:4 , y:7}, {x:5 , y:7}, 
+				{x:13 , y:7}, {x:14 , y:6}, {x:54 , y:7}, 
+				{x:15 , y:6}, {x:55 , y:7}, {x:56 , y:7}, 
+				{x:62 , y:7}, {x:63 , y:7}, {x:64 , y:7}
+			],
+			enemies: {
+				ufos: [
+					{x:37, y:8}, {x:50, y:8}
+				],
+				bats: [
+					{x:58 , y:4 }, {x:66 , y:4 }
+				],
+				clouds: [
+					{x:55, y:3}, {x:69, y:4}
+				],
+				puppets: [
+					{x:41, y:7}, {x:66, y:9}
+				],
+				fire: [
+					{x:17, y:9}, {x:42, y:9}, {x:43, y:9}, 
+					{x:46, y:9}, {x:47, y:9}, {x:75, y:9}
+				]			
+			},
+			springs: [
+				{x: 38, y: 9}				
+			],
+			gems: [
+				{x:12, y:6}, {x:32, y:6}, {x:6, y:6},
+				{x:11, y:9}, {x:12, y:9}, {x:13, y:9},
+				{x:23, y:5}, {x:24, y:5}, {x:59, y:7},
+				{x:25, y:5}, {x:58, y:7}, {x:60, y:7},
+				{x:42, y:6}, {x:45, y:6}, {x:49, y:6}		
+			],
+			backgrounds: [
+				{x: 13, y: 8.5, img: imageObj.backgrounds.palm, width:1, height:1.5},
+				{x: 33, y: 9, img: imageObj.backgrounds.shroom1, width: 1, height: 1},
+				{x: 36, y: 8, img: imageObj.backgrounds.rainbow, width: 2, height: 2},
+				{x: 40, y: 9, img: imageObj.backgrounds.tree, width: 1, height: 1},
+				{x: 43, y: 9, img: imageObj.backgrounds.tree2, width: 1, height: 1},
+				{x: 48, y: 9, img: imageObj.backgrounds.shroom2, width: 1, height: 1},
+				{x: 53, y: 9, img: imageObj.backgrounds.flower, width: 1, height: 1},
+				{x: 3, y: 4, img: imageObj.backgrounds.cloud, width: 2, height: 1},
+				{x: 33, y: 3, img: imageObj.backgrounds.cloud2, width: 2, height: 1},
+				{x: 43, y: 2, img: imageObj.backgrounds.cloud2, width: 2, height: 1},
+				{x: 10, y: 3, img: imageObj.backgrounds.cloud, width: 2, height: 1},
+				{x: 53, y: 4, img: imageObj.backgrounds.cloud, width: 2, height: 1},
+				{x: 78, y: 8, img: imageObj.backgrounds.arrow, width: 2, height: 2}				
+			],
+			backgrounds2: [
+				{x: 32, y: 9, img: imageObj.backgrounds.crystalBush, width: 1, height: 1},
+				{x: 8, y: 9.5, img: imageObj.backgrounds.flower2, width: .5, height: .5},
+				{x: 4, y: 9, img: imageObj.backgrounds.flower, width: 1, height: 1},				
+				{x: 6, y: 9, img: imageObj.backgrounds.shroom2, width: 1, height: 1},
+				{x: 35, y: 9, img: imageObj.backgrounds.tree, width: 1, height: 1},
+				{x: 50, y: 9, img: imageObj.backgrounds.flower2, width: 1, height: 1},
+				{x: 58, y: 9.5, img: imageObj.backgrounds.shroom1, width: .5, height: .5},
+				{x: 66, y: 8.5, img: imageObj.backgrounds.palm, width: 1, height: 1.5},
+				{x: 63, y: 8, img: imageObj.backgrounds.rainbow, width: 3, height: 2}			
+			],
+			shootPower: [
+				{x: 24, y: 6}
+			]			
+		},
+	//[1] room 2
+		{
+			background: imageObj.backgrounds.forest_background,
+			blocks: [
+				{x: , y: , img: }
+			],
+			breakables: [
+				{x: , y: }			
+			],
+			enemies: [
+				ufos: [
+					{x: , y: }
+				],
+				bats: [
+					{x: , y: }
+				],
+				clouds: [
+					{x: , y: }
+				],
+				puppets: [
+					{x: , y: }
+				],
+				fire: [
+					{x: , y: }
+				]			
+			],
+			springs: [
+				{x: , y: }				
+			],
+			gems: [
+				{x: , y: }			
+			],
+			backgrounds: [
+				{x: , y: , img: , width: , height: }
+			],
+			backgrounds2: [
+				{x: , y: , img: , width: , height: }			
+			],
+			shootPower: [
+				{x: , y: }
+			]			
+		},
+	//[2] room 3
+		{
+			background: imageObj.backgrounds.green_background,
+			blocks: [
+				{x: , y: , img: }
+			],
+			breakables: [
+				{x: , y: }			
+			],
+			enemies: [
+				ufos: [
+					{x: , y: }
+				],
+				bats: [
+					{x: , y: }
+				],
+				clouds: [
+					{x: , y: }
+				],
+				puppets: [
+					{x: , y: }
+				],
+				fire: [
+					{x: , y: }
+				]			
+			],
+			springs: [
+				{x: , y: }				
+			],
+			gems: [
+				{x: , y: }			
+			],
+			backgrounds: [
+				{x: , y: , img: , width: , height: }
+			],
+			backgrounds2: [
+				{x: , y: , img: , width: , height: }			
+			],
+			shootPower: [
+				{x: , y: }
+			]			
+		},
+	//[3] room 4
+		{
+			background: imageObj.backgrounds.heiro_background,
+			blocks: [
+				{x: , y: , img: }
+			],
+			breakables: [
+				{x: , y: }			
+			],
+			enemies: [
+				ufos: [
+					{x: , y: }
+				],
+				bats: [
+					{x: , y: }
+				],
+				clouds: [
+					{x: , y: }
+				],
+				puppets: [
+					{x: , y: }
+				],
+				fire: [
+					{x: , y: }
+				]			
+			],
+			springs: [
+				{x: , y: }				
+			],
+			gems: [
+				{x: , y: }			
+			],
+			backgrounds: [
+				{x: , y: , img: , width: , height: }
+			],
+			backgrounds2: [
+				{x: , y: , img: , width: , height: }			
+			],
+			shootPower: [
+				{x: , y: }
+			]			
+		},
+	//[4] room 5
+		{
+			background: imageObj.backgrounds.cloud_background,
+			blocks: [
+				{x: , y: , img: }
+			],
+			breakables: [
+				{x: , y: }			
+			],
+			enemies: [
+				ufos: [
+					{x: , y: }
+				],
+				bats: [
+					{x: , y: }
+				],
+				clouds: [
+					{x: , y: }
+				],
+				puppets: [
+					{x: , y: }
+				],
+				fire: [
+					{x: , y: }
+				]			
+			],
+			springs: [
+				{x: , y: }				
+			],
+			gems: [
+				{x: , y: }			
+			],
+			backgrounds: [
+				{x: , y: , img: , width: , height: }
+			],
+			backgrounds2: [
+				{x: , y: , img: , width: , height: }			
+			],
+			shootPower: [
+				{x: , y: }
+			]			
+		},
+	//[5] room 6
+		{
+			background: imageObj.backgrounds.hillBackground,
+			blocks: [
+				{x: , y: , img: }
+			],
+			breakables: [
+				{x: , y: }			
+			],
+			enemies: [
+				ufos: [
+					{x: , y: }
+				],
+				bats: [
+					{x: , y: }
+				],
+				clouds: [
+					{x: , y: }
+				],
+				puppets: [
+					{x: , y: }
+				],
+				fire: [
+					{x: , y: }
+				]			
+			],
+			springs: [
+				{x: , y: }				
+			],
+			gems: [
+				{x: , y: }			
+			],
+			backgrounds: [
+				{x: , y: , img: , width: , height: }
+			],
+			backgrounds2: [
+				{x: , y: , img: , width: , height: }			
+			],
+			shootPower: [
+				{x: , y: }
+			]			
+		},
+	//[6] room 7
+		{
+			background: imageObj.backgrounds.green_background,
+			blocks: [
+				{x: , y: , img: }
+			],
+			breakables: [
+				{x: , y: }			
+			],
+			enemies: [
+				ufos: [
+					{x: , y: }
+				],
+				bats: [
+					{x: , y: }
+				],
+				clouds: [
+					{x: , y: }
+				],
+				puppets: [
+					{x: , y: }
+				],
+				fire: [
+					{x: , y: }
+				]			
+			],
+			springs: [
+				{x: , y: }				
+			],
+			gems: [
+				{x: , y: }			
+			],
+			backgrounds: [
+				{x: , y: , img: , width: , height: }
+			],
+			backgrounds2: [
+				{x: , y: , img: , width: , height: }			
+			],
+			shootPower: [
+				{x: , y: }
+			]			
+		},
+	//[7] room 8
+		{
+			background: imageObj.backgrounds.forest_background,
+			blocks: [
+				{x: , y: , img: }
+			],
+			breakables: [
+				{x: , y: }			
+			],
+			enemies: [
+				ufos: [
+					{x: , y: }
+				],
+				bats: [
+					{x: , y: }
+				],
+				clouds: [
+					{x: , y: }
+				],
+				puppets: [
+					{x: , y: }
+				],
+				fire: [
+					{x: , y: }
+				]			
+			],
+			springs: [
+				{x: , y: }				
+			],
+			gems: [
+				{x: , y: }			
+			],
+			backgrounds: [
+				{x: , y: , img: , width: , height: }
+			],
+			backgrounds2: [
+				{x: , y: , img: , width: , height: }			
+			],
+			shootPower: [
+				{x: , y: }
+			]			
+		},
+	//[8] room 9
+		{
+			background: imageObj.backgrounds.cloud_background,
+			blocks: [
+				{x: , y: , img: }
+			],
+			breakables: [
+				{x: , y: }			
+			],
+			enemies: [
+				ufos: [
+					{x: , y: }
+				],
+				bats: [
+					{x: , y: }
+				],
+				clouds: [
+					{x: , y: }
+				],
+				puppets: [
+					{x: , y: }
+				],
+				fire: [
+					{x: , y: }
+				]			
+			],
+			springs: [
+				{x: , y: }				
+			],
+			gems: [
+				{x: , y: }			
+			],
+			backgrounds: [
+				{x: , y: , img: , width: , height: }
+			],
+			backgrounds2: [
+				{x: , y: , img: , width: , height: }			
+			],
+			shootPower: [
+				{x: , y: }
+			]			
+		},
+	//[9] room 10
+		{
+			background: imageObj.backgrounds.heiro_background,
+			blocks: [
+				{x: , y: , img: }
+			],
+			breakables: [
+				{x: , y: }			
+			],
+			enemies: [
+				ufos: [
+					{x: , y: }
+				],
+				bats: [
+					{x: , y: }
+				],
+				clouds: [
+					{x: , y: }
+				],
+				puppets: [
+					{x: , y: }
+				],
+				fire: [
+					{x: , y: }
+				]			
+			],
+			springs: [
+				{x: , y: }				
+			],
+			gems: [
+				{x: , y: }			
+			],
+			backgrounds: [
+				{x: , y: , img: , width: , height: }
+			],
+			backgrounds2: [
+				{x: , y: , img: , width: , height: }			
+			],
+			shootPower: [
+				{x: , y: }
+			]			
+		}		
+	]
+};
+
 /*This function populates the screen with objects
 The location of the objects is dependent on which room you are in.
 */
@@ -18,7 +487,7 @@ function populateRoom(){
 		player.bulxPos = player.x + (0.444 * spriteSizes);
 		player.bulyPos = player.y + (0.388 * spriteSizes);
 //declare variables
-		roomNum = 0;
+		room.number = 0;
 		direction = "right";
 		restartSwitch = 0;
 		animateSpeedControl = 0;
@@ -63,19 +532,19 @@ function populateRoom(){
 	gameover = false;
 //Change rooms if player wins
 	if (player.x > canvas.width - 8 || player.x < 0 - (spriteSizes * 0.5)){
-		if (roomNum != 8){
-			roomNum++;
+		if (rooms.number != 10){
+			rooms.number++;
 		}else{
-			roomNum = 1;
+			rooms.number = 1;
 		}
 		
-		if (roomNum == 1){
+		if (rooms.number == 1){
 	//define background
 			Background.pic = imageObj.backgrounds.hillBackground;
 	//blocks
-			for (i = 0; i < levelEnd; i++){
+			for (i = 0; i < rooms.levelEnd; i++){
 				if ((i < 29 || i > 31) && i != 69 && i != 70){
-					blocks.push(new blockClass(i, groundLevel, imageObj.blocks.blockimg));
+					blocks.push(new blockClass(i, rooms.groundLevel, imageObj.blocks.blockimg));
 				}
 			}
 			for (i = 20; i < 28; i++){
@@ -103,7 +572,7 @@ function populateRoom(){
 				new blockClass(49, 8, imageObj.blocks.blockimg2)
 			)
 			
-			blocks.push(new blockClass(levelEnd, groundLevel, imageObj.blocks.blockimg));
+			blocks.push(new blockClass(rooms.levelEnd, rooms.groundLevel, imageObj.blocks.blockimg));
 		//create breakables
 			breakables.push(new breakClass(3, 7), new breakClass(4, 7), 
 				new breakClass(5, 7), new breakClass(13, 7), new breakClass(14, 6), 
@@ -167,14 +636,14 @@ function populateRoom(){
 				);	
 		}
 		//Room 2
-		else if (roomNum == 2){
+		else if (rooms.number == 2){
 	//define background
 			Background.pic = imageObj.backgrounds.forest_background;
 	//blocks
-			for (i = 0; i < levelEnd; i ++){
-				blocks.push(new blockClass(i, groundLevel, imageObj.blocks.blockimg4));
+			for (i = 0; i < rooms.levelEnd; i ++){
+				blocks.push(new blockClass(i, rooms.groundLevel, imageObj.blocks.blockimg4));
 			}
-			blocks.push(new blockClass(levelEnd, groundLevel, imageObj.blocks.blockimg4));	
+			blocks.push(new blockClass(rooms.levelEnd, rooms.groundLevel, imageObj.blocks.blockimg4));	
 			//background objects
 			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
 			
@@ -182,14 +651,14 @@ function populateRoom(){
 			);			
 		}
 		//Room 3
-		else if (roomNum == 3){
+		else if (rooms.number == 3){
 	//define background
 			Background.pic = imageObj.backgrounds.green_background;
 	//blocks
-			for (i = 0; i < levelEnd; i ++){
-				blocks.push(new blockClass(i, groundLevel, imageObj.blocks.blockimg));
+			for (i = 0; i < rooms.levelEndv; i ++){
+				blocks.push(new blockClass(i, rooms.groundLevel, imageObj.blocks.blockimg));
 			}
-			blocks.push(new blockClass(levelEnd, groundLevel, imageObj.blocks.blockimg));
+			blocks.push(new blockClass(rooms.levelEnd, rooms.groundLevel, imageObj.blocks.blockimg));
 	//backgrounds
 			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
 			
@@ -197,14 +666,14 @@ function populateRoom(){
 			);			
 		}
 		//Room 4
-		else if (roomNum == 4){
+		else if (rooms.number == 4){
 	//define background
 			Background.pic = imageObj.backgrounds.heiro_background;
 	//blocks
-			for (i = 0; i < levelEnd; i ++){
-				blocks.push(new blockClass(i, groundLevel, imageObj.blocks.blockimg));
+			for (i = 0; i < rooms.levelEnd; i ++){
+				blocks.push(new blockClass(i, rooms.groundLevel, imageObj.blocks.blockimg));
 			}
-			blocks.push(new blockClass(levelEnd, groundLevel, imageObj.blocks.blockimg));
+			blocks.push(new blockClass(rooms.levelEnd, rooms.groundLevel, imageObj.blocks.blockimg));
 	//backgrounds
 			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5),
 			
@@ -212,14 +681,14 @@ function populateRoom(){
 			);				
 		}
 		//Room 5	
-		else if (roomNum == 5){
+		else if (rooms.number == 5){
 	//define background
 			Background.pic = imageObj.backgrounds.cloud_background;
 	//blocks
-			for (i = 0; i < levelEnd; i ++){
-				blocks.push(new blockClass(i, groundLevel, imageObj.blocks.blockimg5));
+			for (i = 0; i < rooms.levelEnd; i ++){
+				blocks.push(new blockClass(i, rooms.groundLevel, imageObj.blocks.blockimg5));
 			}
-			blocks.push(new blockClass(levelEnd, groundLevel, imageObj.blocks.blockimg5));
+			blocks.push(new blockClass(rooms.levelEnd, rooms.groundLevel, imageObj.blocks.blockimg5));
 	//backgrounds
 			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
 			
@@ -227,14 +696,14 @@ function populateRoom(){
 			);				
 		}
 		//Room 6	
-		else if (roomNum == 6){
+		else if (rooms.number == 6){
 	//define background
 			Background.pic = imageObj.backgrounds.hillBackground;
 	//blocks
-			for (i = 0; i < levelEnd; i ++){
-				blocks.push(new blockClass(i, groundLevel, imageObj.blocks.blockimg));
+			for (i = 0; i < rooms.levelEnd; i ++){
+				blocks.push(new blockClass(i, rooms.groundLevel, imageObj.blocks.blockimg));
 			}
-			blocks.push(new blockClass(levelEnd, groundLevel, imageObj.blocks.blockimg));
+			blocks.push(new blockClass(rooms.levelEnd, rooms.groundLevel, imageObj.blocks.blockimg));
 	//backgrounds
 			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
 			
@@ -242,14 +711,14 @@ function populateRoom(){
 			);				
 		}
 		//Room 7	
-		else if (roomNum == 7){
+		else if (rooms.number == 7){
 	//define background
 			Background.pic = imageObj.backgrounds.green_background;
 	//blocks
-			for (i = 0; i < levelEnd; i ++){
-				blocks.push(new blockClass(i, groundLevel, imageObj.blocks.blockimg));
+			for (i = 0; i < rooms.levelEnd; i ++){
+				blocks.push(new blockClass(i, rooms.groundLevel, imageObj.blocks.blockimg));
 			}
-			blocks.push(new blockClass(levelEnd, groundLevel, imageObj.blocks.blockimg));	
+			blocks.push(new blockClass(rooms.levelEnd, rooms.groundLevel, imageObj.blocks.blockimg));	
 	//backgrounds
 			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
 			
@@ -257,14 +726,14 @@ function populateRoom(){
 			);				
 		}
 		//Room 8	
-		else if (roomNum == 8){
+		else if (rooms.number == 8){
 	//define background
 			Background.pic = imageObj.backgrounds.forest_background;
 	//blocks
-			for (i = 0; i < levelEnd; i ++){
-				blocks.push(new blockClass(i, groundLevel, imageObj.blocks.blockimg4));
+			for (i = 0; i < rooms.levelEnd; i ++){
+				blocks.push(new blockClass(i, rooms.groundLevel, imageObj.blocks.blockimg4));
 			}
-			blocks.push(new blockClass(levelEnd, groundLevel, imageObj.blocks.blockimg4));
+			blocks.push(new blockClass(rooms.levelEnd, rooms.groundLevel, imageObj.blocks.blockimg4));
 	//backgrounds
 			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
 			
@@ -272,14 +741,14 @@ function populateRoom(){
 			);				
 		}
 		//Room 9	
-		else if (roomNum == 9){
+		else if (rooms.number == 9){
 	//define background
 			Background.pic = imageObj.backgrounds.cloud_background;
 	//blocks
-			for (i = 0; i < levelEnd; i ++){
-				blocks.push(new blockClass(i, groundLevel, imageObj.blocks.blockimg5));
+			for (i = 0; i < rooms.levelEnd; i ++){
+				blocks.push(new blockClass(i, rooms.groundLevel, imageObj.blocks.blockimg5));
 			}
-			blocks.push(new blockClass(levelEnd, groundLevel, imageObj.blocks.blockimg5));	
+			blocks.push(new blockClass(rooms.levelEnd, rooms.groundLevel, imageObj.blocks.blockimg5));	
 	//backgrounds
 			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
 			
@@ -287,14 +756,14 @@ function populateRoom(){
 			);				
 		}
 		//Room 10	
-		else if (roomNum == 10){
+		else if (rooms.number == 10){
 	//define background
 			Background.pic = imageObj.backgrounds.heiro_background;
 	//blocks
-			for (i = 0; i < levelEnd; i ++){
-				blocks.push(new blockClass(i, groundLevel, imageObj.blocks.blockimg));
+			for (i = 0; i < rooms.levelEnd; i ++){
+				blocks.push(new blockClass(i, rooms.groundLevel, imageObj.blocks.blockimg));
 			}
-			blocks.push(new blockClass(levelEnd, groundLevel, imageObj.blocks.blockimg));
+			blocks.push(new blockClass(rooms.levelEnd, rooms.groundLevel, imageObj.blocks.blockimg));
 	//backgrounds
 			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
 			
