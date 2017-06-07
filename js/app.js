@@ -127,6 +127,8 @@ var keysDown = {};
 var keysUp = {};
 var jump = false;
 var jumpTrigger = 0;
+var screenMax = canvas.width * 4;
+var	levelEnd = screenMax / spriteSizes;
 
 //declare arrays
 var bullets = [];

@@ -1,8 +1,6 @@
 var rooms = {
-	number: 0,
-	screenMax: canvas.width * 4,
-	groundLevel: (canvas.height / spriteSizes) - 1,
-	levelEnd: rooms.screenMax / spriteSizes,	
+	number: -1,
+	groundLevel: (canvas.height / spriteSizes) - 1,	
 	rooms: [
 	//[0] room 1
 		{
@@ -92,387 +90,385 @@ var rooms = {
 		{
 			background: imageObj.backgrounds.forest_background,
 			blocks: [
-				{x: , y: , img: }
+				{x: 0, y: 10, img: imageObj.blocks.blockimg}
 			],
 			breakables: [
-				{x: , y: }			
+				{x: 5, y: 5}			
 			],
-			enemies: [
+			enemies: {
 				ufos: [
-					{x: , y: }
+					{x:37, y:8}
 				],
 				bats: [
-					{x: , y: }
+					{x: 66, y: 4}
 				],
 				clouds: [
-					{x: , y: }
+					{x: 69, y: 4}
 				],
 				puppets: [
-					{x: , y: }
+					{x: 66, y: 9}
 				],
 				fire: [
-					{x: , y: }
+					{x:75, y:9}
 				]			
-			],
+			},
 			springs: [
-				{x: , y: }				
+				{x: 38, y: 9}				
 			],
 			gems: [
-				{x: , y: }			
+				{x:32, y:6}			
 			],
 			backgrounds: [
-				{x: , y: , img: , width: , height: }
+				{x: 78, y: 8, img: imageObj.backgrounds.arrow, width: 2, height: 2}	
 			],
 			backgrounds2: [
-				{x: , y: , img: , width: , height: }			
+				{x: 66, y: 8.5, img: imageObj.backgrounds.palm, width: 1, height: 1.5}		
 			],
 			shootPower: [
-				{x: , y: }
+				{x: 24, y: 6}
 			]			
 		},
 	//[2] room 3
 		{
 			background: imageObj.backgrounds.green_background,
 			blocks: [
-				{x: , y: , img: }
+				{x: 0, y: 10, img: imageObj.blocks.blockimg}
 			],
 			breakables: [
-				{x: , y: }			
+				{x: 5, y: 5}			
 			],
-			enemies: [
+			enemies: {
 				ufos: [
-					{x: , y: }
+					{x:37, y:8}
 				],
 				bats: [
-					{x: , y: }
+					{x: 66, y: 4}
 				],
 				clouds: [
-					{x: , y: }
+					{x: 69, y: 4}
 				],
 				puppets: [
-					{x: , y: }
+					{x: 66, y: 9}
 				],
 				fire: [
-					{x: , y: }
+					{x:75, y:9}
 				]			
-			],
+			},
 			springs: [
-				{x: , y: }				
+				{x: 38, y: 9}				
 			],
 			gems: [
-				{x: , y: }			
+				{x:32, y:6}			
 			],
 			backgrounds: [
-				{x: , y: , img: , width: , height: }
+				{x: 78, y: 8, img: imageObj.backgrounds.arrow, width: 2, height: 2}	
 			],
 			backgrounds2: [
-				{x: , y: , img: , width: , height: }			
+				{x: 66, y: 8.5, img: imageObj.backgrounds.palm, width: 1, height: 1.5}		
 			],
 			shootPower: [
-				{x: , y: }
-			]			
+				{x: 24, y: 6}
+			]		
 		},
 	//[3] room 4
 		{
 			background: imageObj.backgrounds.heiro_background,
 			blocks: [
-				{x: , y: , img: }
+				{x: 0, y: 10, img: imageObj.blocks.blockimg}
 			],
 			breakables: [
-				{x: , y: }			
+				{x: 5, y: 5}			
 			],
-			enemies: [
+			enemies: {
 				ufos: [
-					{x: , y: }
+					{x:37, y:8}
 				],
 				bats: [
-					{x: , y: }
+					{x: 66, y: 4}
 				],
 				clouds: [
-					{x: , y: }
+					{x: 69, y: 4}
 				],
 				puppets: [
-					{x: , y: }
+					{x: 66, y: 9}
 				],
 				fire: [
-					{x: , y: }
+					{x:75, y:9}
 				]			
-			],
+			},
 			springs: [
-				{x: , y: }				
+				{x: 38, y: 9}				
 			],
 			gems: [
-				{x: , y: }			
+				{x:32, y:6}			
 			],
 			backgrounds: [
-				{x: , y: , img: , width: , height: }
+				{x: 78, y: 8, img: imageObj.backgrounds.arrow, width: 2, height: 2}	
 			],
 			backgrounds2: [
-				{x: , y: , img: , width: , height: }			
+				{x: 66, y: 8.5, img: imageObj.backgrounds.palm, width: 1, height: 1.5}		
 			],
 			shootPower: [
-				{x: , y: }
-			]			
+				{x: 24, y: 6}
+			]
 		},
 	//[4] room 5
 		{
 			background: imageObj.backgrounds.cloud_background,
 			blocks: [
-				{x: , y: , img: }
+				{x: 0, y: 10, img: imageObj.blocks.blockimg}
 			],
 			breakables: [
-				{x: , y: }			
+				{x: 5, y: 5}			
 			],
-			enemies: [
+			enemies: {
 				ufos: [
-					{x: , y: }
+					{x:37, y:8}
 				],
 				bats: [
-					{x: , y: }
+					{x: 66, y: 4}
 				],
 				clouds: [
-					{x: , y: }
+					{x: 69, y: 4}
 				],
 				puppets: [
-					{x: , y: }
+					{x: 66, y: 9}
 				],
 				fire: [
-					{x: , y: }
+					{x:75, y:9}
 				]			
-			],
+			},
 			springs: [
-				{x: , y: }				
+				{x: 38, y: 9}				
 			],
 			gems: [
-				{x: , y: }			
+				{x:32, y:6}			
 			],
 			backgrounds: [
-				{x: , y: , img: , width: , height: }
+				{x: 78, y: 8, img: imageObj.backgrounds.arrow, width: 2, height: 2}	
 			],
 			backgrounds2: [
-				{x: , y: , img: , width: , height: }			
+				{x: 66, y: 8.5, img: imageObj.backgrounds.palm, width: 1, height: 1.5}		
 			],
 			shootPower: [
-				{x: , y: }
-			]			
+				{x: 24, y: 6}
+			]		
 		},
 	//[5] room 6
 		{
 			background: imageObj.backgrounds.hillBackground,
 			blocks: [
-				{x: , y: , img: }
+				{x: 0, y: 10, img: imageObj.blocks.blockimg}
 			],
 			breakables: [
-				{x: , y: }			
+				{x: 5, y: 5}			
 			],
-			enemies: [
+			enemies: {
 				ufos: [
-					{x: , y: }
+					{x:37, y:8}
 				],
 				bats: [
-					{x: , y: }
+					{x: 66, y: 4}
 				],
 				clouds: [
-					{x: , y: }
+					{x: 69, y: 4}
 				],
 				puppets: [
-					{x: , y: }
+					{x: 66, y: 9}
 				],
 				fire: [
-					{x: , y: }
+					{x:75, y:9}
 				]			
-			],
+			},
 			springs: [
-				{x: , y: }				
+				{x: 38, y: 9}				
 			],
 			gems: [
-				{x: , y: }			
+				{x:32, y:6}			
 			],
 			backgrounds: [
-				{x: , y: , img: , width: , height: }
+				{x: 78, y: 8, img: imageObj.backgrounds.arrow, width: 2, height: 2}	
 			],
 			backgrounds2: [
-				{x: , y: , img: , width: , height: }			
+				{x: 66, y: 8.5, img: imageObj.backgrounds.palm, width: 1, height: 1.5}		
 			],
 			shootPower: [
-				{x: , y: }
-			]			
+				{x: 24, y: 6}
+			]	
 		},
 	//[6] room 7
 		{
 			background: imageObj.backgrounds.green_background,
 			blocks: [
-				{x: , y: , img: }
+				{x: 0, y: 10, img: imageObj.blocks.blockimg}
 			],
 			breakables: [
-				{x: , y: }			
+				{x: 5, y: 5}			
 			],
-			enemies: [
+			enemies: {
 				ufos: [
-					{x: , y: }
+					{x:37, y:8}
 				],
 				bats: [
-					{x: , y: }
+					{x: 66, y: 4}
 				],
 				clouds: [
-					{x: , y: }
+					{x: 69, y: 4}
 				],
 				puppets: [
-					{x: , y: }
+					{x: 66, y: 9}
 				],
 				fire: [
-					{x: , y: }
+					{x:75, y:9}
 				]			
-			],
+			},
 			springs: [
-				{x: , y: }				
+				{x: 38, y: 9}				
 			],
 			gems: [
-				{x: , y: }			
+				{x:32, y:6}			
 			],
 			backgrounds: [
-				{x: , y: , img: , width: , height: }
+				{x: 78, y: 8, img: imageObj.backgrounds.arrow, width: 2, height: 2}	
 			],
 			backgrounds2: [
-				{x: , y: , img: , width: , height: }			
+				{x: 66, y: 8.5, img: imageObj.backgrounds.palm, width: 1, height: 1.5}		
 			],
 			shootPower: [
-				{x: , y: }
-			]			
+				{x: 24, y: 6}
+			]	
 		},
 	//[7] room 8
 		{
 			background: imageObj.backgrounds.forest_background,
 			blocks: [
-				{x: , y: , img: }
+				{x: 0, y: 10, img: imageObj.blocks.blockimg}
 			],
 			breakables: [
-				{x: , y: }			
+				{x: 5, y: 5}			
 			],
-			enemies: [
+			enemies: {
 				ufos: [
-					{x: , y: }
+					{x:37, y:8}
 				],
 				bats: [
-					{x: , y: }
+					{x: 66, y: 4}
 				],
 				clouds: [
-					{x: , y: }
+					{x: 69, y: 4}
 				],
 				puppets: [
-					{x: , y: }
+					{x: 66, y: 9}
 				],
 				fire: [
-					{x: , y: }
+					{x:75, y:9}
 				]			
-			],
+			},
 			springs: [
-				{x: , y: }				
+				{x: 38, y: 9}				
 			],
 			gems: [
-				{x: , y: }			
+				{x:32, y:6}			
 			],
 			backgrounds: [
-				{x: , y: , img: , width: , height: }
+				{x: 78, y: 8, img: imageObj.backgrounds.arrow, width: 2, height: 2}	
 			],
 			backgrounds2: [
-				{x: , y: , img: , width: , height: }			
+				{x: 66, y: 8.5, img: imageObj.backgrounds.palm, width: 1, height: 1.5}		
 			],
 			shootPower: [
-				{x: , y: }
-			]			
+				{x: 24, y: 6}
+			]
 		},
 	//[8] room 9
 		{
 			background: imageObj.backgrounds.cloud_background,
 			blocks: [
-				{x: , y: , img: }
+				{x: 0, y: 10, img: imageObj.blocks.blockimg}
 			],
 			breakables: [
-				{x: , y: }			
+				{x: 5, y: 5}			
 			],
-			enemies: [
+			enemies: {
 				ufos: [
-					{x: , y: }
+					{x:37, y:8}
 				],
 				bats: [
-					{x: , y: }
+					{x: 66, y: 4}
 				],
 				clouds: [
-					{x: , y: }
+					{x: 69, y: 4}
 				],
 				puppets: [
-					{x: , y: }
+					{x: 66, y: 9}
 				],
 				fire: [
-					{x: , y: }
+					{x:75, y:9}
 				]			
-			],
+			},
 			springs: [
-				{x: , y: }				
+				{x: 38, y: 9}				
 			],
 			gems: [
-				{x: , y: }			
+				{x:32, y:6}			
 			],
 			backgrounds: [
-				{x: , y: , img: , width: , height: }
+				{x: 78, y: 8, img: imageObj.backgrounds.arrow, width: 2, height: 2}	
 			],
 			backgrounds2: [
-				{x: , y: , img: , width: , height: }			
+				{x: 66, y: 8.5, img: imageObj.backgrounds.palm, width: 1, height: 1.5}		
 			],
 			shootPower: [
-				{x: , y: }
-			]			
+				{x: 24, y: 6}
+			]	
 		},
 	//[9] room 10
 		{
 			background: imageObj.backgrounds.heiro_background,
 			blocks: [
-				{x: , y: , img: }
+				{x: 0, y: 10, img: imageObj.blocks.blockimg}
 			],
 			breakables: [
-				{x: , y: }			
+				{x: 5, y: 5}			
 			],
-			enemies: [
+			enemies: {
 				ufos: [
-					{x: , y: }
+					{x:37, y:8}
 				],
 				bats: [
-					{x: , y: }
+					{x: 66, y: 4}
 				],
 				clouds: [
-					{x: , y: }
+					{x: 69, y: 4}
 				],
 				puppets: [
-					{x: , y: }
+					{x: 66, y: 9}
 				],
 				fire: [
-					{x: , y: }
+					{x:75, y:9}
 				]			
-			],
+			},
 			springs: [
-				{x: , y: }				
+				{x: 38, y: 9}				
 			],
 			gems: [
-				{x: , y: }			
+				{x:32, y:6}			
 			],
 			backgrounds: [
-				{x: , y: , img: , width: , height: }
+				{x: 78, y: 8, img: imageObj.backgrounds.arrow, width: 2, height: 2}	
 			],
 			backgrounds2: [
-				{x: , y: , img: , width: , height: }			
+				{x: 66, y: 8.5, img: imageObj.backgrounds.palm, width: 1, height: 1.5}		
 			],
 			shootPower: [
-				{x: , y: }
-			]			
+				{x: 24, y: 6}
+			]	
 		}		
-	]
-};
-
+	],
+	populate: function(){
 /*This function populates the screen with objects
 The location of the objects is dependent on which room you are in.
 */
-function populateRoom(){
 	if (gameover == true){
 	//define the main player object
 		player.sx = 0;
@@ -487,7 +483,7 @@ function populateRoom(){
 		player.bulxPos = player.x + (0.444 * spriteSizes);
 		player.bulyPos = player.y + (0.388 * spriteSizes);
 //declare variables
-		room.number = 0;
+		rooms.number = -1;
 		direction = "right";
 		restartSwitch = 0;
 		animateSpeedControl = 0;
@@ -535,216 +531,79 @@ function populateRoom(){
 		if (rooms.number != 10){
 			rooms.number++;
 		}else{
-			rooms.number = 1;
+			rooms.number = 0;
 		}
 
 	//define background
 			Background.pic = rooms.rooms[rooms.number].background;
 	//blocks
-			for (i = 0; i < rooms.levelEnd; i++){
-					blocks.push(new blockClass(i, rooms.groundLevel, imageObj.blocks.blockimg));
+			for (i = 0; i < levelEnd; i++){
+				blocks.push(new blockClass(i, rooms.groundLevel, imageObj.blocks.blockimg));
 			}
 
 	//populate everything
 			for (i in rooms.rooms[rooms.number].blocks){
-				new blockClass(rooms.rooms[rooms.number].blocks[i].x, rooms.rooms[rooms.number].blocks[i].y, rooms.rooms[rooms.number].blocks[i].img);
+				blocks.push(new blockClass(rooms.rooms[rooms.number].blocks[i].x, rooms.rooms[rooms.number].blocks[i].y, rooms.rooms[rooms.number].blocks[i].img));
 			}
-			blocks.push(new blockClass(rooms.levelEnd, rooms.groundLevel, imageObj.blocks.blockimg));
+			blocks.push(new blockClass(levelEnd, rooms.groundLevel, imageObj.blocks.blockimg));
 		//create breakables 
-			for (i in rooms.rooms[rooms.number].blocks){		
+			for (i in rooms.rooms[rooms.number].breakables){		
 				breakables.push(new breakClass(rooms.rooms[rooms.number].breakables[i].x, rooms.rooms[rooms.number].breakables[i].y));
 			}
 		//springs
-			springs.push(new springClass(i.x, i.y));
+			for (i in rooms.rooms[rooms.number].springs){
+				springs.push(new springClass(rooms.rooms[rooms.number].springs.x, rooms.rooms[rooms.number].springs.y));
+			}
 		//create powerUps
-			shootPower.push({
-				x: spriteSizes * 24,
-				y: spriteSizes * 6,
-				width: spriteSizes * 0.5,
-				height: spriteSizes
-			});
-			gems.push(new gemClass(12, 6), new gemClass (32, 6), new gemClass(6, 6), new gemClass(11, 9), 
-				new gemClass(12, 9), new gemClass(13, 9), new gemClass(23, 5), new gemClass(24, 5),
-				new gemClass(25, 5), new gemClass(58, 7), new gemClass(59, 7), new gemClass(60, 7),
-				new gemClass(42, 6), new gemClass(45, 6), new gemClass(49, 6));
+			for (i in rooms.rooms[rooms.number].shootPower){	
+				shootPower.push({
+					x: spriteSizes * rooms.rooms[rooms.number].shootPower[i].x,
+					y: spriteSizes * rooms.rooms[rooms.number].shootPower[i].y,
+					width: spriteSizes * 0.5,
+					height: spriteSizes
+				});
+			}
+			
+			for (i in rooms.rooms[rooms.number].gems){			
+				gems.push(new gemClass(rooms.rooms[rooms.number].gems[i].x, rooms.rooms[rooms.number].gems[i].y));
+			}
 	//function to generate bad guys and add them to arrays
 				//UFOs
-				badUFOs.push(new ufoClass(37, 8), new ufoClass(50, 8));
+				for (i in rooms.rooms[rooms.number].enemies.ufos){	
+					badUFOs.push(new ufoClass(rooms.rooms[rooms.number].enemies.ufos[i].x, rooms.rooms[rooms.number].enemies.ufos[i].y));
+				}
 				//bats
-				badDudes2.push(new batClass(58, 4), new batClass(66, 4));
+				for (i in rooms.rooms[rooms.number].enemies.bats){				
+					badDudes2.push(new batClass(rooms.rooms[rooms.number].enemies.bats[i].x, rooms.rooms[rooms.number].enemies.bats[i].y));
+				}
 				//clouds
-				badDudes3.push(new cloudClass(55, 3), new cloudClass(69, 4));
+				for (i in rooms.rooms[rooms.number].enemies.clouds){					
+					badDudes3.push(new cloudClass(rooms.rooms[rooms.number].enemies.clouds[i].x, rooms.rooms[rooms.number].enemies.clouds[i].y));
+				}
 				//puppets
-				sockPuppets.push(new puppetClass(41, 7), new puppetClass(66, 9));
+				for (i in rooms.rooms[rooms.number].enemies.puppets){				
+					sockPuppets.push(new puppetClass(rooms.rooms[rooms.number].enemies.puppets[i].x, rooms.rooms[rooms.number].enemies.puppets[i].y));
+				}
 				//fire
-				fires.push(new fireClass(17, 9));
-				fires.push(new fireClass(42, 9));
-				fires.push(new fireClass(43, 9));
-				fires.push(new fireClass(46, 9));
-				fires.push(new fireClass(47, 9));
-				fires.push(new fireClass(75, 9));
+				for (i in rooms.rooms[rooms.number].enemies.fire){				
+					fires.push(new fireClass(rooms.rooms[rooms.number].enemies.fire[i].x, rooms.rooms[rooms.number].enemies.fire[i].y));
+				}
 				//background objects
-				backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
-								new backClass(33, 9, imageObj.backgrounds.shroom1, 1, 1),
-								new backClass(36, 8, imageObj.backgrounds.rainbow, 2, 2),
-								new backClass(40, 9, imageObj.backgrounds.tree, 1, 1),
-								new backClass(43, 9, imageObj.backgrounds.tree2, 1, 1),
-								new backClass(48, 9, imageObj.backgrounds.shroom2, 1, 1),
-								new backClass(53, 9, imageObj.backgrounds.flower, 1, 1),
-								new backClass(3, 4, imageObj.backgrounds.cloud, 2, 1),
-								new backClass(33, 3, imageObj.backgrounds.cloud2, 2, 1),
-								new backClass(43, 2, imageObj.backgrounds.cloud2, 2, 1),
-								new backClass(10, 3, imageObj.backgrounds.cloud, 2, 1),
-								new backClass(53, 4, imageObj.backgrounds.cloud, 2, 1),
-								new backClass(78, 8, imageObj.backgrounds.arrow, 2, 2)
-								);
+				for (i in rooms.rooms[rooms.number].backgrounds){				
+					backgrounds.push(new backClass(rooms.rooms[rooms.number].backgrounds[i].x, 
+					rooms.rooms[rooms.number].backgrounds[i].y,
+					rooms.rooms[rooms.number].backgrounds[i].img, 
+					rooms.rooms[rooms.number].backgrounds[i].width, 
+					rooms.rooms[rooms.number].backgrounds[i].height));
+				}
 				//front backgrounds
-				backgrounds2.push(new backClass2(32, 9, imageObj.backgrounds.crystalBush, 1, 1), 
-					new backClass2(8, 9.5, imageObj.backgrounds.flower2, 0.5, 0.5),
-					new backClass2(4, 9, imageObj.backgrounds.flower, 1, 1),
-					new backClass2(6, 9, imageObj.backgrounds.shroom2, 1, 1),
-					new backClass2(35, 9, imageObj.backgrounds.tree, 1, 1),
-					new backClass2(50, 9, imageObj.backgrounds.flower2, 1, 1),
-					new backClass2(58, 9.5, imageObj.backgrounds.shroom1, .5, .5),
-					new backClass2(66, 8.5, imageObj.backgrounds.palm, 1, 1.5),
-					new backClass(63, 8, imageObj.backgrounds.rainbow, 3, 2)					
-				);	
-			
-		//Room 2
-		else if (rooms.number == 2){
-	//define background
-			Background.pic = imageObj.backgrounds.forest_background;
-	//blocks
-			for (i = 0; i < rooms.levelEnd; i ++){
-				blocks.push(new blockClass(i, rooms.groundLevel, imageObj.blocks.blockimg4));
-			}
-			blocks.push(new blockClass(rooms.levelEnd, rooms.groundLevel, imageObj.blocks.blockimg4));	
-			//background objects
-			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
-			
-				new backClass(78, 8, imageObj.backgrounds.arrow, 2, 2)
-			);			
-		}
-		//Room 3
-		else if (rooms.number == 3){
-	//define background
-			Background.pic = imageObj.backgrounds.green_background;
-	//blocks
-			for (i = 0; i < rooms.levelEndv; i ++){
-				blocks.push(new blockClass(i, rooms.groundLevel, imageObj.blocks.blockimg));
-			}
-			blocks.push(new blockClass(rooms.levelEnd, rooms.groundLevel, imageObj.blocks.blockimg));
-	//backgrounds
-			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
-			
-				new backClass(78, 8, imageObj.backgrounds.arrow, 2, 2)
-			);			
-		}
-		//Room 4
-		else if (rooms.number == 4){
-	//define background
-			Background.pic = imageObj.backgrounds.heiro_background;
-	//blocks
-			for (i = 0; i < rooms.levelEnd; i ++){
-				blocks.push(new blockClass(i, rooms.groundLevel, imageObj.blocks.blockimg));
-			}
-			blocks.push(new blockClass(rooms.levelEnd, rooms.groundLevel, imageObj.blocks.blockimg));
-	//backgrounds
-			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5),
-			
-				new backClass(78, 8, imageObj.backgrounds.arrow, 2, 2)
-			);				
-		}
-		//Room 5	
-		else if (rooms.number == 5){
-	//define background
-			Background.pic = imageObj.backgrounds.cloud_background;
-	//blocks
-			for (i = 0; i < rooms.levelEnd; i ++){
-				blocks.push(new blockClass(i, rooms.groundLevel, imageObj.blocks.blockimg5));
-			}
-			blocks.push(new blockClass(rooms.levelEnd, rooms.groundLevel, imageObj.blocks.blockimg5));
-	//backgrounds
-			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
-			
-				new backClass(78, 8, imageObj.backgrounds.arrow, 2, 2)
-			);				
-		}
-		//Room 6	
-		else if (rooms.number == 6){
-	//define background
-			Background.pic = imageObj.backgrounds.hillBackground;
-	//blocks
-			for (i = 0; i < rooms.levelEnd; i ++){
-				blocks.push(new blockClass(i, rooms.groundLevel, imageObj.blocks.blockimg));
-			}
-			blocks.push(new blockClass(rooms.levelEnd, rooms.groundLevel, imageObj.blocks.blockimg));
-	//backgrounds
-			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
-			
-				new backClass(78, 8, imageObj.backgrounds.arrow, 2, 2)
-			);				
-		}
-		//Room 7	
-		else if (rooms.number == 7){
-	//define background
-			Background.pic = imageObj.backgrounds.green_background;
-	//blocks
-			for (i = 0; i < rooms.levelEnd; i ++){
-				blocks.push(new blockClass(i, rooms.groundLevel, imageObj.blocks.blockimg));
-			}
-			blocks.push(new blockClass(rooms.levelEnd, rooms.groundLevel, imageObj.blocks.blockimg));	
-	//backgrounds
-			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
-			
-				new backClass(78, 8, imageObj.backgrounds.arrow, 2, 2)
-			);				
-		}
-		//Room 8	
-		else if (rooms.number == 8){
-	//define background
-			Background.pic = imageObj.backgrounds.forest_background;
-	//blocks
-			for (i = 0; i < rooms.levelEnd; i ++){
-				blocks.push(new blockClass(i, rooms.groundLevel, imageObj.blocks.blockimg4));
-			}
-			blocks.push(new blockClass(rooms.levelEnd, rooms.groundLevel, imageObj.blocks.blockimg4));
-	//backgrounds
-			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
-			
-				new backClass(78, 8, imageObj.backgrounds.arrow, 2, 2)
-			);				
-		}
-		//Room 9	
-		else if (rooms.number == 9){
-	//define background
-			Background.pic = imageObj.backgrounds.cloud_background;
-	//blocks
-			for (i = 0; i < rooms.levelEnd; i ++){
-				blocks.push(new blockClass(i, rooms.groundLevel, imageObj.blocks.blockimg5));
-			}
-			blocks.push(new blockClass(rooms.levelEnd, rooms.groundLevel, imageObj.blocks.blockimg5));	
-	//backgrounds
-			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
-			
-				new backClass(78, 8, imageObj.backgrounds.arrow, 2, 2)
-			);				
-		}
-		//Room 10	
-		else if (rooms.number == 10){
-	//define background
-			Background.pic = imageObj.backgrounds.heiro_background;
-	//blocks
-			for (i = 0; i < rooms.levelEnd; i ++){
-				blocks.push(new blockClass(i, rooms.groundLevel, imageObj.blocks.blockimg));
-			}
-			blocks.push(new blockClass(rooms.levelEnd, rooms.groundLevel, imageObj.blocks.blockimg));
-	//backgrounds
-			backgrounds.push(new backClass(13, 8.5, imageObj.backgrounds.palm, 1, 1.5), 
-			
-				new backClass(78, 8, imageObj.backgrounds.arrow, 2, 2)
-			);				
-		}
+				for (i in rooms.rooms[rooms.number].backgrounds2){				
+					backgrounds2.push(new backClass2(rooms.rooms[rooms.number].backgrounds2[i].x, 
+					rooms.rooms[rooms.number].backgrounds2[i].y,
+					rooms.rooms[rooms.number].backgrounds2[i].img, 
+					rooms.rooms[rooms.number].backgrounds2[i].width, 
+					rooms.rooms[rooms.number].backgrounds2[i].height));
+				}
 		
 		if (player.entry == "right"){
 			var offset = (blocks[blocks.length - 1].x + blocks[blocks.length - 1].width) - canvas.width;
@@ -787,5 +646,7 @@ function populateRoom(){
 		}
 			player.x = spriteSizes * 7;
 			player.y = spriteSizes * 6;
+	}		
 	}
-}
+};
+

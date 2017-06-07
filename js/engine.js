@@ -625,7 +625,7 @@ function update(mod) {
 		badBullets = [];
 		if (restartSwitch == 0){
 			restartSwitch = 1;
-			setTimeout(populateRoom, 4000);
+			setTimeout(rooms.populate, 4000);
 		}
 	}
 //animate gems
@@ -1083,10 +1083,10 @@ function run() {
 	damageTaken();
 	requestAnimFrame(run);
 	if (player.x > canvas.width - 8 || player.x < 0 - (spriteSizes * 0.5)){
-		populateRoom();
+		rooms.populate();
 	}
 }
 
 var time = Date.now();
-populateRoom();
+rooms.populate();
 requestAnimFrame(run);
