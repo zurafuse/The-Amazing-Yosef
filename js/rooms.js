@@ -5,6 +5,7 @@ var rooms = {
 	//[0] room 1
 		{
 			background: imageObj.backgrounds.hillBackground,
+			ground: imageObj.blocks.blockimg,
 			blocks: [
 				{x: 20, y: 9, img: imageObj.blocks.blockimg2}, {x: 21, y: 9, img: imageObj.blocks.blockimg2},
 				{x: 22, y: 9, img: imageObj.blocks.blockimg2}, {x: 23, y: 9, img: imageObj.blocks.blockimg2},
@@ -13,6 +14,7 @@ var rooms = {
 				{x: 21, y: 8, img: imageObj.blocks.blockimg2}, {x: 22, y: 8, img: imageObj.blocks.blockimg2},
 				{x: 23, y: 8, img: imageObj.blocks.blockimg2}, {x: 24, y: 8, img: imageObj.blocks.blockimg2},			
 				{x: 25, y: 8, img: imageObj.blocks.blockimg2}, {x: 26, y: 8, img: imageObj.blocks.blockimg2},
+				{x: 22, y: 7, img: imageObj.blocks.blockimg2},
 				{x: 23, y: 7, img: imageObj.blocks.blockimg2}, {x: 24, y: 7, img: imageObj.blocks.blockimg2},			
 				{x: 25, y: 7, img: imageObj.blocks.blockimg2},
 				{x: 40, y: 9, img: imageObj.blocks.blockimg2}, {x: 41, y: 9, img: imageObj.blocks.blockimg2},			
@@ -89,8 +91,9 @@ var rooms = {
 	//[1] room 2
 		{
 			background: imageObj.backgrounds.forest_background,
+			ground: imageObj.blocks.blockimg4,
 			blocks: [
-				{x: 0, y: 10, img: imageObj.blocks.blockimg}
+				{x: 0, y: 10, img: imageObj.blocks.blockimg4}
 			],
 			breakables: [
 				{x: 5, y: 5}			
@@ -131,6 +134,7 @@ var rooms = {
 	//[2] room 3
 		{
 			background: imageObj.backgrounds.green_background,
+			ground: imageObj.blocks.blockimg,
 			blocks: [
 				{x: 0, y: 10, img: imageObj.blocks.blockimg}
 			],
@@ -173,6 +177,7 @@ var rooms = {
 	//[3] room 4
 		{
 			background: imageObj.backgrounds.heiro_background,
+			ground: imageObj.blocks.blockimg,
 			blocks: [
 				{x: 0, y: 10, img: imageObj.blocks.blockimg}
 			],
@@ -215,6 +220,7 @@ var rooms = {
 	//[4] room 5
 		{
 			background: imageObj.backgrounds.cloud_background,
+			ground: imageObj.blocks.blockimg,
 			blocks: [
 				{x: 0, y: 10, img: imageObj.blocks.blockimg}
 			],
@@ -257,6 +263,7 @@ var rooms = {
 	//[5] room 6
 		{
 			background: imageObj.backgrounds.hillBackground,
+			ground: imageObj.blocks.blockimg,
 			blocks: [
 				{x: 0, y: 10, img: imageObj.blocks.blockimg}
 			],
@@ -299,6 +306,7 @@ var rooms = {
 	//[6] room 7
 		{
 			background: imageObj.backgrounds.green_background,
+			ground: imageObj.blocks.blockimg,
 			blocks: [
 				{x: 0, y: 10, img: imageObj.blocks.blockimg}
 			],
@@ -341,6 +349,7 @@ var rooms = {
 	//[7] room 8
 		{
 			background: imageObj.backgrounds.forest_background,
+			ground: imageObj.blocks.blockimg,
 			blocks: [
 				{x: 0, y: 10, img: imageObj.blocks.blockimg}
 			],
@@ -383,6 +392,7 @@ var rooms = {
 	//[8] room 9
 		{
 			background: imageObj.backgrounds.cloud_background,
+			ground: imageObj.blocks.blockimg,
 			blocks: [
 				{x: 0, y: 10, img: imageObj.blocks.blockimg}
 			],
@@ -425,6 +435,7 @@ var rooms = {
 	//[9] room 10
 		{
 			background: imageObj.backgrounds.heiro_background,
+			ground: imageObj.blocks.blockimg,
 			blocks: [
 				{x: 0, y: 10, img: imageObj.blocks.blockimg}
 			],
@@ -482,6 +493,7 @@ The location of the objects is dependent on which room you are in.
 		player.speed = spriteSizes * 5;
 		player.bulxPos = player.x + (0.444 * spriteSizes);
 		player.bulyPos = player.y + (0.388 * spriteSizes);
+		player.shoot = false;
 //declare variables
 		rooms.number = -1;
 		direction = "right";
@@ -538,7 +550,7 @@ The location of the objects is dependent on which room you are in.
 			Background.pic = rooms.rooms[rooms.number].background;
 	//blocks
 			for (i = 0; i < levelEnd; i++){
-				blocks.push(new blockClass(i, rooms.groundLevel, imageObj.blocks.blockimg));
+				blocks.push(new blockClass(i, rooms.groundLevel, rooms.rooms[rooms.number].ground));
 			}
 
 	//populate everything

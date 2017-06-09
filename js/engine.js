@@ -3,6 +3,7 @@ window.addEventListener('keydown', function(e) {
 		keysDown[e.keyCode] = true;
 		delete keysUp[e.keyCode];
 });
+
 window.addEventListener('keyup', function(e) {
 		keysUp[e.keyCode] = true;
 		delete keysDown[e.keyCode];
@@ -22,15 +23,6 @@ window.addEventListener("touchstart", function (e) {
     clientY: touch.clientY
   });
   canvas.dispatchEvent(mouseEvent);
-}, false);
-canvas.addEventListener("touchend", function (e) {
-  var mouseEvent = new MouseEvent("mouseup", {});
-  canvas.dispatchEvent(mouseEvent);
-  	delete keysDown[38];
-  	delete keysDown[39];
-  	delete keysDown[40];
-  	delete keysDown[37];
-  	delete keysDown[32];
 }, false);
 
 // Get the position of a touch relative to the canvas
@@ -810,7 +802,7 @@ ctx.fillStyle = player.color;
 	ctx.fillStyle = "black";
 	ctx.fillText("Score: " + powerLevel, spriteSizes * (gridWidth * 0.08), spriteSizes / 1.6);	
 	ctx.fillText("Treasure: " + treasureScore, spriteSizes * (gridWidth * 0.38), spriteSizes / 1.6);
-	ctx.fillText("Level: " + rooms.number, spriteSizes * (gridWidth * 0.80), spriteSizes / 1.6);	
+	ctx.fillText("Level: " + (rooms.number + 1), spriteSizes * (gridWidth * 0.80), spriteSizes / 1.6);	
 	
 	if (gameover == true){
 		ctx.font = canvas.width * 0.04  + "px Arial";
