@@ -6,6 +6,9 @@ var rooms = {
 		{
 			background: imageObj.backgrounds.hillBackground,
 			ground: imageObj.blocks.blockimg,
+			holes: [
+				57, 58
+			],
 			blocks: [
 				{x: 20, y: 7, img: imageObj.blocks.blockimg2}, {x: 22, y: 7, img: imageObj.blocks.blockimg},
 				{x: 24, y: 7, img: imageObj.blocks.blockimg3}, {x: 35, y: 9, img: imageObj.blocks.blockimg4},
@@ -49,16 +52,27 @@ var rooms = {
 				]			
 			},
 			springs: [
-				{x: 38, y: 9}				
+				{x: 33, y: 9}				
 			],
 			gems: [
-				{x:32, y:6}			
+				{x:32, y:6}, {x:33, y:6}, {x:15, y:7}, {x:16, y:7}, {x:17, y:7}		
 			],
 			backgrounds: [
-				{x: 78, y: 8, img: imageObj.backgrounds.arrow, width: 2, height: 2}	
+				{x: 78, y: 8, img: imageObj.backgrounds.arrow, width: 2, height: 2}, {x: 3, y: 9.5, img: imageObj.backgrounds.shroom1, width: 0.5, height: 0.5},
+				{x: 5, y: 9, img: imageObj.backgrounds.crystalBush, width: 1, height: 1}, {x: 3, y: 5, img: imageObj.backgrounds.cloud, width: 2, height: 1},
+				{x: 7, y: 3, img: imageObj.backgrounds.cloud2, width: 2, height: 1}, {x: 14, y: 9, img: imageObj.backgrounds.rainbow, width: 2, height: 1},
+				{x: 18, y: 9, img: imageObj.backgrounds.flower2, width: 0.5, height: 1}, {x: 26, y: 6, img: imageObj.backgrounds.cloud, width: 2, height: 1},
+				{x: 31, y: 5, img: imageObj.backgrounds.cloud2, width: 1, height: 1}, {x: 35, y: 3, img: imageObj.backgrounds.cloud, width: 2, height: 1},
+				{x: 45, y: 4, img: imageObj.backgrounds.cloud2, width: 2, height: 1}, {x: 52, y:3, img: imageObj.backgrounds.cloud, width: 1, height: 1},
+				{x: 60, y:6, img: imageObj.backgrounds.cloud, width: 2, height: 1}, {x: 67, y:3, img: imageObj.backgrounds.cloud, width: 2, height: 1},
+				{x: 52, y:9, img: imageObj.backgrounds.tree, width: 1, height: 1}, {x: 55, y:9, img: imageObj.backgrounds.tree2, width: 1, height: 1},
+				{x: 60, y:9.5, img: imageObj.backgrounds.shroom1, width: 0.5, height: 0.5}, {x: 62, y:9, img: imageObj.backgrounds.crystalBush, width: 1, height: 1}
+				
 			],
 			backgrounds2: [
-				{x: 66, y: 8.5, img: imageObj.backgrounds.palm, width: 1, height: 1.5}		
+				{x: 66, y: 8.5, img: imageObj.backgrounds.palm, width: 1, height: 1.5}, {x: 12, y: 9, img: imageObj.backgrounds.crystalBush, width: 1, height: 1},
+				{x: 16, y: 6, img: imageObj.backgrounds.cloud, width: 2, height: 1}, {x: 23, y: 9.5, img: imageObj.backgrounds.shroom2, width: 0.5, height: 0.5},
+				{x: 26, y: 9, img: imageObj.backgrounds.flower, width: 0.5, height: 1}, {x: 30, y: 9.5, img: imageObj.backgrounds.flower2, width: 0.5, height: 0.5}				
 			],
 			shootPower: [
 				{x: 24, y: 6}
@@ -68,6 +82,9 @@ var rooms = {
 		{
 			background: imageObj.backgrounds.forest_background,
 			ground: imageObj.blocks.blockimg4,
+			holes: [
+				29, 30, 55, 56
+			],
 			blocks: [
 				{x: 20, y: 9, img: imageObj.blocks.blockimg2}, {x: 21, y: 9, img: imageObj.blocks.blockimg2},
 				{x: 22, y: 9, img: imageObj.blocks.blockimg2}, {x: 23, y: 9, img: imageObj.blocks.blockimg2},
@@ -154,6 +171,9 @@ var rooms = {
 		{
 			background: imageObj.backgrounds.green_background,
 			ground: imageObj.blocks.blockimg,
+			holes: [
+				-2
+			],
 			blocks: [
 				{x: 0, y: 10, img: imageObj.blocks.blockimg}
 			],
@@ -197,8 +217,11 @@ var rooms = {
 		{
 			background: imageObj.backgrounds.cloud_background,
 			ground: imageObj.blocks.blockimg5,
+			holes: [
+				-2
+			],
 			blocks: [
-				{x: 0, y: 10, img: imageObj.blocks.blockimg}
+				{x: 0, y: 10, img: imageObj.blocks.blockimg5}
 			],
 			breakables: [
 				{x: 5, y: 5}			
@@ -240,6 +263,9 @@ var rooms = {
 		{
 			background: imageObj.backgrounds.heiro_background,
 			ground: imageObj.blocks.blockimg,
+			holes: [
+				-2
+			],
 			blocks: [
 				{x: 0, y: 10, img: imageObj.blocks.blockimg}
 			],
@@ -354,8 +380,17 @@ The location of the objects is dependent on which room you are in.
 			Background.pic = rooms.rooms[rooms.number].background;
 	//blocks
 			for (i = 0; i < levelEnd; i++){
-				blocks.push(new blockClass(i, rooms.groundLevel, rooms.rooms[rooms.number].ground));
+				var hole = false;
+				for (j in rooms.rooms[rooms.number].holes){
+					if (rooms.rooms[rooms.number].holes[j] == i){
+						hole = true;
+					}
+				}
+				if (hole == false){
+					blocks.push(new blockClass(i, rooms.groundLevel, rooms.rooms[rooms.number].ground));
+				}
 			}
+
 
 	//populate everything
 			for (i in rooms.rooms[rooms.number].blocks){
@@ -368,7 +403,7 @@ The location of the objects is dependent on which room you are in.
 			}
 		//springs
 			for (i in rooms.rooms[rooms.number].springs){
-				springs.push(new springClass(rooms.rooms[rooms.number].springs.x, rooms.rooms[rooms.number].springs.y));
+				springs.push(new springClass(rooms.rooms[rooms.number].springs[i].x, rooms.rooms[rooms.number].springs[i].y));
 			}
 		//create powerUps
 			for (i in rooms.rooms[rooms.number].shootPower){	

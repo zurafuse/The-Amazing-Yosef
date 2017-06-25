@@ -19,6 +19,8 @@ var sprtHtControl = canvas.width / gridWidth;
 
 canvas.height = sprtHtControl * gridHeight;
 
+setTimeout(function(){soundObj.credit = false;}, 5000);
+
 //images
 var imageObj = {
 	badGuys: {
@@ -107,6 +109,15 @@ var imageObj = {
 	}
 };
 imageObj.setPics();
+
+//Create sounds object
+var soundObj = {
+	music: document.getElementById("music"),
+	crunch: document.getElementById("crunch"),
+	laser: document.getElementById("laser"),
+	gem: document.getElementById("gem"),
+	credit: true
+};
 
 //declare variables
 var direction = "right";
