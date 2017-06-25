@@ -326,8 +326,8 @@ var player = {
 	bounce: function(){
 		if (dudeUpColl(player) == true){
 			if (this.goUp == true){
-				if (this.bounceTrigger < spriteSizes){
-					player.y -= ((player.speed * ((Date.now() - time) / 1000)) * 4);
+				if (this.bounceTrigger < 60){
+					player.y -= ((player.speed * ((Date.now() - time) / 1000)) * 3);
 				}else{
 					this.goUp = false;
 					this.bounceTrigger = 0;

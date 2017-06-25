@@ -167,22 +167,39 @@ var rooms = {
 				{x: 24, y: 6}
 			]			
 		},
-	//[2] room 3
+		//[2] room 3
 		{
 			background: imageObj.backgrounds.green_background,
 			ground: imageObj.blocks.blockimg,
 			holes: [
-				-2
+				14, 15
 			],
 			blocks: [
-				{x: 0, y: 10, img: imageObj.blocks.blockimg}
+				{x: 10, y: 9, img: imageObj.blocks.blockimg2}, {x: 11, y: 9, img: imageObj.blocks.blockimg2},
+				{x: 12, y: 9, img: imageObj.blocks.blockimg2}, {x: 11, y: 8, img: imageObj.blocks.blockimg2}, 
+				{x: 10, y: 8, img: imageObj.blocks.blockimg2}, {x: 9, y: 9, img: imageObj.blocks.blockimg2},
+				{x: 22, y: 9, img: imageObj.blocks.blockimg2}, {x: 23, y: 9, img: imageObj.blocks.blockimg2}, 
+				{x: 22, y: 8, img: imageObj.blocks.blockimg2}, {x: 23, y: 8, img: imageObj.blocks.blockimg2},
+				{x: 27, y: 9, img: imageObj.blocks.blockimg3}, {x: 27, y: 8, img: imageObj.blocks.blockimg3}, 
+				{x: 28, y: 8, img: imageObj.blocks.blockimg3}, {x: 28, y: 9, img: imageObj.blocks.blockimg3},
+				{x: 35, y: 9, img: imageObj.blocks.blockimg4}, {x: 36, y: 9, img: imageObj.blocks.blockimg4}, 
+				{x: 37, y: 9, img: imageObj.blocks.blockimg4}, {x: 38, y: 9, img: imageObj.blocks.blockimg4},
+				{x: 39, y: 9, img: imageObj.blocks.blockimg4}, {x: 40, y: 9, img: imageObj.blocks.blockimg4},
+				{x: 41, y: 9, img: imageObj.blocks.blockimg4}, {x: 42, y: 9, img: imageObj.blocks.blockimg4},
+				{x: 43, y: 9, img: imageObj.blocks.blockimg4}, {x: 36, y: 8, img: imageObj.blocks.blockimg4},
+				{x: 37, y: 8, img: imageObj.blocks.blockimg4}, {x: 38, y: 8, img: imageObj.blocks.blockimg4},
+				{x: 39, y: 8, img: imageObj.blocks.blockimg4}, {x: 40, y: 8, img: imageObj.blocks.blockimg4},
+				{x: 41, y: 8, img: imageObj.blocks.blockimg4}, {x: 42, y: 8, img: imageObj.blocks.blockimg4},
+				{x: 37, y: 7, img: imageObj.blocks.blockimg4}, {x: 38, y: 7, img: imageObj.blocks.blockimg4},
+				{x: 39, y: 7, img: imageObj.blocks.blockimg4}, {x: 40, y: 7, img: imageObj.blocks.blockimg4},
+				{x: 41, y: 7, img: imageObj.blocks.blockimg4}				
 			],
 			breakables: [
-				{x: 5, y: 5}			
+				{x: 2, y: 6}, {x: 3, y: 6}, {x: 4, y: 6}, {x: 13, y: 5}, {x: 14, y: 5}, {x: 15, y: 5}
 			],
 			enemies: {
 				ufos: [
-					{x:37, y:8}
+					{x:44, y:5.75}
 				],
 				bats: [
 					{x: 66, y: 4}
@@ -191,26 +208,27 @@ var rooms = {
 					{x: 69, y: 4}
 				],
 				puppets: [
-					{x: 66, y: 9}
+					{x: 28, y: 7}, {x: 40, y: 6}
 				],
 				fire: [
-					{x:75, y:9}
+					{x:24, y:9}, {x:25, y:9}, {x:26, y:9}
 				]			
 			},
 			springs: [
-				{x: 38, y: 9}				
+				{x: -4, y: 9}				
 			],
 			gems: [
 				{x:32, y:6}			
 			],
 			backgrounds: [
-				{x: 78, y: 8, img: imageObj.backgrounds.arrow, width: 2, height: 2}	
+				{x: 78, y: 8, img: imageObj.backgrounds.arrow, width: 2, height: 2}, {x: 5, y: 9, img: imageObj.backgrounds.flower, width: 1, height: 1},
+				{x: 4, y: 4, img: imageObj.backgrounds.cloud, width: 2, height: 1}, {x: 10, y: 3, img: imageObj.backgrounds.cloud2, width: 2, height: 1}
 			],
 			backgrounds2: [
-				{x: 66, y: 8.5, img: imageObj.backgrounds.palm, width: 1, height: 1.5}		
+				{x: 2, y: 8.5, img: imageObj.backgrounds.palm, width: 1, height: 1.5}
 			],
 			shootPower: [
-				{x: 24, y: 6}
+				{x: -3, y: 6}
 			]		
 		},
 	//[3] room 4

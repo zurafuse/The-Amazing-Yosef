@@ -25,6 +25,12 @@ window.addEventListener("touchstart", function (e) {
   canvas.dispatchEvent(mouseEvent);
 }, false);
 
+window.addEventListener("touchend", function (e) {
+  mousePos = endTouchPos(canvas, e);
+  var touch = e.touches[0];
+
+}, false);
+
 // Get the position of a touch relative to the canvas
 function getTouchPos(canvasDom, touchEvent) {
   var thisXPos = touchEvent.touches[0].clientX;
@@ -32,51 +38,76 @@ function getTouchPos(canvasDom, touchEvent) {
   
   if (thisXPos < canvas.width * 0.25 && thisYPos > canvas.height * 0.19 && thisYPos < canvas.height * 0.90)
   {
-  	delete keysDown[38];
   	delete keysDown[39];
-  	delete keysDown[40];
 	delete keysUp[37];
 	
 	dirLead = "left";
 	keysDown[37] = true;
   }
   
-   else if (thisXPos > canvas.width * 0.74 && thisYPos > canvas.height * 0.19 && thisYPos < canvas.height * 0.90)
+   if (thisXPos > canvas.width * 0.74 && thisYPos > canvas.height * 0.19 && thisYPos < canvas.height * 0.90)
   {
 	delete keysDown[37];
-  	delete keysDown[38];
- 	delete keysDown[40];
 	delete keysUp[39];
 	
 	dirLead = "right";
   	keysDown[39] = true;
   }
   
-   else if (thisXPos < canvas.width * 0.74 && thisXPos > canvas.width * 0.25 && thisYPos < canvas.height * 0.35)
+   if (thisXPos < canvas.width * 0.74 && thisXPos > canvas.width * 0.25 && thisYPos < canvas.height * 0.35)
   {
-	delete keysDown[37];
-  	delete keysDown[39];
-  	delete keysDown[40];
 	delete keysUp[38];
 	
 	dirLead = "up";
 	keysDown[38] = true;
   }
   
-   else if (thisXPos < canvas.width * 0.74 && thisXPos > canvas.width * 0.25 && thisYPos > canvas.height * 0.65)
+   if (thisXPos < canvas.width * 0.74 && thisXPos > canvas.width * 0.25 && thisYPos > canvas.height * 0.65)
   {
-	delete keysDown[37];
-  	delete keysDown[38];
- 	delete keysDown[39];
 	delete keysUp[40];
 	
 	dirLead = "front";
   	keysDown[40] = true;
   }
   
-   else if (thisXPos < canvas.width * 0.74 && thisXPos > canvas.width * 0.25 && thisYPos > canvas.height * 0.35 && thisYPos < canvas.height * 0.65)
+   if (thisXPos < canvas.width * 0.74 && thisXPos > canvas.width * 0.25 && thisYPos > canvas.height * 0.35 && thisYPos < canvas.height * 0.65)
   {
   	keysDown[32] = true;
+  }
+  
+}
+
+function endTouchPos(canvasDom, touchEvent) {
+  var thisXPos = touchEvent.changedTouches[0].pageX;
+  var thisYPos = touchEvent.changedTouches[0].pageY;
+  
+  if (thisXPos < canvas.width * 0.25 && thisYPos > canvas.height * 0.19 && thisYPos < canvas.height * 0.90)
+  {
+	delete keysDown[37];
+	keysUp[37] = true;
+  }
+  
+   if (thisXPos > canvas.width * 0.74 && thisYPos > canvas.height * 0.19 && thisYPos < canvas.height * 0.90)
+  {
+	delete keysDown[39];
+	keysUp[39] = true;
+  }
+  
+   if (thisXPos < canvas.width * 0.74 && thisXPos > canvas.width * 0.25 && thisYPos < canvas.height * 0.35)
+  {
+	delete keysDown[38];
+  }
+  
+   if (thisXPos < canvas.width * 0.74 && thisXPos > canvas.width * 0.25 && thisYPos > canvas.height * 0.65)
+  {
+	delete keysDown[40];
+  	keysUp[40] = true;
+  }
+  
+   if (thisXPos < canvas.width * 0.74 && thisXPos > canvas.width * 0.25 && thisYPos > canvas.height * 0.35 && thisYPos < canvas.height * 0.65)
+  {
+  	keysUp[32] = true;
+	delete keysDown[32];
   }
   
 }
@@ -468,6 +499,7 @@ function update(mod) {
 		jump = false;
 		jumpTrigger = 0;
 	}
+
 //badDudes movement
 	for (i in badUFOs){	
 		if (badUFOs[i].x < player.x + canvas.width && badUFOs[i].x > player.x - canvas.width){
@@ -965,13 +997,12 @@ function runDestroy(){
 		if (testColl(player.x, player.y, player.width, player.height, runPower[i].x, runPower[i].y, 
 		runPower[i].width, runPower[i].height) == true){
 			runPower.splice(i, 1);
+			soundObj.gem.play();
 			if (gameover == false){
 				powerLevel += 10;
 			}
-			if (player.speed < canvas.width * 0.21)
-				{player.speed += (canvas.width * 0.0134);}
-			if (player.speed > canvas.width * 0.2)
-				{player.speed = canvas.width * 0.2;}
+			if (player.speed < canvas.width * 0.35)
+				{player.speed += (canvas.width * 0.03);}
 			break;
 		}		
 	}
@@ -996,6 +1027,7 @@ function frequentDestroy(){
 		if (testColl(player.x, player.y, player.width, player.height, frequentPower[i].x, frequentPower[i].y, 
 			frequentPower[i].width, frequentPower[i].height) == true){
 			frequentPower.splice(i, 1);
+			soundObj.gem.play();
 			if (gameover == false){
 				powerLevel += 10;
 			}
