@@ -311,7 +311,7 @@ var player = {
 	sheight: 50,
     x: 0 - spriteSizes,
     y: (canvas.height / 2) - spriteSizes,
-    width: spriteSizes,
+    width: spriteSizes * 0.6,
     height: spriteSizes,
     speed: spriteSizes * 5,
     color: 'blue',

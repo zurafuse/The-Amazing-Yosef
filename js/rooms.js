@@ -172,7 +172,7 @@ var rooms = {
 			background: imageObj.backgrounds.green_background,
 			ground: imageObj.blocks.blockimg,
 			holes: [
-				14, 15
+				14, 15, 66, 67
 			],
 			blocks: [
 				{x: 10, y: 9, img: imageObj.blocks.blockimg2}, {x: 11, y: 9, img: imageObj.blocks.blockimg2},
@@ -192,40 +192,50 @@ var rooms = {
 				{x: 41, y: 8, img: imageObj.blocks.blockimg4}, {x: 42, y: 8, img: imageObj.blocks.blockimg4},
 				{x: 37, y: 7, img: imageObj.blocks.blockimg4}, {x: 38, y: 7, img: imageObj.blocks.blockimg4},
 				{x: 39, y: 7, img: imageObj.blocks.blockimg4}, {x: 40, y: 7, img: imageObj.blocks.blockimg4},
-				{x: 41, y: 7, img: imageObj.blocks.blockimg4}				
+				{x: 41, y: 7, img: imageObj.blocks.blockimg4}, {x: 60, y: 9, img: imageObj.blocks.blockimg3}			
 			],
 			breakables: [
-				{x: 2, y: 6}, {x: 3, y: 6}, {x: 4, y: 6}, {x: 13, y: 5}, {x: 14, y: 5}, {x: 15, y: 5}
+				{x: 2, y: 6}, {x: 3, y: 6}, {x: 4, y: 6}, {x: 13, y: 5}, {x: 14, y: 5}, {x: 15, y: 5}, {x: 48, y: 9},
+				{x: 49, y: 9}, {x: 50, y: 9}, {x: 48, y: 8}, {x: 49, y: 8}, {x: 50, y: 8}, {x: 48, y: 7}, {x: 49, y: 7}, {x: 50, y: 7}
 			],
 			enemies: {
 				ufos: [
 					{x:44, y:5.75}
 				],
 				bats: [
-					{x: 66, y: 4}
+					{x: 40, y: 4}
 				],
 				clouds: [
-					{x: 69, y: 4}
+					{x: 69, y: 4}, {x: 39, y: 4}
 				],
 				puppets: [
 					{x: 28, y: 7}, {x: 40, y: 6}
 				],
 				fire: [
-					{x:24, y:9}, {x:25, y:9}, {x:26, y:9}
+					{x:24, y:9}, {x:25, y:9}, {x:26, y:9}, {x:70, y:9}, {x:71, y:9}
 				]			
 			},
 			springs: [
 				{x: -4, y: 9}				
 			],
 			gems: [
-				{x:32, y:6}			
+				{x:2, y:5}, {x:3, y:5}, {x:4, y:5},{x:13, y:4},{x:14, y:4},{x:15, y:4},{x:5, y:5},
+				{x:16, y:4},{x:22, y:7},{x:23, y:7},{x:24, y:7},{x:34, y:9},{x:35, y:8},{x:36, y:7},{x:56, y:6},
+				{x:57, y:6},{x:58, y:6},{x:59, y:6}
 			],
 			backgrounds: [
 				{x: 78, y: 8, img: imageObj.backgrounds.arrow, width: 2, height: 2}, {x: 5, y: 9, img: imageObj.backgrounds.flower, width: 1, height: 1},
-				{x: 4, y: 4, img: imageObj.backgrounds.cloud, width: 2, height: 1}, {x: 10, y: 3, img: imageObj.backgrounds.cloud2, width: 2, height: 1}
+				{x: 4, y: 4, img: imageObj.backgrounds.cloud, width: 2, height: 1}, {x: 10, y: 3, img: imageObj.backgrounds.cloud2, width: 2, height: 1},
+				{x: 20, y: 9, img: imageObj.backgrounds.crystalBush, width: 1, height: 1},
+				{x: 25, y: 3, img: imageObj.backgrounds.cloud2, width: 2, height: 1}, {x: 30, y: 9, img: imageObj.backgrounds.shroom1, width: 0.5, height: 1},
+				{x: 33, y: 9, img: imageObj.backgrounds.tree, width: 1, height: 1}, {x: 56, y: 9, img: imageObj.backgrounds.shroom2, width: 1, height: 1},
+				{x: 35, y: 3, img: imageObj.backgrounds.cloud, width: 2, height: 1}, {x: 56, y: 3, img: imageObj.backgrounds.cloud, width: 2, height: 1},
+				{x: 67, y: 4, img: imageObj.backgrounds.cloud, width: 2, height: 1}
 			],
 			backgrounds2: [
-				{x: 2, y: 8.5, img: imageObj.backgrounds.palm, width: 1, height: 1.5}
+				{x: 2, y: 8.5, img: imageObj.backgrounds.palm, width: 1, height: 1.5}, {x: 18, y: 9.5, img: imageObj.backgrounds.flower2, width: .5, height: 0.5},
+				{x: 17, y: 4, img: imageObj.backgrounds.cloud, width: 2, height: 1}, {x: 53, y: 9, img: imageObj.backgrounds.crystalBush, width: 1, height: 1},
+				{x: 63, y: 8, img: imageObj.backgrounds.tree2, width: 1, height: 2}, {x: 45, y: 5, img: imageObj.backgrounds.cloud2, width: 2, height: 1}
 			],
 			shootPower: [
 				{x: -3, y: 6}
@@ -236,45 +246,79 @@ var rooms = {
 			background: imageObj.backgrounds.cloud_background,
 			ground: imageObj.blocks.blockimg5,
 			holes: [
-				-2
+				21, 22, 27, 28, 29, 30, 37, 38, 39, 52, 53, 54, 55
 			],
 			blocks: [
-				{x: 0, y: 10, img: imageObj.blocks.blockimg5}
+				{x: 15, y: 9, img: imageObj.blocks.blockimg}, {x: 16, y: 9, img: imageObj.blocks.blockimg2},
+				{x: 17, y: 9, img: imageObj.blocks.blockimg3}, {x: 18, y: 9, img: imageObj.blocks.blockimg4},
+				{x: 19, y: 9, img: imageObj.blocks.blockimg5}, {x: 20, y: 9, img: imageObj.blocks.blockimg},
+				{x: 16, y: 8, img: imageObj.blocks.blockimg2},
+				{x: 17, y: 8, img: imageObj.blocks.blockimg5}, {x: 18, y: 8, img: imageObj.blocks.blockimg3},
+				{x: 19, y: 8, img: imageObj.blocks.blockimg2}, {x: 20, y: 8, img: imageObj.blocks.blockimg},
+				{x: 17, y: 7, img: imageObj.blocks.blockimg2}, {x: 18, y: 7, img: imageObj.blocks.blockimg},
+				{x: 19, y: 7, img: imageObj.blocks.blockimg3}, {x: 20, y: 7, img: imageObj.blocks.blockimg4},
+				{x: 23, y: 9, img: imageObj.blocks.blockimg3}, {x: 24, y: 9, img: imageObj.blocks.blockimg3},
+				{x: 25, y: 9, img: imageObj.blocks.blockimg3}, {x: 26, y: 9, img: imageObj.blocks.blockimg3},
+				{x: 23, y: 8, img: imageObj.blocks.blockimg3}, {x: 24, y: 8, img: imageObj.blocks.blockimg3},
+				{x: 25, y: 8, img: imageObj.blocks.blockimg3}, {x: 26, y: 8, img: imageObj.blocks.blockimg3},
+				{x: 23, y: 7, img: imageObj.blocks.blockimg3}, {x: 24, y: 7, img: imageObj.blocks.blockimg3},
+				{x: 25, y: 7, img: imageObj.blocks.blockimg3}, {x: 26, y: 7, img: imageObj.blocks.blockimg3},	
+				{x: 23, y: 6, img: imageObj.blocks.blockimg3}, {x: 24, y: 6, img: imageObj.blocks.blockimg3},
+				{x: 25, y: 6, img: imageObj.blocks.blockimg3}, {x: 26, y: 6, img: imageObj.blocks.blockimg3},
+				{x: 31, y: 9, img: imageObj.blocks.blockimg},  {x: 32, y: 9, img: imageObj.blocks.blockimg},
+				{x: 31, y: 8, img: imageObj.blocks.blockimg},  {x: 32, y: 8, img: imageObj.blocks.blockimg},
+				{x: 31, y: 7, img: imageObj.blocks.blockimg},  {x: 32, y: 7, img: imageObj.blocks.blockimg},
+				{x: 31, y: 6, img: imageObj.blocks.blockimg},  {x: 32, y: 6, img: imageObj.blocks.blockimg},
+				{x: 48, y: 9, img: imageObj.blocks.blockimg2}, {x: 49, y: 9, img: imageObj.blocks.blockimg2},
+				{x: 50, y: 9, img: imageObj.blocks.blockimg2}, {x: 51, y: 9, img: imageObj.blocks.blockimg2},
+				{x: 49, y: 8, img: imageObj.blocks.blockimg2},
+				{x: 50, y: 8, img: imageObj.blocks.blockimg2}, {x: 51, y: 8, img: imageObj.blocks.blockimg2},
+				{x: 50, y: 7, img: imageObj.blocks.blockimg2}, {x: 51, y: 7, img: imageObj.blocks.blockimg2},
+				{x: 51, y: 6, img: imageObj.blocks.blockimg2}
 			],
 			breakables: [
-				{x: 5, y: 5}			
+				{x: 2, y: 7}, {x: 3, y: 7}, {x: 4, y: 7}, {x: 11, y: 7}, {x: 12, y: 6}, {x: 13, y: 6}			
 			],
 			enemies: {
 				ufos: [
 					{x:37, y:8}
 				],
 				bats: [
-					{x: 66, y: 4}
+					{x: 66, y: 6}
 				],
 				clouds: [
-					{x: 69, y: 4}
+					{x: 39, y: 4}
 				],
 				puppets: [
-					{x: 66, y: 9}
+					{x: 66, y: 9}, {x: 63, y: 9}, {x: 68, y: 9}, {x: 71, y: 9}
 				],
 				fire: [
-					{x:75, y:9}
+					{x:-2, y:9}
 				]			
 			},
 			springs: [
-				{x: 38, y: 9}				
+				{x: 29, y: 10}				
 			],
 			gems: [
-				{x:32, y:6}			
+				{x:18, y:6}, {x:19, y:6}, {x:20, y:6}, {x:27, y:5}, {x:28, y:5}, {x:29, y:5}, {x:30, y:5}, {x:59, y:9}, {x:60, y:9}, {x:61, y:9}, {x:62, y:9}
 			],
 			backgrounds: [
-				{x: 78, y: 8, img: imageObj.backgrounds.arrow, width: 2, height: 2}	
+				{x: 78, y: 8, img: imageObj.backgrounds.arrow, width: 2, height: 2}, {x: 57, y: 6, img: imageObj.backgrounds.rainbow, width: 6, height: 4},
+				{x: 42, y: 6, img: imageObj.backgrounds.tree, width: 3, height: 5},
+				{x: 3, y: 9, img: imageObj.backgrounds.crystalBush, width: 1, height: 1}, {x: 6, y: 8, img: imageObj.backgrounds.tree2, width: 1, height: 2},
+				{x: 10, y: 9, img: imageObj.backgrounds.shroom1, width: 1, height: 1}, {x: 25, y: 5, img: imageObj.backgrounds.palm, width: 1, height: 1},
+				{x: 13, y: 9.5, img: imageObj.backgrounds.shroom2, width: .5, height: .5}, {x: 18, y: 4, img: imageObj.backgrounds.flower, width: 2, height: 3},
+				{x: 3, y: 4, img: imageObj.backgrounds.cloud, width: 2, height: 1}, {x: 7, y: 2, img: imageObj.backgrounds.cloud2, width: 2, height: 1},
+				{x: 16, y: 3, img: imageObj.backgrounds.cloud, width: 2, height: 1}, {x: 35, y: 5, img: imageObj.backgrounds.cloud2, width: 2, height: 1},
+				{x: 45, y: 4, img: imageObj.backgrounds.cloud, width: 2, height: 1}, {x: 60, y: 3, img: imageObj.backgrounds.cloud, width: 2, height: 1}
 			],
 			backgrounds2: [
-				{x: 66, y: 8.5, img: imageObj.backgrounds.palm, width: 1, height: 1.5}		
+				{x: 66, y: 8.5, img: imageObj.backgrounds.palm, width: 1, height: 1.5}, {x: 20, y: 6.5, img: imageObj.backgrounds.flower2, width: .5, height: .5},
+				{x: 25, y: 3, img: imageObj.backgrounds.cloud, width: 2, height: 1}, {x: 50, y: 3, img: imageObj.backgrounds.cloud2, width: 2, height: 1},
+				{x: 55, y: 5, img: imageObj.backgrounds.cloud2, width: 2, height: 1}, {x: 73, y: 6, img: imageObj.backgrounds.cloud, width: 2, height: 1}
 			],
 			shootPower: [
-				{x: 24, y: 6}
+				{x: 45, y: 9}
 			]
 		},
 	//[4] room 5
@@ -304,11 +348,11 @@ var rooms = {
 					{x: 66, y: 9}
 				],
 				fire: [
-					{x:75, y:9}
+					{x:55, y:9}
 				]			
 			},
 			springs: [
-				{x: 38, y: 9}				
+				{x: -2, y: 9}				
 			],
 			gems: [
 				{x:32, y:6}			
@@ -320,7 +364,7 @@ var rooms = {
 				{x: 66, y: 8.5, img: imageObj.backgrounds.palm, width: 1, height: 1.5}		
 			],
 			shootPower: [
-				{x: 24, y: 6}
+				{x: -4, y: 6}
 			]		
 		}		
 	],
@@ -336,8 +380,6 @@ The location of the objects is dependent on which room you are in.
 		player.sheight = 50;
 		player.x = 0 - spriteSizes;
 		player.y = (canvas.height / 2) - spriteSizes;
-		player.width = spriteSizes;
-		player.height = spriteSizes;
 		player.speed = spriteSizes * 5;
 		player.bulxPos = player.x + (0.444 * spriteSizes);
 		player.bulyPos = player.y + (0.388 * spriteSizes);
