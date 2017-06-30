@@ -502,34 +502,7 @@ function update(mod) {
 
 //badDudes movement
 	for (i in badUFOs){	
-		if (badUFOs[i].x < player.x + canvas.width && badUFOs[i].x > player.x - canvas.width){
-			for (j in blocks){
-				if (testColl(badUFOs[i].x, badUFOs[i].y, badUFOs[i].width, badUFOs[i].height, 
-				blocks[j].x, blocks[j].y, blocks[j].width, blocks[j].height)){
-					if (badUFOs[i].dir == "left"){
-						badUFOs[i].x += 2;
-						badUFOs[i].dir = "right";
-					}
-					else{
-						badUFOs[i].x -= 2;
-						badUFOs[i].dir = "left";
-					}
-				}
-			}
-			if (badUFOs[i].dir == "right"){
-				badUFOs[i].x+= canvas.width * 0.001;
-			}
-			else{
-				badUFOs[i].x-= canvas.width * 0.001;
-			}
-			if (badUFOs[i].x < -15){
-				badUFOs.dir = "right";
-			}
-			if (badUFOs[i].x > blocks[blocks.length - 1].x){
-				badUFOs[i].x -= 2;
-				badUFOs[i].dir = "left";
-			}
-		}
+		badUFOs[i].behavior();
 	}	
 //badDudes2 AI
 	for (i in badDudes2){
@@ -551,93 +524,15 @@ function update(mod) {
 	
 //badDudes3 AI
 	for (i in badDudes3){
-		if (badDudes3[i].x < player.x + canvas.width && badDudes3[i].x > player.x - canvas.width){
-			if (badDudes3[i].timer < 190){
-				if (badDudes3[i].x > player.x + (player.width - 4)){
-					badDudes3[i].x-= canvas.width * 0.0006;
-				}
-				if (badDudes3[i].x + badDudes3[i].width < player.x + 4){
-					badDudes3[i].x+= canvas.width * 0.0006;
-				}
-				if (badDudes3[i].y > player.y + (player.height - 4)){
-					badDudes3[i].y-= canvas.width * 0.0006;
-				}
-				if (badDudes3[i].y + badDudes3[i].width < player.y + 4){
-					badDudes3[i].y+= canvas.width * 0.0006;
-				}
-			}
-			else if (badDudes3[i].timer == 265){
-				badBullets.push({
-					dir: "up",
-					x: badDudes3[i].x + (spriteSizes * 0.2),
-					y: badDudes3[i].y,
-					width: 0.138 * spriteSizes,
-					height: 0.138 * spriteSizes
-				});
-				badBullets.push({
-					dir: "front",
-					x: badDudes3[i].x + (spriteSizes * 0.2),
-					y: badDudes3[i].y + spriteSizes,
-					width: 0.138 * spriteSizes,
-					height: 0.138 * spriteSizes
-				});
-				badBullets.push({
-					dir: "right",
-					x: badDudes3[i].x + spriteSizes,
-					y: badDudes3[i].y + (spriteSizes * 0.2),
-					width: 0.138 * spriteSizes,
-					height: 0.138 * spriteSizes
-				});
-				badBullets.push({
-					dir: "left",
-					x: badDudes3[i].x,
-					y: badDudes3[i].y + (spriteSizes * 0.2),
-					width: 0.138 * spriteSizes,
-					height: 0.138 * spriteSizes
-				});
-			}
-			else if (badDudes3[i].timer > 320){
-				badDudes3[i].timer = 0;
-			}
-			badDudes3[i].timer++;
-		}
+		badDudes3[i].behavior();
 	}
 //sock puppets AI
 	for (i in sockPuppets){
-		if (sockPuppets[i].shoot == true){
-			sockPuppets[i].timer++;
-			if (sockPuppets[i].timer == 150){
-				sockPuppets[i].sx = 100;
-				badBullets.push({
-					dir: "left",
-					x: sockPuppets[i].x,
-					y: sockPuppets[i].y + (spriteSizes * 0.2),
-					width: 0.138 * spriteSizes,
-					height: 0.138 * spriteSizes
-				});
-			}
-			if (sockPuppets[i].timer > 175){
-				sockPuppets[i].timer = 0;
-				sockPuppets[i].sx = 0;
-			}
-		}
-		else{
-			sockPuppets[i].timer = 0;
-			sockPuppets[i].sx = 0;
-		}
-		if (sockPuppets[i].x < player.x + (canvas.width * 0.5) && sockPuppets[i].x > player.x + player.width){
-			sockPuppets[i].shoot = true;
-		}
-		else{
-			sockPuppets[i].shoot = false;
-		}
+		sockPuppets[i].behavior();
 	}
 //fire movement
 	for (i in fires){
-		fires[i].sx += 50;
-		if (fires[i].sx > 350){
-			fires[i].sx = 0;
-		}
+		fires[i].behavior();
 	}
 //If player falls off screen he's dead
 	if (player.y - 30 > spriteSizes * gridHeight){

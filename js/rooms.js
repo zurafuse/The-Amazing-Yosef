@@ -326,42 +326,54 @@ var rooms = {
 			background: imageObj.backgrounds.heiro_background,
 			ground: imageObj.blocks.blockimg,
 			holes: [
-				-2
+				11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48
 			],
 			blocks: [
-				{x: 0, y: 10, img: imageObj.blocks.blockimg}
+				{x: 12, y: 7, img: imageObj.blocks.blockimg2}, {x: 13, y: 7, img: imageObj.blocks.blockimg2}, {x: 16, y: 6, img: imageObj.blocks.blockimg2},
+				{x: 17, y: 6, img: imageObj.blocks.blockimg2}, {x: 33, y: 7, img: imageObj.blocks.blockimg2}, {x: 34, y: 6, img: imageObj.blocks.blockimg2},
+				{x: 35, y: 6, img: imageObj.blocks.blockimg2}, {x: 36, y: 6, img: imageObj.blocks.blockimg2},{x: 37, y: 6, img: imageObj.blocks.blockimg2},
+				{x: 43, y: 5, img: imageObj.blocks.blockimg2}, {x: 43, y: 6, img: imageObj.blocks.blockimg2},{x: 43, y: 7, img: imageObj.blocks.blockimg2},
+				{x: 42, y: 5, img: imageObj.blocks.blockimg2}, {x: 42, y: 6, img: imageObj.blocks.blockimg2},{x: 42, y: 7, img: imageObj.blocks.blockimg2},
+				{x: 44, y: 5, img: imageObj.blocks.blockimg2}, {x: 44, y: 6, img: imageObj.blocks.blockimg2},{x: 44, y: 7, img: imageObj.blocks.blockimg2},
+				{x: 45, y: 5, img: imageObj.blocks.blockimg2}, {x: 45, y: 6, img: imageObj.blocks.blockimg2},{x: 45, y: 7, img: imageObj.blocks.blockimg2}
 			],
 			breakables: [
-				{x: 5, y: 5}			
+				{x: 35, y: 3}, {x: 36, y: 3}, {x: 37, y: 3}, {x: 49, y: 4}, {x: 50, y: 4}, {x: 51, y: 4}
 			],
 			enemies: {
 				ufos: [
-					{x:37, y:8}
+					{x:31, y:6, width: 2, height: 2}
 				],
 				bats: [
-					{x: 66, y: 4}
+					{x: 20, y: 4}, {x: 50, y: 4}, {x: 70, y: 4}
 				],
 				clouds: [
-					{x: 69, y: 4}
+					{x: 40, y: 4, width: 2.5, height: 2.5}
 				],
 				puppets: [
-					{x: 66, y: 9}
+					{x: 60, y: 8, width: 2, height: 2}, {x: 70, y: 8, width: 2, height: 2}
 				],
 				fire: [
-					{x:55, y:9}
+					{x:35, y:9}, {x:36, y:9}, {x:43, y:4}
 				]			
 			},
 			springs: [
 				{x: -2, y: 9}				
 			],
 			gems: [
-				{x:32, y:6}			
+				{x:33, y:5}, {x:34, y:5}, {x:35, y:5}, {x:36, y:5},
+				{x:3, y:7}, {x:4, y:7}, {x:5, y:7}, {x:52, y:9}, {x:53, y:9}, {x:54, y:9}		
 			],
 			backgrounds: [
-				{x: 78, y: 8, img: imageObj.backgrounds.arrow, width: 2, height: 2}	
+				{x: 78, y: 8, img: imageObj.backgrounds.arrow, width: 2, height: 2}, {x: 3, y: 9, img: imageObj.backgrounds.crystalBush},
+				{x: 9, y: 9.5, img: imageObj.backgrounds.flower2, width: .5, height: .5}, {x: 5, y: 9.5, img: imageObj.backgrounds.shroom1, width: .5, height: .5},
+				{x: 24, y: 9, img: imageObj.backgrounds.shroom2}, {x: 29, y: 8, img: imageObj.backgrounds.crystalBush, width: 2, height: 2},
+				{x: 54, y: 7, img: imageObj.backgrounds.crystalBush, width: 3, height: 3}
 			],
 			backgrounds2: [
-				{x: 66, y: 8.5, img: imageObj.backgrounds.palm, width: 1, height: 1.5}		
+				{x: 66, y: 8.5, img: imageObj.backgrounds.palm, width: 1, height: 1.5}, {x: 10, y: 9, img: imageObj.backgrounds.crystalBush},
+				{x: 26, y: 8, img: imageObj.backgrounds.palm, width: 1, height: 2}, {x: 32, y: 8, img: imageObj.backgrounds.flower, width: 1, height: 2},
+				{x: 50, y: 9, img: imageObj.backgrounds.crystalBush}, {x: 52, y: 9.5, img: imageObj.backgrounds.flower2, width: .5, height: .5}
 			],
 			shootPower: [
 				{x: -4, y: 6}
@@ -480,20 +492,44 @@ The location of the objects is dependent on which room you are in.
 			}
 	//function to generate bad guys and add them to arrays
 				//UFOs
-				for (i in rooms.rooms[rooms.number].enemies.ufos){	
-					badUFOs.push(new ufoClass(rooms.rooms[rooms.number].enemies.ufos[i].x, rooms.rooms[rooms.number].enemies.ufos[i].y));
+				for (i in rooms.rooms[rooms.number].enemies.ufos){
+					if (rooms.rooms[rooms.number].enemies.ufos[i].width !== undefined && rooms.rooms[rooms.number].enemies.ufos[i].height !== undefined)
+					{					
+						badUFOs.push(new ufoClass(rooms.rooms[rooms.number].enemies.ufos[i].x, rooms.rooms[rooms.number].enemies.ufos[i].y,
+						rooms.rooms[rooms.number].enemies.ufos[i].width, rooms.rooms[rooms.number].enemies.ufos[i].height));
+					}
+					else
+					{
+						badUFOs.push(new ufoClass(rooms.rooms[rooms.number].enemies.ufos[i].x, rooms.rooms[rooms.number].enemies.ufos[i].y));						
+					}
 				}
 				//bats
 				for (i in rooms.rooms[rooms.number].enemies.bats){				
 					badDudes2.push(new batClass(rooms.rooms[rooms.number].enemies.bats[i].x, rooms.rooms[rooms.number].enemies.bats[i].y));
 				}
 				//clouds
-				for (i in rooms.rooms[rooms.number].enemies.clouds){					
-					badDudes3.push(new cloudClass(rooms.rooms[rooms.number].enemies.clouds[i].x, rooms.rooms[rooms.number].enemies.clouds[i].y));
+				for (i in rooms.rooms[rooms.number].enemies.clouds){
+					if (rooms.rooms[rooms.number].enemies.clouds[i].width !== undefined && rooms.rooms[rooms.number].enemies.clouds[i].height !== undefined)
+					{		
+						badDudes3.push(new cloudClass(rooms.rooms[rooms.number].enemies.clouds[i].x, rooms.rooms[rooms.number].enemies.clouds[i].y,
+						rooms.rooms[rooms.number].enemies.clouds[i].width, rooms.rooms[rooms.number].enemies.clouds[i].height));
+					}
+					else
+					{					
+						badDudes3.push(new cloudClass(rooms.rooms[rooms.number].enemies.clouds[i].x, rooms.rooms[rooms.number].enemies.clouds[i].y));
+					}
 				}
 				//puppets
-				for (i in rooms.rooms[rooms.number].enemies.puppets){				
-					sockPuppets.push(new puppetClass(rooms.rooms[rooms.number].enemies.puppets[i].x, rooms.rooms[rooms.number].enemies.puppets[i].y));
+				for (i in rooms.rooms[rooms.number].enemies.puppets){	
+					if (rooms.rooms[rooms.number].enemies.puppets[i].width !== undefined && rooms.rooms[rooms.number].enemies.puppets[i].height !== undefined)
+					{
+						sockPuppets.push(new puppetClass(rooms.rooms[rooms.number].enemies.puppets[i].x, rooms.rooms[rooms.number].enemies.puppets[i].y,
+						rooms.rooms[rooms.number].enemies.puppets[i].width, rooms.rooms[rooms.number].enemies.puppets[i].height));
+					}
+					else
+					{
+						sockPuppets.push(new puppetClass(rooms.rooms[rooms.number].enemies.puppets[i].x, rooms.rooms[rooms.number].enemies.puppets[i].y));
+					}
 				}
 				//fire
 				for (i in rooms.rooms[rooms.number].enemies.fire){				

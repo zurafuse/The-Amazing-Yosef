@@ -171,30 +171,36 @@ var frequentPowerLocY = Math.floor((Math.random() * (gridHeight - 1)) + 1);
 //Create Classes
 
 //Create blocks class
-var blockClass = function(inputx, inputy, inputpic){
+var blockClass = function(inputx, inputy, inputpic, width, height){
+	width = (typeof width !== 'undefined') ?  width : 1;
+	height = (typeof height !== 'undefined') ?  height : 1;
 	this.x = spriteSizes * inputx,
 	this.y = spriteSizes * inputy,
-	this.width = spriteSizes,
-	this.height = spriteSizes,
+	this.width = width * spriteSizes,
+	this.height = height * spriteSizes,
 	this.pic = inputpic
 };
 //Create breakables class
-var breakClass = function(inputx, inputy){
+var breakClass = function(inputx, inputy, width, height){
+	width = (typeof width !== 'undefined') ?  width : 1;
+	height = (typeof height !== 'undefined') ?  height : 1;
 	this.x = spriteSizes * inputx;
 	this.y = spriteSizes * inputy;
-	this.width = spriteSizes;
-	this.height = spriteSizes;
+	this.width = width * spriteSizes,
+	this.height = height * spriteSizes,
 	this.sx = 0;
 	this.sy = 0;
 	this.swidth = 50;
 	this.sheight = 50;
 };
 //Create spring class
-var springClass = function(inputx, inputy){
+var springClass = function(inputx, inputy, width, height){
+	width = (typeof width !== 'undefined') ?  width : 1;
+	height = (typeof height !== 'undefined') ?  height : 1;
 	this.x = inputx * spriteSizes;
 	this.y = inputy * spriteSizes;
-	this.width = spriteSizes;
-	this.height = spriteSizes;
+	this.width = width * spriteSizes,
+	this.height = height * spriteSizes,
 	this.pic = imageObj.blocks.spring;
 	this.bounce = function(index){
 		if (testColl(player.x, player.y, player.width, player.height, springs[index].x, springs[index].y, 
@@ -204,71 +210,201 @@ var springClass = function(inputx, inputy){
 	};
 };
 //Create badUFOs class
-var ufoClass = function(inputx, inputy){
+var ufoClass = function(inputx, inputy, width, height){
+	width = (typeof width !== 'undefined') ?  width : 1;
+	height = (typeof height !== 'undefined') ?  height : 1;
 	this.x = inputx * spriteSizes;
 	this.y = inputy * spriteSizes;
-	this.width = spriteSizes;
-	this.height = spriteSizes;
+	this.width = width * spriteSizes,
+	this.height = height * spriteSizes,
 	this.dir = "left";
 	this.time = Date.now() / 1000;
+	this.behavior = function(){
+		if (this.x < player.x + canvas.width && this.x > player.x - canvas.width){
+			for (j in blocks){
+				if (testColl(this.x, this.y, this.width, this.height, 
+				blocks[j].x, blocks[j].y, blocks[j].width, blocks[j].height)){
+					if (this.dir == "left"){
+						this.x += 2;
+						this.dir = "right";
+					}
+					else{
+						this.x -= 2;
+						this.dir = "left";
+					}
+				}
+			}
+			if (this.dir == "right"){
+				this.x+= canvas.width * 0.001;
+			}
+			else{
+				this.x-= canvas.width * 0.001;
+			}
+			if (this.x < -15){
+				this.dir = "right";
+			}
+			if (this.x > blocks[blocks.length - 1].x){
+				this.x -= 2;
+				this.dir = "left";
+			}
+		}		
+	};
 };
 //Create bat class
-var batClass = function(inputx, inputy){
+var batClass = function(inputx, inputy, width, height){
+	width = (typeof width !== 'undefined') ?  width : 1;
+	height = (typeof height !== 'undefined') ?  height : 1;
 	this.sx = 0;
 	this.sy = 0;
 	this.swidth = 50;
 	this.sheight = 50;
+	this.width = width * spriteSizes,
+	this.height = height * spriteSizes,
 	this.x = inputx * spriteSizes;
 	this.y = inputy * spriteSizes;
-	this.width = spriteSizes;
-	this.height = spriteSizes;
 };
 //Create angry cloud class
-var cloudClass = function (inputx, inputy){
+var cloudClass = function (inputx, inputy, width, height){
+	width = (typeof width !== 'undefined') ?  width : 1;
+	height = (typeof height !== 'undefined') ?  height : 1;
 	this.sx = 0;
 	this.sy = 0;
 	this.swidth = 50;
 	this.sheight = 50;
 	this.x = inputx * spriteSizes;
 	this.y = inputy * spriteSizes;
-	this.width = spriteSizes;
-	this.height = spriteSizes;
+	this.width = width * spriteSizes,
+	this.height = height * spriteSizes,
 	this.timer = 0;
+	//badDudes3 AI
+	this.behavior = function(){
+		if (this.x < player.x + canvas.width && this.x > player.x - canvas.width){
+			if (this.timer < 190){
+				if (this.x > player.x + (player.width - 4)){
+					this.x-= canvas.width * 0.0006;
+				}
+				if (this.x + this.width < player.x + 4){
+					this.x+= canvas.width * 0.0006;
+				}
+				if (this.y > player.y + (player.height - 4)){
+					this.y-= canvas.width * 0.0006;
+				}
+				if (this.y + this.width < player.y + 4){
+					this.y+= canvas.width * 0.0006;
+				}
+			}
+			else if (this.timer == 265){
+				badBullets.push({
+					dir: "up",
+					x: this.x + (this.width * 0.5),
+					y: this.y,
+					width: 0.138 * this.width,
+					height: 0.138 * this.width
+				});
+				badBullets.push({
+					dir: "front",
+					x: this.x + (this.width * 0.5),
+					y: this.y + this.height,
+					width: 0.138 * this.width,
+					height: 0.138 * this.width
+				});
+				badBullets.push({
+					dir: "right",
+					x: this.x + this.width,
+					y: this.y + (this.height * 0.5),
+					width: 0.138 * this.width,
+					height: 0.138 * this.width
+				});
+				badBullets.push({
+					dir: "left",
+					x: this.x,
+					y: this.y + (this.height * 0.5),
+					width: 0.138 * this.width,
+					height: 0.138 * this.height
+				});
+			}
+			else if (this.timer > 320){
+				this.timer = 0;
+			}
+			this.timer++;
+		}		
+	};
 };
 //Create puppet class
-var puppetClass = function(inputx, inputy){
+var puppetClass = function(inputx, inputy, width, height){
+	width = (typeof width !== 'undefined') ?  width : 0.75;
+	height = (typeof height !== 'undefined') ?  height : 1;
 	this.sx = 0;
 	this.sy = 0;
 	this.swidth = 100;
 	this.sheight = 162;
 	this.x = inputx * spriteSizes;
 	this.y = inputy * spriteSizes;
-	this.width = spriteSizes * 0.75;
-	this.height = spriteSizes;
+	this.width = width * spriteSizes,
+	this.height = height * spriteSizes,
 	this.timer = 0;
 	this.shoot = false;
+	this.behavior = function(){
+		if (this.shoot == true){
+			this.timer++;
+			if (this.timer == 150){
+				this.sx = 100;
+				badBullets.push({
+					dir: "left",
+					x: this.x,
+					y: this.y + (this.width * 0.2),
+					width: 0.138 * this.width,
+					height: 0.138 * this.height
+				});
+			}
+			if (this.timer > 175){
+				this.timer = 0;
+				this.sx = 0;
+			}
+		}
+		else{
+			this.timer = 0;
+			this.sx = 0;
+		}
+		if (this.x < player.x + (canvas.width * 0.5) && this.x > player.x + player.width){
+			this.shoot = true;
+		}
+		else{
+			this.shoot = false;
+		}		
+	};
 };
 //Create fire class
-var fireClass = function(inputx, inputy){
+var fireClass = function(inputx, inputy, width, height){
+	width = (typeof width !== 'undefined') ?  width : 1;
+	height = (typeof height !== 'undefined') ?  height : 1;
 	this.sx = 0;
 	this.sy = 0;
 	this.swidth = 50;
 	this.sheight = 50;
 	this.x = inputx * spriteSizes;
 	this.y = inputy * spriteSizes;
-	this.width = spriteSizes;
-	this.height = spriteSizes;
+	this.width = width * spriteSizes;
+	this.height = height * spriteSizes;
+	this.behavior = function(){
+		this.sx += 50;
+		if (this.sx > 350){
+			this.sx = 0;
+		}	
+	}
 };
 //Create gem class
-var gemClass = function(inputx, inputy){
+var gemClass = function(inputx, inputy, width, height){
+	width = (typeof width !== 'undefined') ?  width : 0.5;
+	height = (typeof height !== 'undefined') ?  height : 0.5;
 	this.sx = 0;
 	this.sy = 0;
 	this.swidth = 100;
 	this.sheight = 100;
 	this.x = inputx * spriteSizes;
 	this.y = inputy * spriteSizes;
-	this.width = (spriteSizes * 0.5);
-	this.height = (spriteSizes * 0.5);
+	this.width = width * spriteSizes,
+	this.height = height * spriteSizes,
 	this.collect = function(index){
 		if (testColl(player.x, player.y, player.width, player.height, gems[index].x, gems[index].y, 
 		gems[index].width, gems[index].height) == true){
@@ -280,6 +416,8 @@ var gemClass = function(inputx, inputy){
 };
 //Create backgrounds Class
 var backClass = function(inputx, inputy, pic, width, height){
+	width = (typeof width !== 'undefined') ?  width : 1;
+	height = (typeof height !== 'undefined') ?  height : 1;
 	this.x = inputx * spriteSizes;
 	this.y = inputy * spriteSizes;
 	this.width = spriteSizes * width;
@@ -288,6 +426,8 @@ var backClass = function(inputx, inputy, pic, width, height){
 };
 //Create forefront backgrounds Class
 var backClass2 = function(inputx, inputy, pic, width, height){
+	width = (typeof width !== 'undefined') ?  width : 1;
+	height = (typeof height !== 'undefined') ?  height : 1;
 	this.x = inputx * spriteSizes;
 	this.y = inputy * spriteSizes;
 	this.width = spriteSizes * width;
