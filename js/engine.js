@@ -112,6 +112,17 @@ function endTouchPos(canvasDom, touchEvent) {
   
 }
 
+function isOnScreen(item){
+	if (item.x > (spriteSizes * -3) && item.x < canvas.width + (spriteSizes * 3))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}	
+}
+
 //Collisions
 function dudeLeftColl(dude) {
 	for (i = 0; i < blocks.length; i++){
@@ -658,7 +669,9 @@ ctx.fillStyle = player.color;
 	
 //draw background items
 	for (i = 0; i < backgrounds.length; i++){
-		ctx.drawImage(backgrounds[i].pic, backgrounds[i].x, backgrounds[i].y, backgrounds[i].width, backgrounds[i].height);
+		if (isOnScreen(backgrounds[i])){
+			ctx.drawImage(backgrounds[i].pic, backgrounds[i].x, backgrounds[i].y, backgrounds[i].width, backgrounds[i].height);
+		}
 	}
 
 //handle Game Over
@@ -678,53 +691,79 @@ ctx.fillStyle = player.color;
 	}
 	
 	for (i = 0; i < backgrounds2.length; i++){
-		ctx.drawImage(backgrounds2[i].pic, backgrounds2[i].x, backgrounds2[i].y, backgrounds2[i].width, backgrounds2[i].height);
+		if (isOnScreen(backgrounds2[i])){
+			ctx.drawImage(backgrounds2[i].pic, backgrounds2[i].x, backgrounds2[i].y, backgrounds2[i].width, backgrounds2[i].height);
+		}
 	}
 	
 	for (i = 0; i < blocks.length; i++){
-		ctx.drawImage(blocks[i].pic, blocks[i].x, blocks[i].y, blocks[i].width, blocks[i].height);
+		if (isOnScreen(blocks[i])){
+			ctx.drawImage(blocks[i].pic, blocks[i].x, blocks[i].y, blocks[i].width, blocks[i].height);
+		}
 	}
 	
 	for (i = 0; i < breakables.length; i++){
-		ctx.drawImage(imageObj.blocks.breakable, breakables[i].sx, breakables[i].sy, breakables[i].swidth, breakables[i].sheight, breakables[i].x, breakables[i].y, breakables[i].width, breakables[i].height);
+		if (isOnScreen(breakables[i])){
+			ctx.drawImage(imageObj.blocks.breakable, breakables[i].sx, breakables[i].sy, breakables[i].swidth, breakables[i].sheight, breakables[i].x, breakables[i].y, breakables[i].width, breakables[i].height);
+		}
 	}
 	
 	for (i = 0; i < springs.length; i++){
-		ctx.drawImage(imageObj.blocks.spring, springs[i].x, springs[i].y, springs[i].width, springs[i].height);
+		if (isOnScreen(springs[i])){
+			ctx.drawImage(imageObj.blocks.spring, springs[i].x, springs[i].y, springs[i].width, springs[i].height);
+		}
 	}	
 	
 	for (i = 0; i < runPower.length; i++){
-		ctx.drawImage(imageObj.powerUps.runImage, runPower[i].x, runPower[i].y, runPower[i].width, runPower[i].height);
+		if (isOnScreen(runPower[i])){
+			ctx.drawImage(imageObj.powerUps.runImage, runPower[i].x, runPower[i].y, runPower[i].width, runPower[i].height);
+		}
 	}
 	
 	for (i = 0; i < shootPower.length; i++){
-		ctx.drawImage(imageObj.powerUps.shootImage, shootPower[i].x, shootPower[i].y, shootPower[i].width, shootPower[i].height);
+		if (isOnScreen(shootPower[i])){
+			ctx.drawImage(imageObj.powerUps.shootImage, shootPower[i].x, shootPower[i].y, shootPower[i].width, shootPower[i].height);
+		}
 	}
 	
 	for (i = 0; i < frequentPower.length; i++){
-		ctx.drawImage(imageObj.powerUps.frequentImage, frequentPower[i].x, frequentPower[i].y, frequentPower[i].width, frequentPower[i].height);
+		if (isOnScreen(frequentPower[i])){
+			ctx.drawImage(imageObj.powerUps.frequentImage, frequentPower[i].x, frequentPower[i].y, frequentPower[i].width, frequentPower[i].height);
+		}
 	}
 	
 	for (i = 0; i < gems.length; i++){
-		ctx.drawImage(imageObj.powerUps.gem, gems[i].sx, gems[i].sy, gems[i].swidth, gems[i].sheight, gems[i].x, gems[i].y, gems[i].width, gems[i].height); 
+		if (isOnScreen(gems[i])){
+			ctx.drawImage(imageObj.powerUps.gem, gems[i].sx, gems[i].sy, gems[i].swidth, gems[i].sheight, gems[i].x, gems[i].y, gems[i].width, gems[i].height); 
+		}
 	}
 	
 	for (i in badUFOs){
-		ctx.drawImage(imageObj.badGuys.badGuy, badUFOs[i].x, badUFOs[i].y, badUFOs[i].width, badUFOs[i].height);
+		if (isOnScreen(badUFOs[i])){
+			ctx.drawImage(imageObj.badGuys.badGuy, badUFOs[i].x, badUFOs[i].y, badUFOs[i].width, badUFOs[i].height);
+		}
 	}
 	
 	for (i in badDudes2){
-		ctx.drawImage(imageObj.badGuys.badGuy2, badDudes2[i].sx, badDudes2[i].sy, badDudes2[i].swidth, badDudes2[i].sheight, badDudes2[i].x, badDudes2[i].y, badDudes2[i].width, badDudes2[i].height);
+		if (isOnScreen(badDudes2[i])){
+			ctx.drawImage(imageObj.badGuys.badGuy2, badDudes2[i].sx, badDudes2[i].sy, badDudes2[i].swidth, badDudes2[i].sheight, badDudes2[i].x, badDudes2[i].y, badDudes2[i].width, badDudes2[i].height);
+		}
 	}
 	
 	for (i in badDudes3){
-		ctx.drawImage(imageObj.badGuys.badGuy3, badDudes3[i].sx, badDudes3[i].sy, badDudes3[i].swidth, badDudes3[i].sheight, badDudes3[i].x, badDudes3[i].y, badDudes3[i].width, badDudes3[i].height);
+		if (isOnScreen(badDudes3[i])){
+			ctx.drawImage(imageObj.badGuys.badGuy3, badDudes3[i].sx, badDudes3[i].sy, badDudes3[i].swidth, badDudes3[i].sheight, badDudes3[i].x, badDudes3[i].y, badDudes3[i].width, badDudes3[i].height);
+		}
 	}
 	for (i in sockPuppets){
-		ctx.drawImage(imageObj.badGuys.sockPuppet, sockPuppets[i].sx, sockPuppets[i].sy, sockPuppets[i].swidth, sockPuppets[i].sheight, sockPuppets[i].x, sockPuppets[i].y, sockPuppets[i].width, sockPuppets[i].height);
+		if (isOnScreen(sockPuppets[i])){
+			ctx.drawImage(imageObj.badGuys.sockPuppet, sockPuppets[i].sx, sockPuppets[i].sy, sockPuppets[i].swidth, sockPuppets[i].sheight, sockPuppets[i].x, sockPuppets[i].y, sockPuppets[i].width, sockPuppets[i].height);
+		}
 	}
 	for (i in fires){
-		ctx.drawImage(imageObj.badGuys.fire, fires[i].sx, fires[i].sy, fires[i].swidth, fires[i].sheight, fires[i].x, fires[i].y, fires[i].width, fires[i].height);
+		if (isOnScreen(fires[i])){
+			ctx.drawImage(imageObj.badGuys.fire, fires[i].sx, fires[i].sy, fires[i].swidth, fires[i].sheight, fires[i].x, fires[i].y, fires[i].width, fires[i].height);
+		}
 	}
 	ctx.font = canvas.width * 0.017  + "px Arial";
 	ctx.fillStyle = "black";

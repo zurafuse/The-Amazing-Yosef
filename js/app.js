@@ -19,6 +19,10 @@ var sprtHtControl = canvas.width / gridWidth;
 
 canvas.height = sprtHtControl * gridHeight;
 
+var myMusic = new Audio("sound/music.mp3");
+myMusic.loop = true;
+myMusic.play();
+
 setTimeout(function(){soundObj.credit = false;}, 5000);
 
 //images
