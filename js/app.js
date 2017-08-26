@@ -447,6 +447,12 @@ var Background = {
 	pic: imageObj.backgrounds.hillBackground
 };
 
+//define yosef main controller object
+var yosef = {
+	isMobile : true
+};
+
+
 //define the main player object
 var player = {
 	sx: 0,
@@ -462,10 +468,18 @@ var player = {
 	bulxPos: this.x + (0.444 * spriteSizes),
 	bulyPos: this.y + (0.388 * spriteSizes),
 	shoot: false,
+	dir: "right",
 	picRight: imageObj.player.playerRight,
 	picLeft: imageObj.player.playerLeft,
 	entry: "left",
 	goUp: false,
+	controller: 
+	{
+		up: false,
+		down: false,
+		left: false,
+		right: false
+	},
 	bounceTrigger: 0,
 	bounce: function(){
 		if (dudeUpColl(player) == true){
@@ -505,3 +519,72 @@ var player = {
 		}		
 	}
 };
+
+//Create the UI object.
+var yosefUI = {
+	x: 0,
+	y: 0,
+	joyStick: 
+	{
+		left: {},
+		right: {},
+		up: {},
+		down: {}
+	},
+	draw: function()
+	{
+		ctx.globalAlpha = 0.6;
+		if (yosef.isMobile == true)
+		{
+			ctx.fillStyle = "cyan";
+			//draw joy stick for mobile devices
+			//left
+			ctx.beginPath();
+			ctx.moveTo(this.joyStick.left.x, this.joyStick.left.y);
+			ctx.lineTo(this.joyStick.left.x + this.joyStick.left.width, this.joyStick.left.y - (this.joyStick.left.height * 0.5));
+			ctx.lineTo(this.joyStick.left.x + this.joyStick.left.width, this.joyStick.left.y + (this.joyStick.left.height * 0.5));
+			ctx.fill();
+			//right
+			ctx.beginPath();
+			ctx.moveTo(this.joyStick.right.x, this.joyStick.right.y);
+			ctx.lineTo(this.joyStick.right.x, this.joyStick.right.y - (this.joyStick.right.height * 0.5));
+			ctx.lineTo(this.joyStick.right.x + this.joyStick.right.width, this.joyStick.right.y);
+			ctx.lineTo(this.joyStick.right.x, this.joyStick.right.y + (this.joyStick.right.height * 0.5));		
+			ctx.fill();
+			//up
+			ctx.beginPath();
+			ctx.moveTo(this.joyStick.up.x, this.joyStick.up.y);
+			ctx.lineTo(this.joyStick.up.x + (this.joyStick.up.width * 0.5), this.joyStick.up.y + this.joyStick.up.height);
+			ctx.lineTo(this.joyStick.up.x - (this.joyStick.up.width * 0.5), this.joyStick.up.y + this.joyStick.up.height);
+			ctx.fill();
+			//down
+			ctx.beginPath();
+			ctx.moveTo(this.joyStick.down.x, this.joyStick.down.y);
+			ctx.lineTo(this.joyStick.down.x + (this.joyStick.down.width * 0.5), this.joyStick.down.y);
+			ctx.lineTo(this.joyStick.down.x, this.joyStick.down.y + this.joyStick.down.height);
+			ctx.lineTo(this.joyStick.down.x - (this.joyStick.down.width * 0.5), this.joyStick.down.y);
+			ctx.fill();
+		}
+		ctx.globalAlpha = 0.75;
+		ctx.globalAlpha = 1;
+	}
+};
+yosefUI.joyStick.left.x = spriteSizes * 0.5;
+yosefUI.joyStick.left.y = spriteSizes * 6;
+yosefUI.joyStick.left.width = spriteSizes * 1.3;
+yosefUI.joyStick.left.height = spriteSizes * 1.3;
+
+yosefUI.joyStick.right.x = spriteSizes * 5;
+yosefUI.joyStick.right.y = spriteSizes * 6;
+yosefUI.joyStick.right.width = spriteSizes * 1.3;
+yosefUI.joyStick.right.height = spriteSizes * 1.3;
+
+yosefUI.joyStick.up.x = spriteSizes * 3.4;
+yosefUI.joyStick.up.y = spriteSizes * 3;
+yosefUI.joyStick.up.width = spriteSizes * 1.3;
+yosefUI.joyStick.up.height = spriteSizes * 1.3;
+
+yosefUI.joyStick.down.x = spriteSizes * 3.4;
+yosefUI.joyStick.down.y = spriteSizes * 7.5;
+yosefUI.joyStick.down.width = spriteSizes * 1.3;
+yosefUI.joyStick.down.height = spriteSizes * 1.3;

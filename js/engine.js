@@ -1,117 +1,3 @@
-//Input
-window.addEventListener('keydown', function(e) {
-		keysDown[e.keyCode] = true;
-		delete keysUp[e.keyCode];
-});
-
-window.addEventListener('keyup', function(e) {
-		keysUp[e.keyCode] = true;
-		delete keysDown[e.keyCode];
-		if ((e.keyCode == 37 && dirLead == "left") || (e.keyCode == 38 && dirLead == "up") || 
-			(e.keyCode == 39 && dirLead == "right") || (e.keyCode == 40 && dirLead == "front")){
-			dirLead = "default";
-		}
-});
-
-// touch event handlers
-// Set up touch events for mobile, etc
-window.addEventListener("touchstart", function (e) {
-        mousePos = getTouchPos(canvas, e);
-  var touch = e.touches[0];
-  var mouseEvent = new MouseEvent("mousedown", {
-    clientX: touch.clientX,
-    clientY: touch.clientY
-  });
-  canvas.dispatchEvent(mouseEvent);
-}, false);
-
-window.addEventListener("touchend", function (e) {
-  mousePos = endTouchPos(canvas, e);
-  var touch = e.touches[0];
-
-}, false);
-
-// Get the position of a touch relative to the canvas
-function getTouchPos(canvasDom, touchEvent) {
-  var thisXPos = touchEvent.touches[0].clientX;
-  var thisYPos = touchEvent.touches[0].clientY;
-  
-  if (thisXPos < canvas.width * 0.25 && thisYPos > canvas.height * 0.19 && thisYPos < canvas.height * 0.90)
-  {
-  	delete keysDown[39];
-	delete keysUp[37];
-	
-	dirLead = "left";
-	keysDown[37] = true;
-  }
-  
-   if (thisXPos > canvas.width * 0.74 && thisYPos > canvas.height * 0.19 && thisYPos < canvas.height * 0.90)
-  {
-	delete keysDown[37];
-	delete keysUp[39];
-	
-	dirLead = "right";
-  	keysDown[39] = true;
-  }
-  
-   if (thisXPos < canvas.width * 0.74 && thisXPos > canvas.width * 0.25 && thisYPos < canvas.height * 0.35)
-  {
-	delete keysUp[38];
-	
-	dirLead = "up";
-	keysDown[38] = true;
-  }
-  
-   if (thisXPos < canvas.width * 0.74 && thisXPos > canvas.width * 0.25 && thisYPos > canvas.height * 0.65)
-  {
-	delete keysUp[40];
-	
-	dirLead = "front";
-  	keysDown[40] = true;
-  }
-  
-   if (thisXPos < canvas.width * 0.74 && thisXPos > canvas.width * 0.25 && thisYPos > canvas.height * 0.35 && thisYPos < canvas.height * 0.65)
-  {
-  	keysDown[32] = true;
-  }
-  
-}
-
-function endTouchPos(canvasDom, touchEvent) {
-  var thisXPos = touchEvent.changedTouches[0].pageX;
-  var thisYPos = touchEvent.changedTouches[0].pageY;
-  
-  if (thisXPos < canvas.width * 0.25 && thisYPos > canvas.height * 0.19 && thisYPos < canvas.height * 0.90)
-  {
-	delete keysDown[37];
-	keysUp[37] = true;
-  }
-  
-   if (thisXPos > canvas.width * 0.74 && thisYPos > canvas.height * 0.19 && thisYPos < canvas.height * 0.90)
-  {
-	delete keysDown[39];
-	keysUp[39] = true;
-  }
-  
-   if (thisXPos < canvas.width * 0.74 && thisXPos > canvas.width * 0.25 && thisYPos < canvas.height * 0.35)
-  {
-	delete keysDown[38];
-  }
-  
-   if (thisXPos < canvas.width * 0.74 && thisXPos > canvas.width * 0.25 && thisYPos > canvas.height * 0.65)
-  {
-	delete keysDown[40];
-  	keysUp[40] = true;
-  }
-  
-   if (thisXPos < canvas.width * 0.74 && thisXPos > canvas.width * 0.25 && thisYPos > canvas.height * 0.35 && thisYPos < canvas.height * 0.65)
-  {
-  	keysUp[32] = true;
-	delete keysDown[32];
-  }
-  
-}
-
 function isOnScreen(item){
 	if (item.x > (spriteSizes * -3) && item.x < canvas.width + (spriteSizes * 3))
 	{
@@ -324,10 +210,10 @@ function update(mod) {
 			}
 	}
 	
-	if (32 in keysUp){
+	if (player.controller.down == false){
 		bulTrigger = 0;
 	}
-	if (32 in keysDown){
+	if (player.controller.down == true){
 		if (player.shoot == true){
 			if (bulControl % bullFreq == 0  || bulTrigger == 0){
 				player.updateBull(direction);
@@ -343,9 +229,9 @@ function update(mod) {
 			}
 		}
 	}
-    if (37 in keysDown) {
+    if (player.controller.left == true) {
 		if (dudeLeftColl(player) == true){
-			if ((dirLead != "right" || dirLead == "default") && player.x > -1){
+			if (player.x > -1){
 				if (player.x > canvas.width * 0.5){
 					player.x -= player.speed * mod;
 				}
@@ -412,7 +298,7 @@ function update(mod) {
 
 		moveMe = "true";
     }
-    if (38 in keysDown) {
+    if (player.controller.up == true) {
 		if (dudeUpColl(player) == true){
 			if (dudeFrontColl(player) == false)
 			{
@@ -421,7 +307,6 @@ function update(mod) {
 			if (jump == true){
 				jumpTrigger+= ((player.speed * mod) * 3);
 				player.y -= ((player.speed * mod) * 3);
-				dirLead = "up";
 			}
 		}
 		else{
@@ -430,9 +315,8 @@ function update(mod) {
 		}
 		moveMe = "true";
     }
-    if (39 in keysDown) {
+    if (player.controller.right == true) {
 		if (dudeRightColl(player) == true){
-			if (dirLead != "left" || dirLead == "default"){
 				direction = "right";
 				dirLead = "right";
 				if (player.x < canvas.width * 0.5){
@@ -494,7 +378,6 @@ function update(mod) {
 						player.x += player.speed * mod;
 					}
 				}
-			}
 			moveMe = "true";
 		}
     }
@@ -504,11 +387,6 @@ function update(mod) {
 	}
 	if (dudeFrontColl(player) == true){
 		jump = false;
-	}
-	if (!(38 in keysDown))
-	{
-		jump = false;
-		jumpTrigger = 0;
 	}
 
 //badDudes movement
@@ -781,7 +659,7 @@ ctx.fillStyle = player.color;
 		ctx.fillText("GAME OVER", spriteSizes * (gridWidth * 0.4), spriteSizes * (gridHeight * 0.5));
 	}
 	
-
+	yosefUI.draw();
 
 	spitBullets();
 	spitBadBullets();
