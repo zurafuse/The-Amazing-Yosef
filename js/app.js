@@ -69,6 +69,9 @@ var imageObj = {
 		green_background: new Image(),
 		heiro_background: new Image()
 	},
+	UI: {
+		shoot: new Image()
+	},
 	player: {
 		playerRight: new Image(),
 		playerLeft: new Image()
@@ -108,6 +111,7 @@ var imageObj = {
 		this.backgrounds.forest_background.src = "images/forest_background.png";
 		this.backgrounds.green_background.src = "images/green_background.png";
 		this.backgrounds.heiro_background.src = "images/heiro_background.png";
+		this.UI.shoot.src = "images/circle.png"
 		this.player.playerRight.src = "images/player.png";
 		this.player.playerLeft.src = "images/playerLeft.png";
 	}
@@ -558,33 +562,30 @@ var yosefUI = {
 			ctx.lineTo(this.joyStick.up.x - (this.joyStick.up.width * 0.5), this.joyStick.up.y + this.joyStick.up.height);
 			ctx.fill();
 			//down
-			ctx.beginPath();
-			ctx.moveTo(this.joyStick.down.x, this.joyStick.down.y);
-			ctx.lineTo(this.joyStick.down.x + (this.joyStick.down.width * 0.5), this.joyStick.down.y);
-			ctx.lineTo(this.joyStick.down.x, this.joyStick.down.y + this.joyStick.down.height);
-			ctx.lineTo(this.joyStick.down.x - (this.joyStick.down.width * 0.5), this.joyStick.down.y);
-			ctx.fill();
+			if (player.shoot == true)
+			{
+				ctx.drawImage(imageObj.UI.shoot, this.joyStick.down.x, this.joyStick.down.y, this.joyStick.down.width, this.joyStick.down.height);
+			}
 		}
-		ctx.globalAlpha = 0.75;
 		ctx.globalAlpha = 1;
 	}
 };
 yosefUI.joyStick.left.x = spriteSizes * 0.5;
-yosefUI.joyStick.left.y = spriteSizes * 6;
-yosefUI.joyStick.left.width = spriteSizes * 1.3;
-yosefUI.joyStick.left.height = spriteSizes * 1.3;
+yosefUI.joyStick.left.y = spriteSizes * 7;
+yosefUI.joyStick.left.width = spriteSizes * 1.8;
+yosefUI.joyStick.left.height = spriteSizes * 1.8;
 
 yosefUI.joyStick.right.x = spriteSizes * 5;
-yosefUI.joyStick.right.y = spriteSizes * 6;
-yosefUI.joyStick.right.width = spriteSizes * 1.3;
-yosefUI.joyStick.right.height = spriteSizes * 1.3;
+yosefUI.joyStick.right.y = spriteSizes * 7;
+yosefUI.joyStick.right.width = spriteSizes * 1.8;
+yosefUI.joyStick.right.height = spriteSizes * 1.8;
 
-yosefUI.joyStick.up.x = spriteSizes * 3.4;
-yosefUI.joyStick.up.y = spriteSizes * 3;
-yosefUI.joyStick.up.width = spriteSizes * 1.3;
-yosefUI.joyStick.up.height = spriteSizes * 1.3;
+yosefUI.joyStick.up.x = spriteSizes * 20;
+yosefUI.joyStick.up.y = spriteSizes * 7;
+yosefUI.joyStick.up.width = spriteSizes * 1.8;
+yosefUI.joyStick.up.height = spriteSizes * 1.8;
 
-yosefUI.joyStick.down.x = spriteSizes * 3.4;
-yosefUI.joyStick.down.y = spriteSizes * 7.5;
-yosefUI.joyStick.down.width = spriteSizes * 1.3;
-yosefUI.joyStick.down.height = spriteSizes * 1.3;
+yosefUI.joyStick.down.x = spriteSizes * 15;
+yosefUI.joyStick.down.y = spriteSizes * 7;
+yosefUI.joyStick.down.width = spriteSizes * 1.8;
+yosefUI.joyStick.down.height = spriteSizes * 1.8;
