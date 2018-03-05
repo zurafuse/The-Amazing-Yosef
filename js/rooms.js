@@ -407,7 +407,6 @@ The location of the objects is dependent on which room you are in.
 		bullFreq = 12;
 		moveMe = "false";
 		powerLevel = 0;
-		treasureScore = 0;
 		dirLead = "default";
 		keysDown = {};
 		keysUp = {};		
@@ -593,7 +592,8 @@ The location of the objects is dependent on which room you are in.
 		}
 			player.x = spriteSizes * 7;
 			player.y = spriteSizes * 6;
-	}		
+	}	
+	yosef.gameStart = true;
 	}
 };
 

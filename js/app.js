@@ -1,3 +1,5 @@
+
+
 //define requestAnimFrame in case browser is old
 var requestAnimFrame =  window.requestAnimationFrame ||
                     window.webkitRequestAnimationFrame ||
@@ -16,14 +18,10 @@ canvas.width = window.innerWidth - 180;
 var gridWidth = 21;
 var gridHeight = 11;
 var sprtHtControl = canvas.width / gridWidth;
+var canvasBad = false;
+
 
 canvas.height = sprtHtControl * gridHeight;
-
-var myMusic = new Audio("sound/music.mp3");
-myMusic.loop = true;
-myMusic.play();
-
-setTimeout(function(){soundObj.credit = false;}, 5000);
 
 //images
 var imageObj = {
@@ -69,6 +67,11 @@ var imageObj = {
 		green_background: new Image(),
 		heiro_background: new Image()
 	},
+	UI: {
+		shoot: new Image(),
+		logo: new Image(),
+		rotate: new Image()
+	},
 	player: {
 		playerRight: new Image(),
 		playerLeft: new Image()
@@ -108,6 +111,9 @@ var imageObj = {
 		this.backgrounds.forest_background.src = "images/forest_background.png";
 		this.backgrounds.green_background.src = "images/green_background.png";
 		this.backgrounds.heiro_background.src = "images/heiro_background.png";
+		this.UI.shoot.src = "images/circle.png";
+		this.UI.logo.src = "images/sticklogo.png";
+		this.UI.rotate.src = "images/rotate.png";
 		this.player.playerRight.src = "images/player.png";
 		this.player.playerLeft.src = "images/playerLeft.png";
 	}
@@ -119,8 +125,7 @@ var soundObj = {
 	music: document.getElementById("music"),
 	crunch: document.getElementById("crunch"),
 	laser: document.getElementById("laser"),
-	gem: document.getElementById("gem"),
-	credit: true
+	gem: document.getElementById("gem")
 };
 
 //declare variables
@@ -134,7 +139,6 @@ var bullFreq = 12;
 var moveMe = "false";
 var health = 200;
 var powerLevel = 0;
-var treasureScore = 0;
 var gameover = false;
 var spriteSizes = sprtHtControl;
 var dirLead = "default";
@@ -144,6 +148,7 @@ var jump = false;
 var jumpTrigger = 0;
 var screenMax = canvas.width * 4;
 var	levelEnd = screenMax / spriteSizes;
+var introCredit = true;
 
 //declare arrays
 var bullets = [];
@@ -412,7 +417,6 @@ var gemClass = function(inputx, inputy, width, height){
 	this.collect = function(index){
 		if (testColl(player.x, player.y, player.width, player.height, gems[index].x, gems[index].y, 
 		gems[index].width, gems[index].height) == true){
-			treasureScore++;
 			powerLevel += 10;
 			gems.splice(index, 1);
 		}
@@ -447,6 +451,38 @@ var Background = {
 	pic: imageObj.backgrounds.hillBackground
 };
 
+//define yosef main controller object
+var yosef = {
+	isMobile : true,
+	gameStart: false,
+	gamestate: "title",
+	title:
+	{
+		blinkCount: 0,
+		blinkText: function()
+		{
+			this.blinkCount++;
+			if (this.blinkCount > 60)
+			{
+				this.blinkCount = 0;
+			}
+		},
+		draw()
+		{
+			ctx.fillStyle = "white";
+			ctx.font = canvas.width * 0.08  + "px Verdana";
+			ctx.fillText("THE AMAZING YOSEF", canvas.width * .08, canvas.height * .2);
+			if (this.blinkCount > 30)
+			{
+				ctx.font = canvas.width * 0.05  + "px Arial";
+				ctx.fillText("TOUCH THE SCREEN", canvas.width * .21, canvas.height * .43);
+			}
+			ctx.drawImage(imageObj.UI.logo, canvas.width * .35, canvas.height * .5, canvas.width * .2, canvas.width * .2);
+		}
+	}
+};
+
+
 //define the main player object
 var player = {
 	sx: 0,
@@ -462,10 +498,18 @@ var player = {
 	bulxPos: this.x + (0.444 * spriteSizes),
 	bulyPos: this.y + (0.388 * spriteSizes),
 	shoot: false,
+	dir: "right",
 	picRight: imageObj.player.playerRight,
 	picLeft: imageObj.player.playerLeft,
 	entry: "left",
 	goUp: false,
+	controller: 
+	{
+		up: false,
+		down: false,
+		left: false,
+		right: false
+	},
 	bounceTrigger: 0,
 	bounce: function(){
 		if (dudeUpColl(player) == true){
@@ -505,3 +549,85 @@ var player = {
 		}		
 	}
 };
+
+//Create the UI object.
+var yosefUI = {
+	x: 0,
+	y: 0,
+	joyStick: 
+	{
+		left: {},
+		right: {},
+		up: {},
+		down: {}
+	},
+	draw: function()
+	{
+		ctx.globalAlpha = 0.6;
+		if (yosef.isMobile == true)
+		{
+			ctx.fillStyle = "cyan";
+			//draw joy stick for mobile devices
+			//left
+			ctx.beginPath();
+			ctx.moveTo(this.joyStick.left.x, this.joyStick.left.y);
+			ctx.lineTo(this.joyStick.left.x + this.joyStick.left.width, this.joyStick.left.y - (this.joyStick.left.height * 0.5));
+			ctx.lineTo(this.joyStick.left.x + this.joyStick.left.width, this.joyStick.left.y + (this.joyStick.left.height * 0.5));
+			ctx.fill();
+			//right
+			ctx.beginPath();
+			ctx.moveTo(this.joyStick.right.x, this.joyStick.right.y);
+			ctx.lineTo(this.joyStick.right.x, this.joyStick.right.y - (this.joyStick.right.height * 0.5));
+			ctx.lineTo(this.joyStick.right.x + this.joyStick.right.width, this.joyStick.right.y);
+			ctx.lineTo(this.joyStick.right.x, this.joyStick.right.y + (this.joyStick.right.height * 0.5));		
+			ctx.fill();
+			//up
+			ctx.beginPath();
+			ctx.moveTo(this.joyStick.up.x, this.joyStick.up.y);
+			ctx.lineTo(this.joyStick.up.x + (this.joyStick.up.width * 0.5), this.joyStick.up.y + this.joyStick.up.height);
+			ctx.lineTo(this.joyStick.up.x - (this.joyStick.up.width * 0.5), this.joyStick.up.y + this.joyStick.up.height);
+			ctx.fill();
+			//down
+			if (player.shoot == true)
+			{
+				ctx.drawImage(imageObj.UI.shoot, this.joyStick.down.x, this.joyStick.down.y, this.joyStick.down.width, this.joyStick.down.height);
+			}
+		}
+		ctx.globalAlpha = 1;
+	}
+};
+yosefUI.joyStick.left.x = spriteSizes * 0.5;
+yosefUI.joyStick.left.y = spriteSizes * 7;
+yosefUI.joyStick.left.width = spriteSizes * 1.8;
+yosefUI.joyStick.left.height = spriteSizes * 1.8;
+
+yosefUI.joyStick.right.x = spriteSizes * 5;
+yosefUI.joyStick.right.y = spriteSizes * 7;
+yosefUI.joyStick.right.width = spriteSizes * 1.8;
+yosefUI.joyStick.right.height = spriteSizes * 1.8;
+
+yosefUI.joyStick.up.x = spriteSizes * 20;
+yosefUI.joyStick.up.y = spriteSizes * 7;
+yosefUI.joyStick.up.width = spriteSizes * 1.8;
+yosefUI.joyStick.up.height = spriteSizes * 1.8;
+
+yosefUI.joyStick.down.x = spriteSizes * 15;
+yosefUI.joyStick.down.y = spriteSizes * 7;
+yosefUI.joyStick.down.width = spriteSizes * 1.8;
+yosefUI.joyStick.down.height = spriteSizes * 1.8;
+
+//Cache the high score for a future instance of the game.
+// Check browser support
+if (typeof(Storage) !== "undefined") {
+    // Store
+	if (localStorage.prevHighScore){
+    // Retrieve
+		var highScore = localStorage.getItem("prevHighScore");
+	}
+	else{
+		localStorage.setItem("prevHighScore", 0);
+		var highScore = localStorage.getItem("prevHighScore");
+	}
+} else {
+    var highScore = powerLevel;
+}
