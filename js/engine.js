@@ -948,8 +948,15 @@ function run() {
 		if (canvasBad == true)
 		{
 			canvasBad = false;
-			canvas.width = window.innerWidth * 0.95;
-			canvas.height = window.innerHeight * 0.95;
+			canvas.width = window.innerWidth - 180;			
+			gridWidth = 21;
+			gridHeight = 11;
+			sprtHtControl = canvas.width / gridWidth;
+			canvas.height = sprtHtControl * gridHeight;
+			if (yosef.gamestate == "title")
+			{
+				window.location.reload(false);
+			}
 		}
 		if (yosef.gamestate == "title")
 		{
